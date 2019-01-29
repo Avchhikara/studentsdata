@@ -150,10 +150,10 @@ class NavBar extends React.Component {
 
   openNav = () => {
     const header = document.querySelector("#nav-bottom");
-
-    if (this.state.isOpen) {
+    console.log();
+    if (this.state.isOpen && document.body.clientWidth <= 776) {
       header.style.marginBottom = "0px";
-    } else {
+    } else if (document.body.clientWidth <= 776) {
       header.style.marginBottom = "235px";
     }
 

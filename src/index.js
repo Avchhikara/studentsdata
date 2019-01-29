@@ -7,6 +7,7 @@ import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faIgloo } from "@fortawesome/free-solid-svg-icons";

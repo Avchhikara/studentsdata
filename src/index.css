@@ -20,3 +20,9 @@ code {
 .green-text {
   color: green !important;
 }
+
+@media (max-width: 600px) {
+  .hide-on-small {
+    display: none;
+  }
+}

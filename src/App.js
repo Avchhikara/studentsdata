@@ -9,6 +9,7 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Profile from "./components/Profile/Profile";
 import Notices from "./components/Notices/Notices";
+import General from "./components/General/General";
 
 import "./App.css";
 
@@ -19,6 +20,7 @@ class App extends Component {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <div>
             <Route path="/" component={NavBar} />
+
             <div className="container">
               <Switch>
                 <Route path="/" component={Home} exact={true} />
@@ -26,6 +28,7 @@ class App extends Component {
                 <Route path="/signup" component={Signup} />
                 <Route path="/profile/:id" component={Profile} />
                 <Route path="/notices" component={Notices} />
+                <Route path="/general" component={General} />
                 <Route component={NotFound} />
               </Switch>
             </div>

@@ -1,9 +1,13 @@
 const Login = (
   state = {
     loggedIn: false,
-    loginForm: {
-      email: "",
-      pass: ""
+    generalData: {
+      name: "",
+      rno: "",
+      mname: "",
+      fname: "",
+      gender: "",
+      address: ""
     }
   },
   action
@@ -14,8 +18,8 @@ const Login = (
       return { ...state, ...payload };
     case "LOGGING_OUT":
       return { ...payload };
-    case "ON_FILLING_LOGIN_FORM":
-      return { ...state, loginForm: { ...payload } };
+    case "ON_FETCH_GENERAL_DATA":
+      return { ...state, generalData: payload };
 
     default:
       return state;
