@@ -1,0 +1,25 @@
+.login-container {
+  margin-top: 90px;
+  min-height: 70vh;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.login-container .card-title {
+  margin-bottom: 40px;
+}
+
+.login-container .btn {
+  margin-top: 16px;
+  margin-right: 8px;
+  min-width: 120px;
+}
+
+.disabled {
+  display: none;
+  visibility: hidden;
+}
+
+.login-container .card {
+  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.1);
+}

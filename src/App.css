@@ -1,0 +1,7 @@
+.btn:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  transition: box-shadow 0.1s;
+}

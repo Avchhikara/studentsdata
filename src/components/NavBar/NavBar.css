@@ -1,0 +1,82 @@
+.nav-img {
+  height: 40px;
+}
+
+.nav-img__side {
+  height: 50px;
+}
+
+.search-input {
+  outline: none !important;
+  color: green !important;
+  border: 1px solid green !important;
+  font-family: "dosis", sans-serif !important;
+
+  margin-left: 10px;
+
+  margin-right: 10px;
+  outline: 0 !important;
+}
+
+.search-input:active,
+.search-input:focus {
+  border: 1px solid green !important;
+
+  outline: 0 !important;
+}
+
+#nav-input {
+  outline: 0 !important;
+}
+
+.navbar-collapse {
+  background-color: #f8f9fa;
+  width: 100%;
+  margin: 0;
+}
+
+.subjects:hover {
+  color: green !important;
+}
+
+.dropdown-item:hover {
+  background-color: white !important;
+  color: green !important;
+}
+
+.navbar-toggler {
+  outline: none;
+}
+
+.navbar-toggler:active {
+  outline: none;
+  background-color: green;
+  opacity: 0.7;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+}
+
+.nav-link {
+  margin-right: 10px;
+}
+
+@media (max-width: 760px) {
+  .nav-link {
+    margin: 8px 20px !important;
+  }
+
+  .add-article__btn {
+    margin: 10px 0;
+  }
+}
+
+a:not(.home-button__link) {
+  color: green !important;
+  opacity: 0.7 !important;
+}
+
+a:hover {
+  opacity: 1 !important;
+}

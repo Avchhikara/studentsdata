@@ -1,0 +1,18 @@
+.signup-container {
+  margin-top: 90px;
+  text-align: center;
+  margin-bottom: 64px;
+  min-height: 70vh;
+}
+
+.signup-container .btn {
+  margin-right: 8px;
+}
+
+.signup-container .card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.signup-container .btn:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}

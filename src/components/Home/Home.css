@@ -1,0 +1,9 @@
+.home-container {
+  margin-top: 80px !important;
+  min-height: 70vh;
+}
+
+.home-button {
+  margin: 8px 0px !important;
+  color: white !important;
+}
