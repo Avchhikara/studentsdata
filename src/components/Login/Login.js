@@ -14,6 +14,7 @@ import {
   Alert
 } from "reactstrap";
 import { connect } from "react-redux";
+import uuid from "uuid";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUserPlus } from "@fortawesome/free-solid-svg-icons";
@@ -35,12 +36,13 @@ class Login extends React.Component {
 
   onLoggingIn = e => {
     //Now, getting info from db
+    const id = uuid();
     const xhr = new XMLHttpRequest();
     xhr.open(
       "GET",
       `http://localhost:8888/studentsdata.xyz/login.php?email=${
         this.state.email
-      }&pass=${this.state.pass}`,
+      }&pass=${this.state.pass}&uuid=${id}`,
       true
     );
     xhr.onreadystatechange = e => {
@@ -48,7 +50,7 @@ class Login extends React.Component {
         const res = JSON.parse(xhr.responseText);
         if (res.status) {
           //Dispatching the action
-          this.props.dispatch(onLoggingIn(res));
+          this.props.dispatch(onLoggingIn({ ...res, id: id }));
           this.props.history.push("/");
         } else {
           this.setState(() => ({ res: res.message }));

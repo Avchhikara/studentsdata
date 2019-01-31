@@ -33,27 +33,53 @@ class General extends React.Component {
       mname: "",
       fname: "",
       gender: "",
-      address: ""
+      address: "",
+      pno: ""
     };
   }
 
   componentDidMount = () => {
     //Now, here request the users data from backend
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      "GET",
+      `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
+        this.props.userData ? this.props.userData.s_id : ""
+      }&token=${this.props.userData ? this.props.userData.id : ""}&type=get `,
+      true
+    );
+    xhr.onreadystatechange = e => {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const res = JSON.parse(xhr.responseText);
+        if (res.status === 200) {
+          //Setting up the state values accordingly
+          this.setState(() => ({
+            name: res.name,
+            rno: res.rno,
+            pno: res.pno,
+            fname: res.fname,
+            mname: res.mname,
+            address: res.address,
+            gender: res.gender
+          }));
+        }
+        //Now, calling the autosave callback
+        setTimeout(() => {
+          this.autoSave();
+        }, 5000);
+      }
+    };
+    xhr.send();
+
     //Then, dispatch it to the state
 
     //Then, hide the alert which would be shown to the user
     //Using setTimeOut for fun
 
     const alert = document.querySelector("#general-data-alert");
-    setTimeout(() => {
-      if (alert) {
-        alert.style.display = "none";
-      }
-    }, 2000);
-
-    setTimeout(() => {
-      this.autoSave();
-    }, 5000);
+    if (alert) {
+      alert.style.display = "none";
+    }
   };
 
   showLoading(e) {
@@ -67,35 +93,93 @@ class General extends React.Component {
   }
 
   autoSave = () => {
-    //Everything regarding autosaving
-    //First, make a request to backend,
-    //Second, dispatch to the redux store
+    if (
+      this.props.history.location.pathname === "/general" &&
+      this.props.loggedIn
+    ) {
+      console.log(this.props);
+      const Message = () => (
+        <div className="green-text">Data is saved automatically!</div>
+      );
 
-    //Dispatching to redux store automatically
-    this.props.dispatch(fetchGeneralData(this.state));
-    const Message = () => (
-      <div className="green-text">Data is saved automatically!</div>
-    );
-
-    toast(<Message />);
-
-    this.autoSaveCallback();
+      //Everything regarding autosaving
+      //First, make a request to backend,
+      const xhr = new XMLHttpRequest();
+      xhr.open(
+        "GET",
+        `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
+          this.props.userData ? this.props.userData.s_id : ""
+        }&name=${this.state.name}&rno=${this.state.rno}&mname=${
+          this.state.mname
+        }&fname=${this.state.fname}&gender=${this.state.gender}&address=${
+          this.state.address
+        }&pno=${this.state.pno}&token=${
+          this.props.userData ? this.props.userData.id : ""
+        }&type=set `,
+        true
+      );
+      xhr.onreadystatechange = e => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const res = JSON.parse(xhr.responseText);
+          if (res.status === 200) {
+            //Now, showing message and all that stuff
+            toast(<Message />);
+            //dispatching changes to store
+            this.props.dispatch(fetchGeneralData(this.state));
+          }
+          //Calling for autosave
+          this.autoSaveCallback();
+        }
+      };
+      xhr.send();
+    }
   };
 
   autoSaveCallback = () => {
-    setTimeout(() => {
-      this.autoSave();
-    }, 15000);
+    if (
+      this.props.history.location.pathname === "/general" &&
+      this.props.loggedIn
+    ) {
+      setTimeout(() => {
+        this.autoSave();
+      }, 15000);
+    }
   };
 
   onGeneralSave(e) {
-    console.log(this.state);
+    //Now, saving by clicking
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      "GET",
+      `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
+        this.props.userData ? this.props.userData.s_id : ""
+      }&name=${this.state.name}&rno=${this.state.rno}&mname=${
+        this.state.mname
+      }&fname=${this.state.fname}&gender=${this.state.gender}&address=${
+        this.state.address
+      }&pno=${this.state.pno}&token=${
+        this.props.userData ? this.props.userData.id : ""
+      }&type=set `,
+      true
+    );
+    xhr.onreadystatechange = e => {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const res = JSON.parse(xhr.responseText);
+        if (res.status === 200) {
+          //dispatching changes to store
+          this.props.dispatch(fetchGeneralData(this.state));
+        }
+        //Calling for autosave
+        this.autoSaveCallback();
+      }
+    };
+    xhr.send();
 
-    //After everything, setting it to save again
+    //Now, showing message and all that stuff
     const btn = e.target;
     btn.innerHTML = `
-      Save <i class="fas fa-save></i>
-    `;
+Save <i class="fas fa-save></i>
+`;
     btn.disabled = false;
   }
 
@@ -148,6 +232,22 @@ class General extends React.Component {
                     value={this.state.rno}
                     onChange={e => {
                       this.setState({ rno: e.target.value });
+                    }}
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label for="roll" xs={3} sm={2}>
+                  P No.
+                </Label>
+                <Col xs={9} sm={10}>
+                  <Input
+                    type="number"
+                    id="pno"
+                    name="pno"
+                    value={this.state.pno}
+                    onChange={e => {
+                      this.setState({ pno: e.target.value });
                     }}
                   />
                 </Col>
