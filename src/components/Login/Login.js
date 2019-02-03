@@ -41,7 +41,6 @@ class Login extends React.Component {
         this.props.dispatch(onLoggingIn({ ...studentdata }));
         //Setting up the cookies
         document.cookie = JSON.stringify({ studentdata });
-
         this.props.history.push("/");
       }
     }
