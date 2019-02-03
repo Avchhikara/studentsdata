@@ -16,6 +16,7 @@ import {
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faLock } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 import "./Signup.css";
 
@@ -34,26 +35,40 @@ class Signup extends React.Component {
     const card = e.target.parentElement.parentElement;
     const form = card.children[1];
     const year = form.children[2].children[1].children[0].value;
+    const { email, pass } = this.state;
 
-    const xhr = new XMLHttpRequest();
-    xhr.open(
-      "GET",
-      `http://localhost:8888/studentsdata.xyz/signup.php?email=${
-        this.state.email
-      }&pass=${this.state.pass}&year=${year}`,
-      true
-    );
+    const fetchURL = "https://studentsdata-api-server.herokuapp.com/signup";
 
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const res = JSON.parse(xhr.responseText);
-        this.setState(() => ({ res }));
-        setTimeout(() => {
-          this.setState(() => ({ res: "" }));
-        }, 3000);
-      }
-    };
-    xhr.send();
+    axios
+      .post(fetchURL, {
+        email,
+        pass,
+        year
+      })
+      .then(res => {
+        this.setState(() => ({ res: res.data }));
+      })
+      .catch(err => console.log(err));
+
+    // const xhr = new XMLHttpRequest();
+    // xhr.open(
+    //   "GET",
+    //   `http://localhost:8888/studentsdata.xyz/signup.php?email=${
+    //     this.state.email
+    //   }&pass=${this.state.pass}&year=${year}`,
+    //   true
+    // );
+
+    // xhr.onreadystatechange = () => {
+    //   if (xhr.readyState === 4 && xhr.status === 200) {
+    //     const res = JSON.parse(xhr.responseText);
+    //     this.setState(() => ({ res }));
+    //     setTimeout(() => {
+    //       this.setState(() => ({ res: "" }));
+    //     }, 3000);
+    //   }
+    // };
+    // xhr.send();
   };
 
   render() {

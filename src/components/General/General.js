@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-
+import axios from "axios";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
@@ -38,48 +38,93 @@ class General extends React.Component {
     };
   }
 
+  componentWillMount() {
+    if (!this.props.loggedIn) {
+      this.props.history.push("/login");
+    }
+  }
+
   componentDidMount = () => {
     //Now, here request the users data from backend
-    const xhr = new XMLHttpRequest();
-    xhr.open(
-      "GET",
-      `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
-        this.props.userData ? this.props.userData.s_id : ""
-      }&token=${this.props.userData ? this.props.userData.id : ""}&type=get `,
-      true
-    );
-    xhr.onreadystatechange = e => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const res = JSON.parse(xhr.responseText);
-        if (res.status === 200) {
-          //Setting up the state values accordingly
+    const { name, rno, mname, fname, gender, address, pno } = this.state;
+    axios
+      .post("http://localhost:4000/general", {
+        name,
+        fname,
+        mname,
+        gender,
+        address,
+        pno: parseInt(pno),
+        rno: parseInt(rno),
+        type: "get",
+        s_id: this.props.userData ? this.props.userData.s_id : "",
+        id: this.props.userData ? this.props.userData.id : ""
+      })
+      .then(({ data }) => {
+        if (data.status === 200) {
           this.setState(() => ({
-            name: res.name,
-            rno: res.rno,
-            pno: res.pno,
-            fname: res.fname,
-            mname: res.mname,
-            address: res.address,
-            gender: res.gender
+            name: data.user.name,
+            fname: data.user.fname,
+            mname: data.user.mname,
+            address: data.user.address,
+            pno: data.user.pno,
+            rno: data.user.rno,
+            gender: data.user.gender
           }));
         }
         //Now, calling the autosave callback
         setTimeout(() => {
           this.autoSave();
         }, 5000);
-      }
-    };
-    xhr.send();
+        const alert = document.querySelector("#general-data-alert");
+
+        if (alert) {
+          alert.style.display = "none";
+        }
+      })
+      .catch(err => console.log(err));
+
+    // const xhr = new XMLHttpRequest();
+    // xhr.open(
+    //   "GET",
+    //   `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
+    //     this.props.userData ? this.props.userData.s_id : ""
+    //   }&token=${this.props.userData ? this.props.userData.id : ""}&type=get `,
+    //   true
+    // );
+    // xhr.onreadystatechange = e => {
+    //   if (xhr.readyState === 4 && xhr.status === 200) {
+    //     const res = JSON.parse(xhr.responseText);
+    //     console.log(res);
+    //     if (res.status === 200) {
+    //       //Setting up the state values accordingly
+    //       this.setState(() => ({
+    //         name: res.name,
+    //         rno: res.rno,
+    //         pno: res.pno,
+    //         fname: res.fname,
+    //         mname: res.mname,
+    //         address: res.address,
+    //         gender: res.gender
+    //       }));
+    //     }
+    //     //Now, calling the autosave callback
+    //     setTimeout(() => {
+    //       this.autoSave();
+    //     }, 5000);
+    //   }
+    // };
+    // xhr.send();
 
     //Then, dispatch it to the state
 
     //Then, hide the alert which would be shown to the user
     //Using setTimeOut for fun
 
-    const alert = document.querySelector("#general-data-alert");
-    if (alert) {
-      alert.style.display = "none";
-    }
+    // const alert = document.querySelector("#general-data-alert");
+    // if (alert) {
+    //   alert.style.display = "none";
+    // }
   };
 
   showLoading(e) {
@@ -97,31 +142,29 @@ class General extends React.Component {
       this.props.history.location.pathname === "/general" &&
       this.props.loggedIn
     ) {
-      console.log(this.props);
       const Message = () => (
         <div className="green-text">Data is saved automatically!</div>
       );
 
       //Everything regarding autosaving
       //First, make a request to backend,
-      const xhr = new XMLHttpRequest();
-      xhr.open(
-        "GET",
-        `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
-          this.props.userData ? this.props.userData.s_id : ""
-        }&name=${this.state.name}&rno=${this.state.rno}&mname=${
-          this.state.mname
-        }&fname=${this.state.fname}&gender=${this.state.gender}&address=${
-          this.state.address
-        }&pno=${this.state.pno}&token=${
-          this.props.userData ? this.props.userData.id : ""
-        }&type=set `,
-        true
-      );
-      xhr.onreadystatechange = e => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          const res = JSON.parse(xhr.responseText);
-          if (res.status === 200) {
+
+      const { name, rno, mname, fname, gender, address, pno } = this.state;
+      axios
+        .post("http://localhost:4000/general", {
+          name,
+          fname,
+          mname,
+          gender,
+          address,
+          pno: parseInt(pno),
+          rno: parseInt(rno),
+          type: "set",
+          s_id: this.props.userData ? this.props.userData.s_id : "",
+          id: this.props.userData ? this.props.userData.id : ""
+        })
+        .then(({ data }) => {
+          if (data.status === 200) {
             //Now, showing message and all that stuff
             toast(<Message />);
             //dispatching changes to store
@@ -129,9 +172,36 @@ class General extends React.Component {
           }
           //Calling for autosave
           this.autoSaveCallback();
-        }
-      };
-      xhr.send();
+        });
+
+      // const xhr = new XMLHttpRequest();
+      // xhr.open(
+      //   "GET",
+      //   `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
+      //     this.props.userData ? this.props.userData.s_id : ""
+      //   }&name=${this.state.name}&rno=${this.state.rno}&mname=${
+      //     this.state.mname
+      //   }&fname=${this.state.fname}&gender=${this.state.gender}&address=${
+      //     this.state.address
+      //   }&pno=${this.state.pno}&token=${
+      //     this.props.userData ? this.props.userData.id : ""
+      //   }&type=set `,
+      //   true
+      // );
+      // xhr.onreadystatechange = e => {
+      //   if (xhr.readyState === 4 && xhr.status === 200) {
+      //     const res = JSON.parse(xhr.responseText);
+      //     if (res.status === 200) {
+      //       //Now, showing message and all that stuff
+      //       toast(<Message />);
+      //       //dispatching changes to store
+      //       this.props.dispatch(fetchGeneralData(this.state));
+      //     }
+      //     //Calling for autosave
+      //     this.autoSaveCallback();
+      //   }
+      // };
+      // xhr.send();
     }
   };
 
@@ -148,32 +218,53 @@ class General extends React.Component {
 
   onGeneralSave(e) {
     //Now, saving by clicking
-    const xhr = new XMLHttpRequest();
-    xhr.open(
-      "GET",
-      `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
-        this.props.userData ? this.props.userData.s_id : ""
-      }&name=${this.state.name}&rno=${this.state.rno}&mname=${
-        this.state.mname
-      }&fname=${this.state.fname}&gender=${this.state.gender}&address=${
-        this.state.address
-      }&pno=${this.state.pno}&token=${
-        this.props.userData ? this.props.userData.id : ""
-      }&type=set `,
-      true
-    );
-    xhr.onreadystatechange = e => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const res = JSON.parse(xhr.responseText);
-        if (res.status === 200) {
+
+    const { name, rno, mname, fname, gender, address, pno } = this.state;
+    axios
+      .post("http://localhost:4000/general", {
+        name,
+        fname,
+        mname,
+        gender,
+        address,
+        pno: parseInt(pno),
+        rno: parseInt(rno),
+        type: "set",
+        s_id: this.props.userData ? this.props.userData.s_id : "",
+        id: this.props.userData ? this.props.userData.id : ""
+      })
+      .then(({ data }) => {
+        if (data.status === 200) {
           //dispatching changes to store
           this.props.dispatch(fetchGeneralData(this.state));
         }
-        //Calling for autosave
-        this.autoSaveCallback();
-      }
-    };
-    xhr.send();
+      })
+      .catch(err => console.log(err));
+
+    // const xhr = new XMLHttpRequest();
+    // xhr.open(
+    //   "GET",
+    //   `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
+    //     this.props.userData ? this.props.userData.s_id : ""
+    //   }&name=${this.state.name}&rno=${this.state.rno}&mname=${
+    //     this.state.mname
+    //   }&fname=${this.state.fname}&gender=${this.state.gender}&address=${
+    //     this.state.address
+    //   }&pno=${this.state.pno}&token=${
+    //     this.props.userData ? this.props.userData.id : ""
+    //   }&type=set `,
+    //   true
+    // );
+    // xhr.onreadystatechange = e => {
+    //   if (xhr.readyState === 4 && xhr.status === 200) {
+    //     const res = JSON.parse(xhr.responseText);
+    //     if (res.status === 200) {
+    //       //dispatching changes to store
+    //       this.props.dispatch(fetchGeneralData(this.state));
+    //     }
+    //   }
+    // };
+    // xhr.send();
 
     //Now, showing message and all that stuff
     const btn = e.target;
@@ -185,11 +276,7 @@ Save <i class="fas fa-save></i>
 
   render() {
     if (!this.props.loggedIn) {
-      return (
-        <div className="general-container">
-          Please <a href="/login">Login</a> first
-        </div>
-      );
+      return <div>Please login first</div>;
     }
 
     return (

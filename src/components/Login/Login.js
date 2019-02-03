@@ -14,11 +14,11 @@ import {
   Alert
 } from "reactstrap";
 import { connect } from "react-redux";
-import uuid from "uuid";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import onLoggingIn from "./../../Actions/Login";
+import axios from "axios";
 
 import "./Login.css";
 
@@ -33,34 +33,85 @@ class Login extends React.Component {
   }
 
   //Check in login whether the user is logged in or not before displaying the componenet
+  componentWillMount() {
+    //Checking cookies for loggin in
+    if (document.cookie) {
+      const { studentdata } = JSON.parse(document.cookie);
+      if (studentdata) {
+        this.props.dispatch(onLoggingIn({ ...studentdata }));
+        //Setting up the cookies
+        document.cookie = JSON.stringify({ studentdata });
+
+        this.props.history.push("/");
+      }
+    }
+  }
 
   onLoggingIn = e => {
     //Now, getting info from db
-    const id = uuid();
-    const xhr = new XMLHttpRequest();
-    xhr.open(
-      "GET",
-      `http://localhost:8888/studentsdata.xyz/login.php?email=${
-        this.state.email
-      }&pass=${this.state.pass}&uuid=${id}`,
-      true
-    );
-    xhr.onreadystatechange = e => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const res = JSON.parse(xhr.responseText);
-        if (res.status) {
+    const { email, pass } = this.state;
+    const fetchURL = "https://studentsdata-api-server.herokuapp.com/login";
+    axios
+      .post(fetchURL, {
+        email,
+        pass
+      })
+      .then(res => {
+        if (res.data.status) {
+          const { data } = res;
           //Dispatching the action
-          this.props.dispatch(onLoggingIn({ ...res, id: id }));
+          this.props.dispatch(onLoggingIn({ ...data }));
+          //Setting up the cookies
+          const studentdata = {
+            email: data.email,
+            s_id: data.s_id,
+            id: data.id
+          };
+          document.cookie = JSON.stringify({ studentdata });
+
           this.props.history.push("/");
         } else {
-          this.setState(() => ({ res: res.message }));
+          this.setState(() => ({ res: res.data.message }));
           const button = document.querySelector("#login-button");
           button.disabled = false;
           button.innerHTML = '<i class="fa fa-lock"></i>  Login';
         }
-      }
-    };
-    xhr.send();
+      })
+      .catch(err => console.log(err));
+
+    // const id = uuid();
+    // const xhr = new XMLHttpRequest();
+    // xhr.open(
+    //   "GET",
+    //   `http://localhost:8888/studentsdata.xyz/login.php?email=${
+    //     this.state.email
+    //   }&pass=${this.state.pass}&uuid=${id}`,
+    //   true
+    // );
+    // xhr.onreadystatechange = e => {
+    //   if (xhr.readyState === 4 && xhr.status === 200) {
+    //     const res = JSON.parse(xhr.responseText);
+    //     if (res.status) {
+    //       //Dispatching the action
+    //       this.props.dispatch(onLoggingIn({ ...res, id: id }));
+    //       //Setting up the cookies
+    //       const studentdata = {
+    //         email: res.email,
+    //         s_id: res.s_id,
+    //         id
+    //       };
+    //       document.cookie = JSON.stringify({ studentdata });
+
+    //       this.props.history.push("/");
+    //     } else {
+    //       this.setState(() => ({ res: res.message }));
+    //       const button = document.querySelector("#login-button");
+    //       button.disabled = false;
+    //       button.innerHTML = '<i class="fa fa-lock"></i>  Login';
+    //     }
+    //   }
+    // };
+    // xhr.send();
 
     e.preventDefault();
   };

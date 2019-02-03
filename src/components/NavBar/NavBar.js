@@ -234,6 +234,9 @@ class NavBar extends React.Component {
                     id="nav-btn"
                     className="add-article__btn"
                     onClick={e => {
+                      //First, deleting the cookies
+                      document.cookie = "";
+
                       this.props.dispatch(onLogOut({ loggedIn: false }));
                       this.props.history.push("/login");
                       this.openNav(e);
