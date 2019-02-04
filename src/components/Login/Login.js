@@ -33,15 +33,19 @@ class Login extends React.Component {
   }
 
   //Check in login whether the user is logged in or not before displaying the componenet
-  componentWillMount() {
+  componentDidMount() {
     //Checking cookies for loggin in
-    if (document.cookie !== "") {
-      const { studentdata } = JSON.parse(document.cookie);
-      if (studentdata) {
-        this.props.dispatch(onLoggingIn({ ...studentdata }));
-        //Setting up the cookies
-        document.cookie = JSON.stringify({ studentdata });
-        this.props.history.push("/");
+    if (document.cookie) {
+      try {
+        const { studentdata } = document.cookie;
+        if (studentdata) {
+          this.props.dispatch(onLoggingIn({ ...studentdata }));
+          //Setting up the cookies
+          document.cookie = JSON.stringify({ studentdata });
+          this.props.history.push("/");
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
   }
