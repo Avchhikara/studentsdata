@@ -38,7 +38,6 @@ class Login extends React.Component {
     if (document.cookie) {
       try {
         const { studentdata } = JSON.parse(document.cookie.split(";")[1]);
-        console.log(studentdata);
         if (studentdata) {
           this.props.dispatch(onLoggingIn({ ...studentdata }));
           //Setting up the cookies
@@ -47,7 +46,6 @@ class Login extends React.Component {
         }
       } catch (error) {
         const { studentdata } = document.cookie;
-        console.log(studentdata);
         if (studentdata) {
           this.props.dispatch(onLoggingIn({ ...studentdata }));
           //Setting up the cookies
