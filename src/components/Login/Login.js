@@ -37,7 +37,7 @@ class Login extends React.Component {
     //Checking cookies for loggin in
     if (document.cookie) {
       try {
-        const { studentdata } = document.cookie;
+        const { studentdata } = JSON.parse(document.cookie.split(";")[1]);
         console.log(studentdata);
         if (studentdata) {
           this.props.dispatch(onLoggingIn({ ...studentdata }));
@@ -46,7 +46,7 @@ class Login extends React.Component {
           this.props.history.push("/");
         }
       } catch (error) {
-        const { studentdata } = JSON.parse(document.cookie.split(";")[1]);
+        const { studentdata } = document.cookie;
         console.log(studentdata);
         if (studentdata) {
           this.props.dispatch(onLoggingIn({ ...studentdata }));
