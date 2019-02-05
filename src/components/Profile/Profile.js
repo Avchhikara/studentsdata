@@ -17,6 +17,8 @@ class Profile extends React.Component {
         </Breadcrumb>
         <div>
           This is the profile page for user {this.props.match.params.id}
+          <br />
+          Is in constructions. Your patience is highly appreciated !
         </div>
       </div>
     );
