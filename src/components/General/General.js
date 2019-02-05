@@ -74,7 +74,7 @@ class General extends React.Component {
           }));
         }
         //Now, calling the autosave callback
-        setTimeout(() => {
+        const timeoutID = setTimeout(() => {
           this.autoSave();
         }, 5000);
         const alert = document.querySelector("#general-data-alert");
@@ -172,7 +172,13 @@ class General extends React.Component {
             this.props.dispatch(fetchGeneralData(this.state));
           }
           //Calling for autosave
-          this.autoSaveCallback();
+          if (
+            this.props.history.location.pathname === "/general" &&
+            this.props.loggedIn
+          ) {
+            this.autoSaveCallback();
+          } else {
+          }
         });
 
       // const xhr = new XMLHttpRequest();

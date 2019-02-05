@@ -7,3 +7,11 @@
   margin: 8px 0px !important;
   color: white !important;
 }
+
+@media (max-width: 620px) {
+  .small-on-small-and-down {
+    /* display: none;
+     */
+    font-size: 0.6em;
+  }
+}

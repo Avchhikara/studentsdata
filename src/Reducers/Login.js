@@ -20,7 +20,8 @@ const Login = (
       return { ...payload };
     case "ON_FETCH_GENERAL_DATA":
       return { ...state, generalData: payload };
-
+    case "SET_TIMEOUT_ID":
+      return { ...state, tid: payload.tid };
     default:
       return state;
   }

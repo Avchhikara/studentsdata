@@ -1,4 +1,4 @@
-export const onLogOut = () => {
+const onLogOut = () => {
   return {
     type: "LOGGING_OUT",
     payload: {
