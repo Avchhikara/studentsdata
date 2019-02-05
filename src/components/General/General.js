@@ -47,8 +47,9 @@ class General extends React.Component {
   componentDidMount = () => {
     //Now, here request the users data from backend
     const { name, rno, mname, fname, gender, address, pno } = this.state;
+    const fetchURL = "https://studentsdata-api-server.herokuapp.com/general";
     axios
-      .post("http://localhost:4000/general", {
+      .post(fetchURL, {
         name,
         fname,
         mname,
@@ -148,10 +149,10 @@ class General extends React.Component {
 
       //Everything regarding autosaving
       //First, make a request to backend,
-
+      const fetchURL = "https://studentsdata-api-server.herokuapp.com/general";
       const { name, rno, mname, fname, gender, address, pno } = this.state;
       axios
-        .post("http://localhost:4000/general", {
+        .post(fetchURL, {
           name,
           fname,
           mname,
@@ -218,10 +219,10 @@ class General extends React.Component {
 
   onGeneralSave(e) {
     //Now, saving by clicking
-
+    const fetchURL = "https://studentsdata-api-server.herokuapp.com/general";
     const { name, rno, mname, fname, gender, address, pno } = this.state;
     axios
-      .post("http://localhost:4000/general", {
+      .post(fetchURL, {
         name,
         fname,
         mname,
