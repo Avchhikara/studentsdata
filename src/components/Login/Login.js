@@ -38,7 +38,17 @@ class Login extends React.Component {
     console.log(document.cookie);
     if (document.cookie) {
       try {
-        const { studentdata } = JSON.parse(document.cookie.split(";")[1]);
+        const { studentdata } = JSON.parse(
+          document.cookie
+            .split(";")
+            .filter((ele, index) => {
+              if (ele.match("studentsdata")) {
+                return true;
+              }
+              return false;
+            })
+            .split("=")[1]
+        );
         if (studentdata) {
           this.props.dispatch(onLoggingIn({ ...studentdata }));
           //Setting up the cookies
@@ -55,7 +65,7 @@ class Login extends React.Component {
           document.cookie = JSON.stringify({ studentdata });
           this.props.history.push("/");
         }
-        console.log(studentdata, error);
+        console.log(studentdata);
       }
     }
   }
