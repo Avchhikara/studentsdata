@@ -39,16 +39,14 @@ class Login extends React.Component {
     if (document.cookie) {
       try {
         const cook = document.cookie.split(";");
-        const cookFilter = cook..filter((ele, index) => {
+        const cookFilter = cook.filter((ele, index) => {
           if (ele.match("studentsdata")) {
             return true;
           }
           return false;
         });
-        
-        const { studentdata } = JSON.parse(
-          cookFilter.split("=")[1]
-        );
+
+        const { studentdata } = JSON.parse(cookFilter.split("=")[1]);
         if (studentdata) {
           this.props.dispatch(onLoggingIn({ ...studentdata }));
           //Setting up the cookies
