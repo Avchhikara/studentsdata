@@ -38,9 +38,9 @@ class Login extends React.Component {
     console.log(document.cookie);
     if (document.cookie) {
       try {
+        const cook = document.cookie.split(";");
         const { studentdata } = JSON.parse(
-          document.cookie
-            .split(";")
+          cook
             .filter((ele, index) => {
               if (ele.match("studentsdata")) {
                 return true;
