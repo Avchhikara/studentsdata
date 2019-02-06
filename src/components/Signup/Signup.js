@@ -37,39 +37,52 @@ class Signup extends React.Component {
     const year = form.children[2].children[1].children[0].value;
     const { email, pass } = this.state;
 
-    const fetchURL = "https://studentsdata-api-server.herokuapp.com/signup";
+    if (year !== "--Select--" && email !== "" && pass !== "") {
+      const fetchURL = "https://studentsdata-api-server.herokuapp.com/signup";
 
-    axios
-      .post(fetchURL, {
-        email,
-        pass,
-        year
-      })
-      .then(res => {
-        this.setState(() => ({ res: res.data }));
-      })
-      .catch(err => console.log(err));
+      axios
+        .post(fetchURL, {
+          email,
+          pass,
+          year
+        })
+        .then(res => {
+          this.setState(() => ({ res: res.data }));
+        })
+        .catch(err => console.log(err));
 
-    // const xhr = new XMLHttpRequest();
-    // xhr.open(
-    //   "GET",
-    //   `http://localhost:8888/studentsdata.xyz/signup.php?email=${
-    //     this.state.email
-    //   }&pass=${this.state.pass}&year=${year}`,
-    //   true
-    // );
+      // const xhr = new XMLHttpRequest();
+      // xhr.open(
+      //   "GET",
+      //   `http://localhost:8888/studentsdata.xyz/signup.php?email=${
+      //     this.state.email
+      //   }&pass=${this.state.pass}&year=${year}`,
+      //   true
+      // );
 
-    // xhr.onreadystatechange = () => {
-    //   if (xhr.readyState === 4 && xhr.status === 200) {
-    //     const res = JSON.parse(xhr.responseText);
-    //     this.setState(() => ({ res }));
-    //     setTimeout(() => {
-    //       this.setState(() => ({ res: "" }));
-    //     }, 3000);
-    //   }
-    // };
-    // xhr.send();
+      // xhr.onreadystatechange = () => {
+      //   if (xhr.readyState === 4 && xhr.status === 200) {
+      //     const res = JSON.parse(xhr.responseText);
+      //     this.setState(() => ({ res }));
+      //     setTimeout(() => {
+      //       this.setState(() => ({ res: "" }));
+      //     }, 3000);
+      //   }
+      // };
+      // xhr.send();
+    } else {
+      this.setState({
+        res: { status: 400, message: "Please fill all the fields!" }
+      });
+      this.hideAlert();
+    }
   };
+
+  hideAlert() {
+    setTimeout(() => {
+      this.setState({ res: "" });
+    }, 3000);
+  }
 
   render() {
     return (

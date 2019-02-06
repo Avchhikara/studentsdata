@@ -35,7 +35,7 @@ class Login extends React.Component {
   //Check in login whether the user is logged in or not before displaying the componenet
   componentDidMount() {
     //Checking cookies for loggin in
-    console.log(document.cookie);
+
     if (document.cookie) {
       try {
         const cook = document.cookie.split(";");
@@ -71,72 +71,87 @@ class Login extends React.Component {
   onLoggingIn = e => {
     //Now, getting info from db
     const { email, pass } = this.state;
-    const fetchURL = "https://studentsdata-api-server.herokuapp.com/login";
-    axios
-      .post(fetchURL, {
-        email,
-        pass
-      })
-      .then(res => {
-        if (res.data.status) {
-          const { data } = res;
-          //Dispatching the action
-          this.props.dispatch(onLoggingIn({ ...data }));
-          //Setting up the cookies
-          const studentdata = {
-            email: data.email,
-            s_id: data.s_id,
-            id: data.id
-          };
-          document.cookie =
-            "studentdata = " + JSON.stringify({ studentdata }) + ";";
 
-          this.props.history.push("/");
-        } else {
-          this.setState(() => ({ res: res.data.message }));
-          const button = document.querySelector("#login-button");
-          button.disabled = false;
-          button.innerHTML = '<i class="fa fa-lock"></i>  Login';
-        }
-      })
-      .catch(err => console.log(err));
+    if (email !== "" && pass !== "") {
+      const fetchURL = "https://studentsdata-api-server.herokuapp.com/login";
+      axios
+        .post(fetchURL, {
+          email,
+          pass
+        })
+        .then(res => {
+          if (res.data.status) {
+            const { data } = res;
+            //Dispatching the action
+            this.props.dispatch(onLoggingIn({ ...data }));
+            //Setting up the cookies
+            const studentdata = {
+              email: data.email,
+              s_id: data.s_id,
+              id: data.id
+            };
+            document.cookie =
+              "studentdata = " + JSON.stringify({ studentdata }) + ";";
 
-    // const id = uuid();
-    // const xhr = new XMLHttpRequest();
-    // xhr.open(
-    //   "GET",
-    //   `http://localhost:8888/studentsdata.xyz/login.php?email=${
-    //     this.state.email
-    //   }&pass=${this.state.pass}&uuid=${id}`,
-    //   true
-    // );
-    // xhr.onreadystatechange = e => {
-    //   if (xhr.readyState === 4 && xhr.status === 200) {
-    //     const res = JSON.parse(xhr.responseText);
-    //     if (res.status) {
-    //       //Dispatching the action
-    //       this.props.dispatch(onLoggingIn({ ...res, id: id }));
-    //       //Setting up the cookies
-    //       const studentdata = {
-    //         email: res.email,
-    //         s_id: res.s_id,
-    //         id
-    //       };
-    //       document.cookie = JSON.stringify({ studentdata });
+            this.props.history.push("/");
+          } else {
+            this.setState(() => ({ res: res.data.message }));
+            const button = document.querySelector("#login-button");
+            button.disabled = false;
+            button.innerHTML = '<i class="fa fa-lock"></i>  Login';
+          }
+        })
+        .catch(err => console.log(err));
 
-    //       this.props.history.push("/");
-    //     } else {
-    //       this.setState(() => ({ res: res.message }));
-    //       const button = document.querySelector("#login-button");
-    //       button.disabled = false;
-    //       button.innerHTML = '<i class="fa fa-lock"></i>  Login';
-    //     }
-    //   }
-    // };
-    // xhr.send();
+      // const id = uuid();
+      // const xhr = new XMLHttpRequest();
+      // xhr.open(
+      //   "GET",
+      //   `http://localhost:8888/studentsdata.xyz/login.php?email=${
+      //     this.state.email
+      //   }&pass=${this.state.pass}&uuid=${id}`,
+      //   true
+      // );
+      // xhr.onreadystatechange = e => {
+      //   if (xhr.readyState === 4 && xhr.status === 200) {
+      //     const res = JSON.parse(xhr.responseText);
+      //     if (res.status) {
+      //       //Dispatching the action
+      //       this.props.dispatch(onLoggingIn({ ...res, id: id }));
+      //       //Setting up the cookies
+      //       const studentdata = {
+      //         email: res.email,
+      //         s_id: res.s_id,
+      //         id
+      //       };
+      //       document.cookie = JSON.stringify({ studentdata });
+
+      //       this.props.history.push("/");
+      //     } else {
+      //       this.setState(() => ({ res: res.message }));
+      //       const button = document.querySelector("#login-button");
+      //       button.disabled = false;
+      //       button.innerHTML = '<i class="fa fa-lock"></i>  Login';
+      //     }
+      //   }
+      // };
+      // xhr.send();
+    } else {
+      this.setState({ res: "Please fill all the fields!" });
+      const button = document.querySelector("#login-button");
+      button.disabled = false;
+      button.innerHTML = '<i class="fa fa-lock"></i>  Login';
+      this.hideAlert();
+    }
 
     e.preventDefault();
   };
+
+  hideAlert() {
+    setTimeout(() => {
+      this.setState({ res: "" });
+    }, 3000);
+  }
 
   render() {
     return (
@@ -165,7 +180,7 @@ class Login extends React.Component {
                       id="email"
                       value={this.state.email}
                       onChange={e => {
-                        this.setState({ email: e.target.value });
+                        this.setState({ email: e.target.value.toLowerCase() });
                       }}
                     />
                   </Col>
