@@ -66,7 +66,7 @@ class Login extends React.Component {
           document.cookie = JSON.stringify({ studentdata });
           this.props.history.push("/");
         }
-        console.log(studentdata);
+        console.log(studentdata, error);
       }
     }
   }
