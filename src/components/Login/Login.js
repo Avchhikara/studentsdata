@@ -40,31 +40,30 @@ class Login extends React.Component {
       try {
         const cook = document.cookie.split(";");
         const cookFilter = cook.filter((ele, index) => {
-          if (ele.match("studentsdata")) {
+          if (ele.match("studentdata")) {
             return true;
           }
           return false;
-        });
+        })[0];
 
         const { studentdata } = JSON.parse(cookFilter.split("=")[1]);
         if (studentdata) {
           this.props.dispatch(onLoggingIn({ ...studentdata }));
           //Setting up the cookies
           document.cookie =
-            "studentsdata = " + JSON.stringify({ studentdata }) + ";";
+            "studentdata = " + JSON.stringify({ studentdata }) + ";";
           this.props.history.push("/");
         }
-        console.log(studentdata);
       } catch (error) {
         // const { studentdata } = JSON.parse(document.cookie);
         const { studentdata } = document.cookie;
         if (studentdata) {
           this.props.dispatch(onLoggingIn({ ...studentdata }));
           //Setting up the cookies
-          document.cookie = JSON.stringify({ studentdata });
+          document.cookie =
+            "studentdata = " + JSON.stringify({ studentdata }) + ";";
           this.props.history.push("/");
         }
-        console.log(studentdata, error);
       }
     }
   }
@@ -89,7 +88,8 @@ class Login extends React.Component {
             s_id: data.s_id,
             id: data.id
           };
-          document.cookie = JSON.stringify({ studentdata });
+          document.cookie =
+            "studentdata = " + JSON.stringify({ studentdata }) + ";";
 
           this.props.history.push("/");
         } else {
