@@ -29,7 +29,8 @@ class TandP extends React.Component {
       yearText: "Year for which you want to enter t and p data",
       during: this.props.tandpData ? this.props.tandpData.during : "",
       disabled: false,
-      message: ""
+      message: "",
+      showSaveAlert: false
     };
   }
 
@@ -48,11 +49,11 @@ class TandP extends React.Component {
   };
 
   setMessage = message => {
-    this.setState({ message });
-
+    this.setState({ message, showSaveAlert: true });
     setTimeout(() => {
-      const alert = document.querySelector("#tandp-form__save");
-      alert.style.display = "none";
+      // const alert = document.querySelector("#tandp-form__save");
+      // alert.style.display = "none";
+      this.setState({ showSaveAlert: false });
     }, 3000);
   };
 
@@ -76,11 +77,11 @@ class TandP extends React.Component {
               {this.props.userData ? this.props.userData.email : ""}
             </span>
           </Col>
-          <Col xs={12}>
+          <Col xs={12} id="tandp-form__save">
             {this.state.message !== "" ? (
-              <Alert id="tandp-form__save" color="success">
-                {this.state.message}
-              </Alert>
+              <Fade opposite collapse when={this.state.showSaveAlert}>
+                <Alert color="success">{this.state.message}</Alert>
+              </Fade>
             ) : (
               ""
             )}

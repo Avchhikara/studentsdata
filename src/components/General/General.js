@@ -131,7 +131,8 @@ class General extends React.Component {
   };
 
   componentWillUnmount() {
-    this.state.timeoutid.forEach(id => {
+    const tid = this.state.timeoutid;
+    tid.forEach(id => {
       clearTimeout(id);
     });
   }
@@ -448,7 +449,7 @@ Save <i class="fas fa-save></i>
               </FormGroup>
             </Form>
           </Col>
-          <Col xs={{ size: 12 }} className="mt-4 mb-4">
+          <Col xs={{ size: 6 }} className="mt-4 mb-4">
             <Button
               color="success"
               block
@@ -459,6 +460,18 @@ Save <i class="fas fa-save></i>
               }}
             >
               Save <FontAwesomeIcon icon={faSave} />
+            </Button>
+          </Col>
+          <Col xs={6} className="mt-4 mb-4">
+            <Button
+              color="danger"
+              outline
+              block
+              onClick={e => {
+                this.props.history.push("/");
+              }}
+            >
+              Cancel
             </Button>
           </Col>
         </Row>

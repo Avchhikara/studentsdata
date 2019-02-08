@@ -2,3 +2,7 @@
   margin-top: 90px;
   min-height: 70vh;
 }
+
+.tandp-container #tandp-form__save {
+  margin: 15px 0;
+}

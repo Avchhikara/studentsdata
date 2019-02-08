@@ -16,6 +16,7 @@ import { faHandPointDown, faSave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import setTandPdata from "./../../Actions/tandp";
+import { Fade } from "react-reveal";
 
 import { fetchURL } from "../../Actions/constants";
 
@@ -30,7 +31,8 @@ class TandPForm extends React.Component {
 
       ilinks: this.props.tandpData.ilinks ? this.props.tandpData.ilinks : [],
       timeoutid: [],
-      saved: "no"
+      saved: "no",
+      showFetchAlert: true
     };
   }
   componentDidMount() {
@@ -64,11 +66,12 @@ class TandPForm extends React.Component {
         this.props.dispatch(
           setTandPdata({ ...data, ilinks: data.ilinks.split(",") })
         );
+        //Hiding the fetch alert
+        // const fetchAlert = document.querySelector("#tandp-form__alert");
+        // fetchAlert.style.display = "none";
+        this.setState({ showFetchAlert: false });
       })
       .catch(err => console.log(err));
-
-    const fetchAlert = document.querySelector("#tandp-alert");
-    setTimeout(() => (fetchAlert.style.display = "none"), 3000);
   }
 
   componentWillUnmount() {
@@ -130,10 +133,12 @@ class TandPForm extends React.Component {
           </span>
           form
         </h5>{" "}
-        <Alert color="success" id="tandp-alert">
-          <Spinner color="dark" size="sm" /> Fetching previous values from
-          server if any
-        </Alert>
+        <Fade opposite collapse when={this.state.showFetchAlert}>
+          <Alert color="success" id="tandp-form__alert">
+            <Spinner color="dark" size="sm" /> Fetching previous values from
+            storage, if any
+          </Alert>
+        </Fade>
         <br />
         <Form>
           <FormGroup row>
