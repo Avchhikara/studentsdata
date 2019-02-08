@@ -19,7 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import onLoggingIn from "./../../Actions/Login";
 import axios from "axios";
-
+import { fetchURL } from "../../Actions/constants";
 import "./Login.css";
 
 class Login extends React.Component {
@@ -73,9 +73,8 @@ class Login extends React.Component {
     const { email, pass } = this.state;
 
     if (email !== "" && pass !== "") {
-      const fetchURL = "https://studentsdata-api-server.herokuapp.com/login";
       axios
-        .post(fetchURL, {
+        .post(`${fetchURL}/login`, {
           email,
           pass
         })

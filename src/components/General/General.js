@@ -23,7 +23,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./General.css";
 import fetchGeneralData from "./../../Actions/fetchGeneralData";
-
+import { fetchURL } from "./../../Actions/constants";
 class General extends React.Component {
   constructor(props) {
     super(props);
@@ -48,9 +48,9 @@ class General extends React.Component {
   componentDidMount = () => {
     //Now, here request the users data from backend
     const { name, rno, mname, fname, gender, address, pno } = this.state;
-    const fetchURL = "https://studentsdata-api-server.herokuapp.com/general";
+
     axios
-      .post(fetchURL, {
+      .post(`${fetchURL}/general`, {
         name,
         fname,
         mname,
@@ -157,10 +157,10 @@ class General extends React.Component {
 
       //Everything regarding autosaving
       //First, make a request to backend,
-      const fetchURL = "https://studentsdata-api-server.herokuapp.com/general";
+
       const { name, rno, mname, fname, gender, address, pno } = this.state;
       axios
-        .post(fetchURL, {
+        .post(`${fetchURL}/general`, {
           name,
           fname,
           mname,
@@ -237,10 +237,9 @@ class General extends React.Component {
 
   onGeneralSave(e) {
     //Now, saving by clicking
-    const fetchURL = "https://studentsdata-api-server.herokuapp.com/general";
     const { name, rno, mname, fname, gender, address, pno } = this.state;
     axios
-      .post(fetchURL, {
+      .post(`${fetchURL}/general`, {
         name,
         fname,
         mname,

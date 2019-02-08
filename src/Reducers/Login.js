@@ -8,6 +8,13 @@ const Login = (
       fname: "",
       gender: "",
       address: ""
+    },
+    tandpData: {
+      year: "",
+      during: "",
+      iname: "",
+      iaddress: "",
+      ilinks: ""
     }
   },
   action
@@ -22,6 +29,8 @@ const Login = (
       return { ...state, generalData: payload };
     case "SET_TIMEOUT_ID":
       return { ...state, tid: payload.tid };
+    case "SET_TANDP_DATA":
+      return { ...state, tandpData: payload };
     default:
       return state;
   }

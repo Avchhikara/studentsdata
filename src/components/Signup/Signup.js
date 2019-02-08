@@ -17,7 +17,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faLock } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
+import { fetchURL } from "../../Actions/constants";
 import "./Signup.css";
 
 class Signup extends React.Component {
@@ -38,10 +38,8 @@ class Signup extends React.Component {
     const { email, pass } = this.state;
 
     if (year !== "--Select--" && email !== "" && pass !== "") {
-      const fetchURL = "https://studentsdata-api-server.herokuapp.com/signup";
-
       axios
-        .post(fetchURL, {
+        .post(`${fetchURL}/signup`, {
           email,
           pass,
           year

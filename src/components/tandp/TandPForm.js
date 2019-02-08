@@ -1,5 +1,5 @@
 import React from "react";
-
+import { connect } from "react-redux";
 import {
   Button,
   Input,
@@ -9,38 +9,116 @@ import {
   Label,
   Col,
   Alert,
-  Spinner
+  Spinner,
+  Row
 } from "reactstrap";
 import { faHandPointDown, faSave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import setTandPdata from "./../../Actions/tandp";
+
+import { fetchURL } from "../../Actions/constants";
 
 class TandPForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      institution: "",
-      address: "",
-      year: this.props.year,
-      links: [],
-      timeoutid: []
+      iname: this.props.tandpData.iname ? this.props.tandpData.iname : "",
+      iaddress: this.props.tandpData.iaddress
+        ? this.props.tandpData.iaddress
+        : "",
+
+      ilinks: this.props.tandpData.ilinks ? this.props.tandpData.ilinks : [],
+      timeoutid: [],
+      saved: "no"
     };
   }
   componentDidMount() {
+    //Disabling the year and during feilds
+    this.props.disable();
+
     //Here fetch the value of that particluar year user has entered
+    //Fetching the values from server
+    axios
+      .post(`${fetchURL}/tandp`, {
+        iname: this.state.iname,
+        iaddress: this.state.iaddress,
+        year: this.props.tandpData.year,
+        ilinks: this.state.ilinks.join(","),
+        s_id: this.props.userData.s_id,
+        during: this.props.tandpData.during,
+        id: this.props.userData.id,
+        type: "get"
+      })
+      .then(res => {
+        console.log(res);
+        const { data } = res;
+        //Setting the state
+        this.setState({
+          iname: data.iname,
+          iaddress: data.iaddress,
+          ilinks: data.ilinks.split(","),
+          saved: "yes"
+        });
+
+        this.props.dispatch(
+          setTandPdata({ ...data, ilinks: data.ilinks.split(",") })
+        );
+      })
+      .catch(err => console.log(err));
+
     const fetchAlert = document.querySelector("#tandp-alert");
     setTimeout(() => (fetchAlert.style.display = "none"), 3000);
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     //Here check if the user has unsaved values and prompt the user to save values first before closing the compoenet
+    if (this.state.saved === "no") {
+      //Showing an alert to user
+      alert(
+        "You haven't saved the data so, it will be lost. To save, press the 'save' button after entering the data"
+      );
+    }
   }
 
   onClickSave = e => {
-    console.log("on click save is clicked");
+    axios
+      .post("http://localhost:4000/tandp", {
+        iname: this.state.iname,
+        iaddress: this.state.iaddress,
+        year: this.props.tandpData.year,
+        ilinks: this.state.ilinks.join(","),
+        s_id: this.props.userData.s_id,
+        during: this.props.tandpData.during,
+        id: this.props.userData.id,
+        type: "set"
+      })
+      .then(res => {
+        //Now, dispatching it to the state
+        this.props.dispatch(
+          setTandPdata({
+            iname: this.state.iname,
+            iaddress: this.state.iaddress,
+            year: this.props.tandpData.year,
+            ilinks: this.state.ilinks,
+            during: this.props.tandpData.during
+          })
+        );
+        //Now, updating state
+        this.setState({ saved: "yes" });
+        //Now, removing the component
+        this.props.message("Entries have been saved");
+        this.props.clearState();
+        this.props.dispatch(setTandPdata({ year: "", during: "" }));
+      })
+      .catch(err => console.log(err));
+    e.target.disabled = false;
+    e.target.innerHTML = `
+          Save
+        `;
   };
 
   render() {
-    console.log(this.props.year);
     return (
       <div>
         <hr />
@@ -67,9 +145,10 @@ class TandPForm extends React.Component {
                 type="text"
                 name="iname"
                 id="iname"
-                value={this.state.institution}
+                value={this.state.iname}
                 onChange={e => {
-                  this.setState({ institution: e.target.value });
+                  const iname = e.target.value;
+                  this.setState({ iname, saved: "no" });
                 }}
               />
             </Col>
@@ -83,8 +162,11 @@ class TandPForm extends React.Component {
                 type="textarea"
                 name="iadd"
                 id="iadd"
-                value={this.state.address}
-                onChange={e => this.setState({ address: e.target.address })}
+                value={this.state.iaddress}
+                onChange={e => {
+                  const iaddress = e.target.value;
+                  this.setState({ iaddress, saved: "no" });
+                }}
               />
             </Col>
           </FormGroup>
@@ -97,12 +179,13 @@ class TandPForm extends React.Component {
                 type="textarea"
                 name="ilinks"
                 id="ilinks"
-                value={this.state.links.join(",")}
+                value={this.state.ilinks.join(",")}
                 onChange={e => {
-                  const links = e.target.value.split(",");
+                  const ilinks = e.target.value.split(",");
                   this.setState(prevState => {
                     return {
-                      links
+                      ilinks,
+                      saved: "no"
                     };
                   });
                 }}
@@ -115,20 +198,53 @@ class TandPForm extends React.Component {
             </Col>
           </FormGroup>
         </Form>
-        <Button
-          color="success"
-          outline
-          block
-          onClick={e => {
-            this.onClickSave(e);
-          }}
-        >
-          Save <FontAwesomeIcon icon={faSave} />
-        </Button>
+        <Row>
+          <Col xs={6}>
+            <Button
+              color="success"
+              outline
+              block
+              onClick={e => {
+                e.target.disabled = true;
+                e.target.innerHTML = `
+              <span>Saving...</span>
+              <span class="clearfix">
+              <span class="spinner-border spinner-border-sm float-right" role="status">
+              <span class="sr-only">Loading...</span>
+            </span>
+            </span>
+            `;
+                this.onClickSave(e);
+              }}
+            >
+              Save <FontAwesomeIcon icon={faSave} />
+            </Button>
+          </Col>
+
+          <Col xs={6}>
+            <Button
+              color="danger"
+              block
+              outline
+              onClick={e => {
+                this.props.clearState();
+                this.props.dispatch(setTandPdata({ year: "", during: "" }));
+              }}
+            >
+              Cancel
+            </Button>
+          </Col>
+        </Row>
         <br />
       </div>
     );
   }
 }
 
-export default TandPForm;
+const mapStateToProps = state => {
+  return {
+    ...state
+  };
+};
+
+export default connect(mapStateToProps)(TandPForm);
