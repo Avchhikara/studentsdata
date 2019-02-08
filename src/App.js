@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Fade } from "react-reveal";
 
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
@@ -22,20 +23,21 @@ class App extends Component {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <div>
             <Route path="/" component={NavBar} />
-
-            <div className="container">
-              <Switch>
-                <Route path="/" component={Home} exact={true} />
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
-                <Route path="/profile/:id" component={Profile} />
-                <Route path="/notices" component={Notices} />
-                <Route path="/general" component={General} />
-                <Route path="/confirm/:email" component={Confirm} />
-                <Route path="/tandp" component={TandP} />
-                <Route component={NotFound} />
-              </Switch>
-            </div>
+            <Fade big>
+              <div className="container">
+                <Switch>
+                  <Route path="/" component={Home} exact={true} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/signup" component={Signup} />
+                  <Route path="/profile/:id" component={Profile} />
+                  <Route path="/notices" component={Notices} />
+                  <Route path="/general" component={General} />
+                  <Route path="/confirm/:email" component={Confirm} />
+                  <Route path="/tandp" component={TandP} />
+                  <Route component={NotFound} />
+                </Switch>
+              </div>
+            </Fade>
             <Route path="/" component={Footer} />
           </div>
         </BrowserRouter>

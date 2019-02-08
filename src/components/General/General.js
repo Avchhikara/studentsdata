@@ -34,7 +34,8 @@ class General extends React.Component {
       fname: "",
       gender: "",
       address: "",
-      pno: ""
+      pno: "",
+      timeoutid: []
     };
   }
 
@@ -77,6 +78,7 @@ class General extends React.Component {
         const timeoutID = setTimeout(() => {
           this.autoSave();
         }, 5000);
+
         const alert = document.querySelector("#general-data-alert");
 
         if (alert) {
@@ -127,6 +129,12 @@ class General extends React.Component {
     //   alert.style.display = "none";
     // }
   };
+
+  componentWillUnmount() {
+    this.state.timeoutid.forEach(id => {
+      clearTimeout(id);
+    });
+  }
 
   showLoading(e) {
     const btn = e.target;
@@ -217,9 +225,13 @@ class General extends React.Component {
       this.props.history.location.pathname === "/general" &&
       this.props.loggedIn
     ) {
-      setTimeout(() => {
+      const tid = setTimeout(() => {
         this.autoSave();
       }, 15000);
+
+      this.setState(prevState => ({
+        timeoutid: prevState.timeoutid.concat([tid])
+      }));
     }
   };
 
