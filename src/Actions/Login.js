@@ -3,7 +3,22 @@ const onLogginIn = userData => {
     type: "LOGGING_IN",
     payload: {
       loggedIn: true,
-      userData
+      userData,
+      generalData: {
+        name: "",
+        rno: "",
+        mname: "",
+        fname: "",
+        gender: "",
+        address: ""
+      },
+      tandpData: {
+        year: "",
+        during: "",
+        iname: "",
+        iaddress: "",
+        ilinks: ""
+      }
     }
   };
 };

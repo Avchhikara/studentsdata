@@ -22,7 +22,13 @@ const Login = (
   const { payload } = action;
   switch (action.type) {
     case "LOGGING_IN":
-      return { ...state, ...payload };
+      return {
+        ...state,
+        userData: payload.userData,
+        loggedIn: payload.loggedIn,
+        generalData: payload.generalData,
+        tandpData: payload.tandpData
+      };
     case "LOGGING_OUT":
       return { ...payload };
     case "ON_FETCH_GENERAL_DATA":
