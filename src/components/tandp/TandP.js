@@ -25,9 +25,9 @@ class TandP extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      year: this.props.tandpData.year,
+      year: this.props.tandpData ? this.props.tandpData.year : "",
       yearText: "Year for which you want to enter t and p data",
-      during: this.props.tandpData.during,
+      during: this.props.tandpData ? this.props.tandpData.during : "",
       disabled: false,
       message: ""
     };
