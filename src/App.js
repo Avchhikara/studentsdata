@@ -13,6 +13,7 @@ import Notices from "./components/Notices/Notices";
 import General from "./components/General/General";
 import Confirm from "./components/Confirm/Confirm";
 import TandP from "./components/tandp/TandP";
+import Extra from "./components/extra/Extra";
 
 import "./App.css";
 
@@ -34,6 +35,7 @@ class App extends Component {
                   <Route path="/general" component={General} />
                   <Route path="/confirm/:email" component={Confirm} />
                   <Route path="/tandp" component={TandP} />
+                  <Route path="/extra" component={Extra} />
                   <Route component={NotFound} />
                 </Switch>
               </div>

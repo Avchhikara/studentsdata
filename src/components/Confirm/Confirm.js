@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import { Alert, Spinner, Row, Col } from "reactstrap";
@@ -12,7 +13,8 @@ class Confirm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      res: "Confirming your mail-id, please wait!"
+      res: "Confirming your mail-id, please wait!",
+      showSpinner: true
     };
   }
 
@@ -37,6 +39,11 @@ class Confirm extends React.Component {
             };
             document.cookie = JSON.stringify({ studentdata });
             this.props.history.push("/");
+          } else if (data.status === 400) {
+            this.setState({
+              res: "Your email is already confirmed!",
+              showSpinner: false
+            });
           }
         })
         .catch(err => console.log(err));
@@ -62,10 +69,16 @@ class Confirm extends React.Component {
           <Alert color="success">{this.state.res}</Alert>
           <Row>
             <Col xs={12} className="text-center">
-              <Spinner
-                color="success"
-                style={{ height: "3rem", width: "3rem", marginTop: "20vh" }}
-              />
+              {this.state.showSpinner ? (
+                <Spinner
+                  color="success"
+                  style={{ height: "3rem", width: "3rem", marginTop: "20vh" }}
+                />
+              ) : (
+                <div>
+                  Please <Link to="/login">Login </Link> First
+                </div>
+              )}
             </Col>
           </Row>
         </div>
