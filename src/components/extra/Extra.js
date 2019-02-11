@@ -1,11 +1,51 @@
 import React from "react";
-
+import ExtraForm from "./ExtraForm";
 import { Link } from "react-router-dom";
-import { Breadcrumb, BreadcrumbItem, Row, Col } from "reactstrap";
+import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHandPointDown } from "@fortawesome/free-solid-svg-icons";
+import { Fade } from "react-reveal";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormFeedback
+} from "reactstrap";
 
 import "./Extra.css";
 
 class Extra extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filledValuesShown: false,
+      esem: "",
+      saved: false
+    };
+  }
+
+  onPressCancel = () => {
+    this.setState({
+      esem: ""
+    });
+  };
+
+  componentDidMount() {
+    //fetch some values here
+  }
+
+  componentWillMount() {
+    if (!this.props.loggedIn) {
+      this.props.history.push("/login");
+    }
+  }
+
   render() {
     return (
       <div className="extra-container">
@@ -19,9 +59,98 @@ class Extra extends React.Component {
             </Breadcrumb>
           </Col>
         </Row>
+        <Row>
+          <Col xs={12} className="clearfix">
+            <span className="h4 float-left">
+              Enter{" "}
+              <span className="green-text">
+                Activites <FontAwesomeIcon icon={faHandPointDown} />
+              </span>
+            </span>
+            <span className="float-right">
+              <Button
+                color="success"
+                outline
+                size="sm"
+                onClick={e => {
+                  //First, Add instances of components with filled values
+                  //Then change state to change text
+                  //   console.log("Show filled values is clicked");
+                  alert(
+                    "This feature is currently worked on, please have patience"
+                  );
+                }}
+              >
+                {this.state.filledValuesShown
+                  ? "Hide filled values"
+                  : "Show filled values"}
+              </Button>
+            </span>
+          </Col>
+          <Col xs={12}>
+            <Form>
+              <FormGroup row>
+                <Label for="esem" xs={3}>
+                  Semester
+                </Label>
+                <Col xs={9}>
+                  <Input
+                    type="select"
+                    id="esem"
+                    name="esem"
+                    invalid={this.state.esem === "" ? true : false}
+                    valid={this.state.esem !== "" ? true : false}
+                    disabled={this.state.esem !== "" ? true : false}
+                    value={
+                      this.state.esem === ""
+                        ? "--Select Sem--"
+                        : this.state.esem
+                    }
+                    onChange={e => {
+                      const val = e.target.value;
+                      if (val !== "--Select Sem--") {
+                        this.setState({ esem: val });
+                      } else {
+                        this.setState({ esem: "" });
+                      }
+                    }}
+                  >
+                    <option defaultValue>--Select Sem--</option>
+                    <option value="1">1st</option>
+                    <option value="2">2nd</option>
+                    <option value="3">3rd</option>
+                    <option value="4">4th</option>
+                    <option value="5">5th</option>
+                    <option value="6">6th</option>
+                    <option value="7">7th</option>
+                    <option value="8">8th</option>
+                  </Input>
+                  <FormFeedback> Please select a semester</FormFeedback>
+                  <FormFeedback valid>
+                    Great! let us do the rest, To enable this field press
+                    'Cancel' button below
+                  </FormFeedback>
+                </Col>
+              </FormGroup>
+            </Form>
+          </Col>
+        </Row>
+        {this.state.esem !== "" ? (
+          <Fade bottom>
+            <ExtraForm onPressCancel={this.onPressCancel} />
+          </Fade>
+        ) : (
+          ""
+        )}
       </div>
     );
   }
 }
 
-export default Extra;
+const mapStateToProps = state => {
+  return {
+    ...state
+  };
+};
+
+export default connect(mapStateToProps)(Extra);

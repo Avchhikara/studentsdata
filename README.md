@@ -1,8 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Avnish Chhikara](https://github.com/avchhikara)
 
-## Available Scripts
+## [StudentsData Collector](https://studentsdata.xyz)
 
-In the project directory, you can run:
+Features of this project
 
 ### `npm start`
 

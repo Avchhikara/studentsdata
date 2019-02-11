@@ -103,10 +103,10 @@ class Signup extends React.Component {
 
               <Form>
                 <FormGroup row>
-                  <Label sm={5} md={4} lg={4} for="email">
+                  <Label sm={5} md={4} lg={4} xs={3} for="email">
                     Email
                   </Label>
-                  <Col sm={7} md={8} lg={8}>
+                  <Col sm={7} md={8} lg={8} xs={9}>
                     <Input
                       type="email"
                       name="email"
@@ -120,10 +120,10 @@ class Signup extends React.Component {
                   </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Label sm={5} md={4} lg={4} for="password">
+                  <Label sm={5} md={4} lg={4} xs={3} for="password">
                     Password
                   </Label>
-                  <Col sm={7} md={8} lg={8}>
+                  <Col sm={7} md={8} lg={8} xs={9}>
                     <Input
                       type="password"
                       name="password"
@@ -137,10 +137,10 @@ class Signup extends React.Component {
                   </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Label sm={5} md={4} lg={4} for="admissionYear">
+                  <Label sm={5} md={4} lg={4} xs={3} for="admissionYear">
                     Admission Year
                   </Label>
-                  <Col sm={7} md={8} lg={8}>
+                  <Col sm={7} md={8} lg={8} xs={9}>
                     <Input
                       type="select"
                       name="admissionYear"

@@ -406,6 +406,7 @@ Save <i class="fas fa-save></i>
                   <ButtonGroup>
                     <Button
                       color="success"
+                      size="sm"
                       outline
                       onClick={() => this.setState({ gender: "male" })}
                       active={this.state.gender === "male"}
@@ -415,6 +416,7 @@ Save <i class="fas fa-save></i>
                     <Button
                       color="success"
                       outline
+                      size="sm"
                       onClick={() => this.setState({ gender: "female" })}
                       active={this.state.gender === "female"}
                     >
@@ -423,6 +425,7 @@ Save <i class="fas fa-save></i>
                     <Button
                       color="success"
                       outline
+                      size="sm"
                       onClick={() =>
                         this.setState({ gender: "decline to say" })
                       }
@@ -453,6 +456,7 @@ Save <i class="fas fa-save></i>
             <Button
               color="success"
               block
+              size="sm"
               outline
               onClick={e => {
                 this.showLoading(e);
@@ -467,6 +471,7 @@ Save <i class="fas fa-save></i>
               color="danger"
               outline
               block
+              size="sm"
               onClick={e => {
                 this.props.history.push("/");
               }}

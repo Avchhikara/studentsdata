@@ -26,3 +26,18 @@ code {
     display: none;
   }
 }
+
+.homemade-link {
+  color: green;
+  opacity: 0.8;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.homemade-link:hover {
+  opacity: 1;
+}
+.homemade-link:active,
+.homemade-link:focus {
+  opacity: 1;
+}

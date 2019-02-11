@@ -209,6 +209,7 @@ class TandPForm extends React.Component {
               color="success"
               outline
               block
+              size="sm"
               onClick={e => {
                 e.target.disabled = true;
                 e.target.innerHTML = `
@@ -231,6 +232,7 @@ class TandPForm extends React.Component {
               color="danger"
               block
               outline
+              size="sm"
               onClick={e => {
                 this.props.clearState();
                 this.props.dispatch(setTandPdata({ year: "", during: "" }));

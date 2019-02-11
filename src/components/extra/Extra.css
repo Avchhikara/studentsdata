@@ -2,3 +2,11 @@
   margin-top: 90px;
   min-height: 70vh;
 }
+
+.extra-container form {
+  margin-top: 20px;
+}
+
+.extra-container .extra-form {
+  margin-bottom: 20px;
+}

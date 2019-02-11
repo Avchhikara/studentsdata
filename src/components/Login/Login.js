@@ -169,10 +169,10 @@ class Login extends React.Component {
 
               <Form>
                 <FormGroup row>
-                  <Label sm={5} md={4} lg={3} for="email">
+                  <Label sm={5} md={4} lg={3} xs={3} for="email">
                     Email
                   </Label>
-                  <Col sm={7} md={8} lg={9}>
+                  <Col sm={7} md={8} lg={9} xs={9}>
                     <Input
                       type="email"
                       name="email"
@@ -185,10 +185,10 @@ class Login extends React.Component {
                   </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Label sm={5} md={4} lg={3} for="password">
+                  <Label sm={5} md={4} lg={3} xs={3} for="password">
                     Password
                   </Label>
-                  <Col sm={7} md={8} lg={9}>
+                  <Col sm={7} md={8} lg={9} xs={9}>
                     <Input
                       type="password"
                       name="password"
