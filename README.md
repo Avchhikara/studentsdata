@@ -2,8 +2,8 @@
 
 ## [StudentsData Collector](https://studentsdata.xyz)
 
-** Note-This [Repository](https://github.com/Avchhikara/studentsdata.git) only contains front-end part of the [website](https://studentsdata.xyz)
-Features of this project **
+** Note-This [Repository](https://github.com/Avchhikara/studentsdata.git) only contains front-end part of the [website](https://studentsdata.xyz)**
+Features of this project
 
 ### `npm start`
 
