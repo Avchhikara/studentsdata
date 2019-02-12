@@ -17,6 +17,7 @@ I helps the class coordinators to get information about all the students quickly
 
     		For the front-end part or this repo, the technology stack used constitutes:
 
+
 1.  NodeJS, ExpressJS -> For creating a small, light-weight server which would serve up the front-end as requested by browser.
 2.  ReactJS -> For the most or all of the front-end to facilate fast-rendering of the components.
 3.  Axios -> For making **POST, GET, DELETE, PUT** requests to the server.

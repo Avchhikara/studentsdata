@@ -19,14 +19,13 @@ import {
 } from "reactstrap";
 
 import "./Extra.css";
-
+import setExtraData from "../../Actions/Extra";
 class Extra extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       filledValuesShown: false,
-      esem: "",
-      saved: false
+      esem: ""
     };
   }
 
@@ -34,6 +33,8 @@ class Extra extends React.Component {
     this.setState({
       esem: ""
     });
+    //Also, make extraData props to null
+    this.props.dispatch(setExtraData({}));
   };
 
   componentDidMount() {
@@ -110,6 +111,7 @@ class Extra extends React.Component {
                       const val = e.target.value;
                       if (val !== "--Select Sem--") {
                         this.setState({ esem: val });
+                        this.props.dispatch(setExtraData({ esemester: val }));
                       } else {
                         this.setState({ esem: "" });
                       }

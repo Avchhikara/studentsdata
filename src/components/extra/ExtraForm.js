@@ -28,8 +28,17 @@ class ExtraForm extends React.Component {
       res: {
         status: "",
         message: ""
-      }
+      },
+      saved: true
     };
+  }
+
+  componentWillUnmount() {
+    if (!this.state.saved) {
+      alert(
+        "Values you provided have not been saved and will be lost so, please enter them again!"
+      );
+    }
   }
 
   onClickSave = e => {
@@ -42,13 +51,24 @@ class ExtraForm extends React.Component {
         eachievement,
         token: this.props.userData.id,
         s_id: this.props.userData.s_id,
+        esemester: this.props.extraData.esemester,
         type: "set"
       };
 
       axios
         .post(`${fetchURL}/extra`, send)
-        .then(data => {
-          console.log(data);
+        .then(({ data }) => {
+          //Now, seting up the response
+          this.setState({
+            ename: "",
+            einstitution: "",
+            eachievement: "",
+            res: {
+              status: data.status,
+              message: data.message
+            },
+            saved: true
+          });
         })
         .catch(err => console.log(err));
     } else {
@@ -124,7 +144,7 @@ class ExtraForm extends React.Component {
                   value={this.state.ename}
                   onChange={e => {
                     const val = e.target.value;
-                    this.setState({ ename: val });
+                    this.setState({ ename: val, saved: val.length === 0 });
                   }}
                 />
               </Col>
@@ -141,7 +161,10 @@ class ExtraForm extends React.Component {
                   value={this.state.einstitution}
                   onChange={e => {
                     const val = e.target.value;
-                    this.setState({ einstitution: val });
+                    this.setState({
+                      einstitution: val,
+                      saved: val.length === 0
+                    });
                   }}
                 />
               </Col>

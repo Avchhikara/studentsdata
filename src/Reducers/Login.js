@@ -15,6 +15,12 @@ const Login = (
       iname: "",
       iaddress: "",
       ilinks: ""
+    },
+    extraData: {
+      esemester: "",
+      ename: "",
+      einstitution: "",
+      eachievement: ""
     }
   },
   action
@@ -37,6 +43,8 @@ const Login = (
       return { ...state, tid: payload.tid };
     case "SET_TANDP_DATA":
       return { ...state, tandpData: payload };
+    case "SET_EXTRA_DATA":
+      return { ...state, extraData: payload };
     default:
       return state;
   }
