@@ -1,69 +1,27 @@
-[Avnish Chhikara](https://github.com/avchhikara)
+[Avnish Chhikara](https://github.com/avchhikara) {Initiator}
+**Note-> This repository only containers front-end part of [website](https://studentsdata.xyz)**
 
 ## [StudentsData Collector](https://studentsdata.xyz)
 
-** Note-This [Repository](https://github.com/Avchhikara/studentsdata.git) only contains front-end part of the [website](https://studentsdata.xyz)** <br />
-Features of this project
+### Description
 
-### `npm start`
+    			StudentsData.xyz is a website which will be used by department of my univeristy for collecting data from students which includes their result, general data, training and placement related data and related to extracurricular activites which they took part in over the span of four years they have spent in the department.
+    			I helps the class coordinators to get information about all the students quickly whenever they needs let's say in submitting any sort of report etc.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Features of Project
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+1.  Students can enter their data, update it or delete it with ease.
+2.  Teacher's or more precisely, **Class Coordinators** can use it to get details of students in their respective class with just one-click.
 
-### `npm test`
+### Technologies Used
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    		For the front-end part or this repo, the technology stack used constitutes:
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1.  NodeJS, ExpressJS -> For creating a small, light-weight server which would serve up the front-end as requested by browser.
+2.  ReactJS -> For the most or all of the front-end to facilate fast-rendering of the components.
+3.  Axios -> For making **POST, GET, DELETE, PUT** requests to the server.
+4.  BootStrap -> For styling the front-end of the website.
+5.  A lot of other **npm** modules.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Interested or Found a bug ? Please check [this page](https://yangsu.github.io/pull-request-tutorial/) to learn how to make pull requests to projects
