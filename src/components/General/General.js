@@ -335,7 +335,7 @@ Save <i class="fas fa-save></i>
                     type="number"
                     id="roll"
                     name="roll"
-                    value={this.state.rno}
+                    value={this.state.rno ? this.state.rno : ""}
                     onChange={e => {
                       this.setState({ rno: e.target.value });
                     }}
