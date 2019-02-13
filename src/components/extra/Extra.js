@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandPointDown } from "@fortawesome/free-solid-svg-icons";
 import { Fade } from "react-reveal";
+import axios from "axios";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,16 +16,23 @@ import {
   FormGroup,
   Label,
   Input,
-  FormFeedback
+  FormFeedback,
+  Card,
+  CardBody,
+  CardTitle,
+  CardText
 } from "reactstrap";
 
 import "./Extra.css";
 import setExtraData from "../../Actions/Extra";
+import { fetchURL } from "./../../Actions/constants";
+import ExtraFilled from "./ExtraFilled";
+
 class Extra extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filledValuesShown: false,
+      showFilledValues: false,
       esem: ""
     };
   }
@@ -47,6 +55,13 @@ class Extra extends React.Component {
     }
   }
 
+  showFilledValues = e => {
+    //First, Modifying the state
+    this.setState(prevState => ({
+      showFilledValues: !prevState.showFilledValues
+    }));
+  };
+
   render() {
     return (
       <div className="extra-container">
@@ -59,6 +74,18 @@ class Extra extends React.Component {
               <BreadcrumbItem active>Extra Curricular Activies</BreadcrumbItem>
             </Breadcrumb>
           </Col>
+        </Row>
+        <Row>
+          {this.state.showFilledValues ? (
+            <Fade>
+              <ExtraFilled
+                props={this.props}
+                showFilledValues={this.showFilledValues}
+              />
+            </Fade>
+          ) : (
+            ""
+          )}
         </Row>
         <Row>
           <Col xs={12} className="clearfix">
@@ -77,12 +104,10 @@ class Extra extends React.Component {
                   //First, Add instances of components with filled values
                   //Then change state to change text
                   //   console.log("Show filled values is clicked");
-                  alert(
-                    "This feature is currently worked on, please have patience"
-                  );
+                  this.showFilledValues(e);
                 }}
               >
-                {this.state.filledValuesShown
+                {this.state.showFilledValues
                   ? "Hide filled values"
                   : "Show filled values"}
               </Button>
