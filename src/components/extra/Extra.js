@@ -56,10 +56,13 @@ class Extra extends React.Component {
   }
 
   showFilledValues = e => {
+    alert(
+      "This feature is currently being worked upon. You will be emailed once it's available"
+    );
     //First, Modifying the state
-    this.setState(prevState => ({
-      showFilledValues: !prevState.showFilledValues
-    }));
+    // this.setState(prevState => ({
+    //   showFilledValues: !prevState.showFilledValues
+    // }));
   };
 
   render() {
