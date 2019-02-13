@@ -2,3 +2,14 @@
   margin-top: 90px;
   min-height: 70vh;
 }
+
+.notices-container-card {
+  margin-bottom: 30px;
+}
+
+@media (max-width: 992px) {
+  .notices-container-card {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

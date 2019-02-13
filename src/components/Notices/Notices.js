@@ -1,17 +1,23 @@
 import React from "react";
 
+import { Card, CardBody, CardHeader, CardText, CardFooter } from "reactstrap";
+
 import "./Notices.css";
 const Notices = props => {
   if (props.purpose === "Home") {
     return (
-      <div>
-        <div>
-          <p>This is for the Notices</p> Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Quo vel quisquam tempora mollitia doloribus
-          consequatur, id suscipit praesentium cum quam sequi laborum alias
-          laboriosam, nam ipsum repellendus quaerat nostrum cupiditate.
-        </div>
-      </div>
+      <Card className="notices-container-card">
+        <CardHeader>
+          {" "}
+          <span className="green-text">Notice(s)</span>{" "}
+        </CardHeader>
+        <CardBody>
+          <CardText>Will be updated soon</CardText>
+        </CardBody>
+        <CardFooter>
+          from <span className="green-text">'TeacherName'</span>{" "}
+        </CardFooter>
+      </Card>
     );
   } else {
     return (
