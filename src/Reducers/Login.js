@@ -7,7 +7,8 @@ const Login = (
       mname: "",
       fname: "",
       gender: "",
-      address: ""
+      address: "",
+      university: ""
     },
     tandpData: {
       year: "",

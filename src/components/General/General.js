@@ -35,6 +35,7 @@ class General extends React.Component {
       gender: "",
       address: "",
       pno: "",
+      university: "",
       timeoutid: []
     };
   }
@@ -47,7 +48,16 @@ class General extends React.Component {
 
   componentDidMount = () => {
     //Now, here request the users data from backend
-    const { name, rno, mname, fname, gender, address, pno } = this.state;
+    const {
+      name,
+      rno,
+      mname,
+      fname,
+      gender,
+      address,
+      pno,
+      university
+    } = this.state;
 
     axios
       .post(`${fetchURL}/general`, {
@@ -57,6 +67,7 @@ class General extends React.Component {
         gender,
         address,
         pno: parseInt(pno),
+        university,
         rno: parseInt(rno),
         type: "get",
         s_id: this.props.userData ? this.props.userData.s_id : "",
@@ -71,8 +82,10 @@ class General extends React.Component {
             address: data.user.address,
             pno: data.user.pno,
             rno: data.user.rno,
-            gender: data.user.gender
+            gender: data.user.gender,
+            university: data.user.university
           }));
+          console.log(data.user);
         }
         //Now, calling the autosave callback
         const timeoutID = setTimeout(() => {
@@ -169,6 +182,7 @@ class General extends React.Component {
           address,
           pno: parseInt(pno),
           rno: parseInt(rno),
+          university: this.state.university,
           type: "set",
           s_id: this.props.userData ? this.props.userData.s_id : "",
           id: this.props.userData ? this.props.userData.id : ""
@@ -247,6 +261,7 @@ class General extends React.Component {
         gender,
         address,
         pno: parseInt(pno),
+        university: this.state.university,
         rno: parseInt(rno),
         type: "set",
         s_id: this.props.userData ? this.props.userData.s_id : "",
@@ -370,6 +385,30 @@ Save <i class="fas fa-save></i>
                     value={this.state.name}
                     onChange={e => this.setState({ name: e.target.value })}
                   />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label for="university" xs={3}>
+                  University
+                </Label>
+                <Col xs={9}>
+                  <Input
+                    type="select"
+                    name="university"
+                    id="university"
+                    value={this.state.university}
+                    onChange={e => {
+                      const val = e.target.value;
+                      if (val !== "--Select College--") {
+                        this.setState({ university: val });
+                      } else {
+                        this.setState({ university: "" });
+                      }
+                    }}
+                  >
+                    <option defaultValue>--Select College--</option>
+                    <option value="DCRUSTM">DCRUST, Murthal</option>
+                  </Input>
                 </Col>
               </FormGroup>
               <FormGroup row>
