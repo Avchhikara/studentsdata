@@ -9,7 +9,7 @@ const Notices = props => {
       <Card className="notices-container-card">
         <CardHeader>
           {" "}
-          <span className="green-text">Notice(s)</span>{" "}
+          <span className="green-text">Notice</span>(s){" "}
         </CardHeader>
         <CardBody>
           <CardText>Will be updated soon</CardText>

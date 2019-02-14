@@ -56,13 +56,14 @@ class Extra extends React.Component {
   }
 
   showFilledValues = e => {
-    alert(
-      "This feature is currently being worked upon. You will be emailed once it's available"
-    );
-    //First, Modifying the state
-    // this.setState(prevState => ({
-    //   showFilledValues: !prevState.showFilledValues
-    // }));
+    // alert(
+    //   "This feature is currently being worked upon. You will be emailed once it's available"
+    // );
+
+    // First, Modifying the state
+    this.setState(prevState => ({
+      showFilledValues: !prevState.showFilledValues
+    }));
   };
 
   render() {
@@ -79,16 +80,18 @@ class Extra extends React.Component {
           </Col>
         </Row>
         <Row>
-          {this.state.showFilledValues ? (
-            <Fade>
-              <ExtraFilled
-                props={this.props}
-                showFilledValues={this.showFilledValues}
-              />
-            </Fade>
-          ) : (
-            ""
-          )}
+          <Col xs={12}>
+            {this.state.showFilledValues ? (
+              <Fade>
+                <ExtraFilled
+                  props={this.props}
+                  showFilledValues={this.showFilledValues}
+                />
+              </Fade>
+            ) : (
+              ""
+            )}
+          </Col>
         </Row>
         <Row>
           <Col xs={12} className="clearfix">

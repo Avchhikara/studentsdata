@@ -1,10 +1,28 @@
 import React from "react";
 
-import { Col, CardBody, Card, CardText, CardTitle, Button } from "reactstrap";
+import ExtraFilledForm from "./ExtraFilledForm";
+
+import {
+  Col,
+  CardBody,
+  Card,
+  CardText,
+  CardTitle,
+  Button,
+  Spinner
+} from "reactstrap";
 import { fetchURL } from "./../../Actions/constants";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHandPointDown } from "@fortawesome/free-solid-svg-icons";
 
 class ExtraFilled extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filledValues: []
+    };
+  }
   componentDidMount() {
     const { props } = this.props;
     // here, make the fetch request to the server
@@ -18,6 +36,8 @@ class ExtraFilled extends React.Component {
 
     axios.post(`${fetchURL}/extra`, send).then(({ data }) => {
       console.log(data);
+      //Setting up state values
+      this.setState({ filledValues: data });
     });
   }
 
@@ -26,24 +46,41 @@ class ExtraFilled extends React.Component {
       <Col xs={12} className="mb-4">
         <Card>
           <CardBody>
-            <CardTitle>
-              Filled values
+            <CardTitle className="h4">
+              {this.state.filledValues[0] ? (
+                <span>
+                  <span className="green-text">Filled</span> values{" "}
+                  <FontAwesomeIcon icon={faHandPointDown} />
+                </span>
+              ) : (
+                <span className="green-text">Fetching ...</span>
+              )}
               <Button close onClick={this.props.showFilledValues} />
             </CardTitle>
 
-            <CardText>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Reprehenderit vero aperiam nulla quasi sit dicta placeat, omnis
-              enim. Blanditiis molestias qui aperiam modi maxime atque magnam
-              exercitationem! Quibusdam hic fugiat error dolorum expedita
-              accusamus quis, sapiente autem, consequatur quasi molestias
-              officia vel quae eius. Nobis, saepe fugiat porro quas libero
-              quibusdam perspiciatis nisi voluptate! Distinctio iusto ut quasi
-              assumenda eaque nobis laboriosam corporis consequuntur, cumque
-              cupiditate accusantium aperiam porro et dolore explicabo animi id
-              quas, fugiat mollitia dolor, saepe eius exercitationem expedita.
-              Aut dolorum ipsum, neque nihil animi voluptatum sequi.
-            </CardText>
+            <div>
+              {this.state.filledValues[0] ? (
+                <div>
+                  {this.state.filledValues.map((value, index) => (
+                    <ExtraFilledForm
+                      key={index}
+                      value={value}
+                      showFilledValues={this.props.showFilledValues}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    width: "80vw",
+                    lineHeight: "40vh",
+                    textAlign: "center"
+                  }}
+                >
+                  <Spinner size="lg" color="success" />
+                </div>
+              )}
+            </div>
           </CardBody>
         </Card>
       </Col>
