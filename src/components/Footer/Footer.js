@@ -56,10 +56,10 @@ const Footer = props => {
             </h5>
             <p>
               <a href="https://studentsdata.xyz">StudentsData.xyz</a> is
-              developed to solve the problem of deficiency of student's data, a
-              department should have. It store data of each student and share it
-              with the respective class-coordinator whenever they need it
-              whether it's for GP, any placement related work or they want to
+              developed to solve the problem of deficiency of student's data,
+              faced by university department. It store data of each student and
+              share it with the respective class-coordinator whenever they need
+              it whether it's for GP, any placement related work or they want to
               contact them for the any alumni interaction.
             </p>
           </Col>
