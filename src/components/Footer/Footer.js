@@ -9,7 +9,7 @@ const Footer = props => {
     <div className="footer-container">
       <Jumbotron>
         <Row>
-          <Col sm={4} lg={4} md={4}>
+          <Col sm={3}>
             <h5 className="quick">Quick Links</h5>
             <ul>
               <li>
@@ -17,7 +17,12 @@ const Footer = props => {
               </li>
 
               <li>
-                <Link to="/contribute">Contribute</Link>
+                <a
+                  href="https://github.com/Avchhikara/studentsdata"
+                  target="_blank"
+                >
+                  Contribute
+                </a>
               </li>
               <li>
                 <Link to="/notices">Notices</Link>
@@ -27,22 +32,42 @@ const Footer = props => {
               </li>
             </ul>
           </Col>
-          <Col sm={8} lg={8}>
+          <Col sm={3} style={{ textAlign: "center" }}>
+            <h5 className="contributors">Contributors</h5>
+            <ul>
+              <li>
+                <a href="https://github.com/avchhikara" target="_blank">
+                  Avnish
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/Avchhikara/studentsdata"
+                  target="_blank"
+                >
+                  Want your name here?
+                </a>
+              </li>
+            </ul>
+          </Col>
+          <Col sm={6}>
             <h5>
               About <span className="green-text">us</span>
             </h5>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel
-              quidem corrupti neque dignissimos minima veniam eos provident
-              ducimus quo ab!
+              <a href="https://studentsdata.xyz">StudentsData.xyz</a> is
+              developed to solve the problem of deficiency of student's data, a
+              department should have. It store data of each student and share it
+              with the respective class-coordinator whenever they need it
+              whether it's for GP, any placement related work or they want to
+              contact them for the any alumni interaction.
             </p>
           </Col>
 
           <Col sm={12} style={{ textAlign: "center" }}>
             <hr />
-            &copy; <Link to="/">StudentsData.xyz</Link> 2019 | A small
-            contribution from{" "}
-            <a href="https://www.github.com/avchhikara">Avnish</a>
+            &copy; <Link to="/">StudentsData.xyz</Link> 2019 | All rights
+            reserved
           </Col>
         </Row>
       </Jumbotron>
