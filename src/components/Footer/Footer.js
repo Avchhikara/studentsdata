@@ -9,7 +9,7 @@ const Footer = props => {
     <div className="footer-container">
       <Jumbotron>
         <Row>
-          <Col sm={3}>
+          <Col sm={3} xs={6}>
             <h5 className="quick">Quick Links</h5>
             <ul>
               <li>
@@ -17,10 +17,7 @@ const Footer = props => {
               </li>
 
               <li>
-                <a
-                  href="https://github.com/Avchhikara/studentsdata"
-                  target="_blank"
-                >
+                <a href="https://github.com/Avchhikara/studentsdata">
                   Contribute
                 </a>
               </li>
@@ -32,19 +29,14 @@ const Footer = props => {
               </li>
             </ul>
           </Col>
-          <Col sm={3} style={{ textAlign: "center" }}>
+          <Col sm={3} xs={6} style={{ textAlign: "center" }}>
             <h5 className="contributors">Contributors</h5>
             <ul>
               <li>
-                <a href="https://github.com/avchhikara" target="_blank">
-                  Avnish
-                </a>
+                <a href="https://github.com/avchhikara">Avnish</a>
               </li>
               <li>
-                <a
-                  href="https://github.com/Avchhikara/studentsdata"
-                  target="_blank"
-                >
+                <a href="https://github.com/Avchhikara/studentsdata">
                   Want your name here?
                 </a>
               </li>
