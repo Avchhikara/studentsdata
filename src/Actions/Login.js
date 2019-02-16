@@ -18,6 +18,17 @@ const onLogginIn = userData => {
         iname: "",
         iaddress: "",
         ilinks: ""
+      },
+      resultData: {
+        rsemester: "",
+        rattempt: "",
+        rsgpa: ""
+      },
+      extraData: {
+        eachievement: "",
+        einstitution: "",
+        ename: "",
+        esemester: ""
       }
     }
   };

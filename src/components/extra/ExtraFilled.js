@@ -2,15 +2,7 @@ import React from "react";
 
 import ExtraFilledForm from "./ExtraFilledForm";
 
-import {
-  Col,
-  CardBody,
-  Card,
-  CardText,
-  CardTitle,
-  Button,
-  Spinner
-} from "reactstrap";
+import { Col, CardBody, Card, CardTitle, Button, Spinner } from "reactstrap";
 import { fetchURL } from "./../../Actions/constants";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

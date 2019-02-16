@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandPointDown } from "@fortawesome/free-solid-svg-icons";
 import { Fade } from "react-reveal";
-import axios from "axios";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,16 +16,11 @@ import {
   FormGroup,
   Label,
   Input,
-  FormFeedback,
-  Card,
-  CardBody,
-  CardTitle,
-  CardText
+  FormFeedback
 } from "reactstrap";
 
 import "./Extra.css";
 import setExtraData from "../../Actions/Extra";
-import { fetchURL } from "./../../Actions/constants";
 import ExtraFilled from "./ExtraFilled";
 
 class Extra extends React.Component {

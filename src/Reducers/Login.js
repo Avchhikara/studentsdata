@@ -22,6 +22,11 @@ const Login = (
       ename: "",
       einstitution: "",
       eachievement: ""
+    },
+    resultData: {
+      rsemester: "",
+      rattempt: "",
+      rsgpa: ""
     }
   },
   action
@@ -46,6 +51,8 @@ const Login = (
       return { ...state, tandpData: payload };
     case "SET_EXTRA_DATA":
       return { ...state, extraData: payload };
+    case "SET_RESULT_DATA":
+      return { ...state, resultData: payload };
     default:
       return state;
   }
