@@ -15,6 +15,7 @@ import Confirm from "./components/Confirm/Confirm";
 import TandP from "./components/tandp/TandP";
 import Extra from "./components/extra/Extra";
 import Result from "./components/Result/Result";
+import Teacher from "./components/Teacher/Teacher";
 
 import "./App.css";
 
@@ -38,6 +39,7 @@ class App extends Component {
                   <Route path="/tandp" component={TandP} />
                   <Route path="/extra" component={Extra} />
                   <Route path="/result" component={Result} />
+                  <Route path="/teacher" component={Teacher} />
                   <Route component={NotFound} />
                 </Switch>
               </div>

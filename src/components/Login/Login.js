@@ -47,12 +47,17 @@ class Login extends React.Component {
         })[0];
 
         const { studentdata } = JSON.parse(cookFilter.split("=")[1]);
+        const { teacher } = studentdata;
         if (studentdata) {
           this.props.dispatch(onLoggingIn({ ...studentdata }));
           //Setting up the cookies
           document.cookie =
             "studentdata = " + JSON.stringify({ studentdata }) + ";";
-          this.props.history.push("/");
+          if (teacher !== "0") {
+            this.props.history.push("/teacher");
+          } else {
+            this.props.history.push("/");
+          }
         }
       } catch (error) {
         // const { studentdata } = JSON.parse(document.cookie);
@@ -87,7 +92,8 @@ class Login extends React.Component {
             const studentdata = {
               email: data.email,
               s_id: data.s_id,
-              id: data.id
+              id: data.id,
+              teacher: data.teacher
             };
             document.cookie =
               "studentdata = " + JSON.stringify({ studentdata }) + ";";
