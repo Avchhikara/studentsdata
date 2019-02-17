@@ -30,7 +30,7 @@ class Home extends React.Component {
         <div className="home-container">
           <h2>
             Welcome{" "}
-            <span className="green-text small-on-small-and-down">
+            <span className="green-text small-on-small-and-down hide-on-small">
               {email ? email : ""}
             </span>
             ,{" "}
