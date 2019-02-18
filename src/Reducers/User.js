@@ -20,6 +20,8 @@ const User = (
         ...state,
         ...payload
       };
+    case "LOGGING_OUT":
+      return { ...payload };
     default:
       return { ...state };
   }

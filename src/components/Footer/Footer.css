@@ -1,5 +1,6 @@
 .footer-container {
   min-height: 20vh;
+  font-size: 0.95rem !important;
 }
 
 .footer-container .jumbotron {
@@ -16,4 +17,16 @@
   text-align: left;
   text-align: center;
   padding: 0px;
+}
+
+.footer-container li {
+  margin: 5px;
+}
+
+.footer-container a:hover {
+  margin: 0px;
+  padding: 5px;
+  background-color: rgba(0, 255, 0, 0.2);
+  border-radius: 5px;
+  text-decoration: none;
 }

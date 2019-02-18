@@ -255,7 +255,9 @@ class NavBar extends React.Component {
                       //First, deleting the cookies
                       document.cookie = "studentdata=''";
 
-                      this.props.dispatch(onLogOut({ loggedIn: false }));
+                      this.props.dispatch(
+                        onLogOut({ loggedIn: false, teacher: false })
+                      );
                       this.props.history.push("/login");
                       this.openNav(e);
                     }}
