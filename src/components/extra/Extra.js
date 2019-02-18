@@ -45,7 +45,7 @@ class Extra extends React.Component {
   }
 
   componentWillMount() {
-    if (!this.props.loggedIn) {
+    if (!this.props.user.loggedIn) {
       this.props.history.push("/login");
     }
   }

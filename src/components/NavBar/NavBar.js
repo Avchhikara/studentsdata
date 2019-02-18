@@ -18,7 +18,8 @@ import {
   faUser,
   faSignInAlt,
   faUserPlus,
-  faSignOutAlt
+  faSignOutAlt,
+  faUsers
 } from "@fortawesome/free-solid-svg-icons";
 
 import { connect } from "react-redux";
@@ -45,7 +46,7 @@ class NavBar extends React.Component {
 
   showNavAnimation(e) {
     const scrollPos = window.scrollY;
-    if (scrollPos < 360) {
+    if (scrollPos < 200) {
       const header = document.querySelector("#header");
       const headImg1 = document.querySelector("#head-img-1");
       const navToggler = document.querySelector("#nav-toggler");
@@ -206,9 +207,13 @@ class NavBar extends React.Component {
                 </Link>
               </NavItem>
               <NavItem>
-                {this.props.loggedIn ? (
+                {this.props.user.loggedIn ? (
                   <Link
-                    to={`/profile/${this.props.userData.s_id}`}
+                    to={
+                      this.props.user.teacher
+                        ? `/teacher/profile/${this.props.user.userData.s_id}`
+                        : `/profile/${this.props.user.userData.s_id}`
+                    }
                     className="nav-link"
                     onClick={this.openNav}
                   >
@@ -226,9 +231,22 @@ class NavBar extends React.Component {
                   </NavLink>
                 )}
               </NavItem>
+              {this.props.user.teacher ? (
+                <NavItem>
+                  <Link
+                    className="nav-link"
+                    onClick={this.openNav}
+                    to="/teacher/students"
+                  >
+                    <FontAwesomeIcon icon={faUsers} /> Students
+                  </Link>
+                </NavItem>
+              ) : (
+                ""
+              )}
 
               <NavItem className="nav-elements">
-                {this.props.loggedIn ? (
+                {this.props.user.loggedIn ? (
                   <Button
                     color="success"
                     id="nav-btn"

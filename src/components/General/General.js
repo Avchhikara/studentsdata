@@ -41,8 +41,10 @@ class General extends React.Component {
   }
 
   componentWillMount() {
-    if (!this.props.loggedIn) {
+    if (!this.props.user.loggedIn) {
       this.props.history.push("/login");
+    } else if (this.props.user.teacher) {
+      this.props.history.push("/teacher");
     }
   }
 
@@ -70,8 +72,8 @@ class General extends React.Component {
         university,
         rno: parseInt(rno),
         type: "get",
-        s_id: this.props.userData ? this.props.userData.s_id : "",
-        id: this.props.userData ? this.props.userData.id : ""
+        s_id: this.props.user.userData ? this.props.user.userData.s_id : "",
+        id: this.props.user.userData ? this.props.user.userData.id : ""
       })
       .then(({ data }) => {
         if (data.status === 200) {
@@ -163,7 +165,7 @@ class General extends React.Component {
   autoSave = () => {
     if (
       this.props.history.location.pathname === "/general" &&
-      this.props.loggedIn
+      this.props.user.loggedIn
     ) {
       const Message = () => (
         <div className="green-text">Data is saved automatically!</div>
@@ -184,8 +186,8 @@ class General extends React.Component {
           rno: parseInt(rno),
           university: this.state.university,
           type: "set",
-          s_id: this.props.userData ? this.props.userData.s_id : "",
-          id: this.props.userData ? this.props.userData.id : ""
+          s_id: this.props.user.userData ? this.props.user.userData.s_id : "",
+          id: this.props.user.userData ? this.props.user.userData.id : ""
         })
         .then(({ data }) => {
           if (data.status === 200) {
@@ -197,7 +199,7 @@ class General extends React.Component {
           //Calling for autosave
           if (
             this.props.history.location.pathname === "/general" &&
-            this.props.loggedIn
+            this.props.user.loggedIn
           ) {
             this.autoSaveCallback();
           } else {
@@ -238,7 +240,7 @@ class General extends React.Component {
   autoSaveCallback = () => {
     if (
       this.props.history.location.pathname === "/general" &&
-      this.props.loggedIn
+      this.props.user.loggedIn
     ) {
       const tid = setTimeout(() => {
         this.autoSave();
@@ -264,8 +266,8 @@ class General extends React.Component {
         university: this.state.university,
         rno: parseInt(rno),
         type: "set",
-        s_id: this.props.userData ? this.props.userData.s_id : "",
-        id: this.props.userData ? this.props.userData.id : ""
+        s_id: this.props.user.userData ? this.props.user.userData.s_id : "",
+        id: this.props.user.userData ? this.props.user.userData.id : ""
       })
       .then(({ data }) => {
         if (data.status === 200) {
@@ -309,7 +311,7 @@ Save <i class="fas fa-save></i>
   }
 
   render() {
-    if (!this.props.loggedIn) {
+    if (!this.props.user.loggedIn) {
       return <div>Please login first</div>;
     }
 

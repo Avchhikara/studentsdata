@@ -11,7 +11,6 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText,
   Alert,
   FormFeedback
 } from "reactstrap";
@@ -25,19 +24,31 @@ class TandP extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      year: this.props.tandpData ? this.props.tandpData.year : "",
+      year: this.props.student.tandpData
+        ? this.props.student.tandpData.year
+        : "",
       yearText: "Year for which you want to enter t and p data",
-      during: this.props.tandpData ? this.props.tandpData.during : "",
+      during: this.props.student.tandpData
+        ? this.props.student.tandpData.during
+        : "",
       disabled: false,
       message: "",
-      showSaveAlert: false
+      showSaveAlert: false,
+      timeoutId: []
     };
   }
 
   componentDidMount() {
-    if (!this.props.loggedIn) {
+    if (!this.props.user.loggedIn) {
       this.props.history.push("/login");
     }
+  }
+
+  componentWillUnmount() {
+    const tid = this.state.timeoutId;
+    tid.forEach(id => {
+      clearTimeout(id);
+    });
   }
 
   setStateToNull = () => {
@@ -50,11 +61,14 @@ class TandP extends React.Component {
 
   setMessage = message => {
     this.setState({ message, showSaveAlert: true });
-    setTimeout(() => {
+    const id = setTimeout(() => {
       // const alert = document.querySelector("#tandp-form__save");
       // alert.style.display = "none";
       this.setState({ showSaveAlert: false });
     }, 3000);
+    this.setState(prevState => ({
+      timeoutId: prevState.timeoutId.concat([id])
+    }));
   };
 
   render() {
@@ -74,7 +88,7 @@ class TandP extends React.Component {
           <Col className="h3" xs={12}>
             Enter <span className="green-text">T and P </span>'s data,{" "}
             <span className="green-text hide-on-small h4">
-              {this.props.userData ? this.props.userData.email : ""}
+              {this.props.user.userData ? this.props.user.userData.email : ""}
             </span>
           </Col>
           <Col xs={12} id="tandp-form__save">
@@ -98,12 +112,16 @@ class TandP extends React.Component {
                     type="select"
                     name="year"
                     id="year"
-                    invalid={this.props.tandpData.year === "" ? true : false}
-                    valid={this.props.tandpData.year !== "" ? true : false}
+                    invalid={
+                      this.props.student.tandpData.year === "" ? true : false
+                    }
+                    valid={
+                      this.props.student.tandpData.year !== "" ? true : false
+                    }
                     value={
-                      this.props.tandpData.year === ""
+                      this.props.student.tandpData.year === ""
                         ? "--Select Year--"
-                        : this.props.tandpData.year
+                        : this.props.student.tandpData.year
                     }
                     disabled={this.state.disabled}
                     onChange={e => {
@@ -149,12 +167,16 @@ class TandP extends React.Component {
                     type="select"
                     name="during"
                     id="during"
-                    invalid={this.props.tandpData.during !== "" ? false : true}
-                    valid={this.props.tandpData.during !== "" ? true : false}
+                    invalid={
+                      this.props.student.tandpData.during !== "" ? false : true
+                    }
+                    valid={
+                      this.props.student.tandpData.during !== "" ? true : false
+                    }
                     value={
-                      this.props.tandpData.during === ""
+                      this.props.student.tandpData.during === ""
                         ? "--Select Season--"
-                        : this.props.tandpData.during
+                        : this.props.student.tandpData.during
                     }
                     disabled={this.state.disabled}
                     onChange={e => {
@@ -184,8 +206,8 @@ class TandP extends React.Component {
             </Form>
           </Col>
         </Row>
-        {this.props.tandpData.year !== "" &&
-        this.props.tandpData.during !== "" ? (
+        {this.props.student.tandpData.year !== "" &&
+        this.props.student.tandpData.during !== "" ? (
           <Fade bottom collapse>
             <TandPForm
               clearState={this.setStateToNull}

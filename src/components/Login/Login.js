@@ -53,7 +53,9 @@ class Login extends React.Component {
           //Setting up the cookies
           document.cookie =
             "studentdata = " + JSON.stringify({ studentdata }) + ";";
-          if (teacher !== "0") {
+
+          if (teacher === "1") {
+            //Dispatching values for teacher
             this.props.history.push("/teacher");
           } else {
             this.props.history.push("/");
@@ -88,6 +90,7 @@ class Login extends React.Component {
             const { data } = res;
             //Dispatching the action
             this.props.dispatch(onLoggingIn({ ...data }));
+
             //Setting up the cookies
             const studentdata = {
               email: data.email,
@@ -98,7 +101,11 @@ class Login extends React.Component {
             document.cookie =
               "studentdata = " + JSON.stringify({ studentdata }) + ";";
 
-            this.props.history.push("/");
+            if (data.teacher === "1") {
+              this.props.history.push("/teacher");
+            } else {
+              this.props.history.push("/");
+            }
           } else {
             this.setState(() => ({ res: res.data.message }));
             const button = document.querySelector("#login-button");

@@ -21,9 +21,9 @@ class ExtraFilled extends React.Component {
     // Now, first making the constant to be sent
 
     const send = {
-      s_id: props.userData.s_id,
+      s_id: props.user.userData.s_id,
       type: "get",
-      token: props.userData.id
+      token: props.user.userData.id
     };
 
     axios.post(`${fetchURL}/extra`, send).then(({ data }) => {

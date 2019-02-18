@@ -26,8 +26,8 @@ class ExtraFilledForm extends React.Component {
     //Making the put request to the server
     if (this.state.edit) {
       const send = {
-        token: this.props.userData.id,
-        s_id: this.props.userData.s_id,
+        token: this.props.user.userData.id,
+        s_id: this.props.user.userData.s_id,
         e_id: this.props.value.e_id,
         eactivity: this.state.eactivity,
         ename: this.state.ename,
@@ -51,9 +51,9 @@ class ExtraFilledForm extends React.Component {
 
   onValueDelete = e => {
     const send = {
-      s_id: this.props.userData.s_id,
+      s_id: this.props.user.userData.s_id,
       e_id: this.props.value.e_id,
-      token: this.props.userData.id
+      token: this.props.user.userData.id
     };
 
     axios

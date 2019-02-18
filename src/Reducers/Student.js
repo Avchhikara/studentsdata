@@ -1,6 +1,7 @@
-const Login = (
+const Student = (
   state = {
     loggedIn: false,
+    teacher: false,
     generalData: {
       name: "",
       rno: "",
@@ -58,4 +59,4 @@ const Login = (
   }
 };
 
-export default Login;
+export default Student;

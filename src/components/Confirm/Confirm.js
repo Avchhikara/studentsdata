@@ -6,6 +6,7 @@ import axios from "axios";
 import { Alert, Spinner, Row, Col } from "reactstrap";
 
 import "./Confirm.css";
+import { fetchURL } from "./../../Actions/constants.js";
 
 import onLoggingIn from "../../Actions/Login";
 
@@ -22,9 +23,9 @@ class Confirm extends React.Component {
     //Now, setting logging in
     if (this.props.match.params.email) {
       //Now, making request to the backend
-      const fetchURL = "https://studentsdata-api-server.herokuapp.com/confirm";
+
       axios
-        .post(fetchURL, {
+        .post(`${fetchURL}/confirm`, {
           email: this.props.match.params.email
         })
         .then(({ data }) => {

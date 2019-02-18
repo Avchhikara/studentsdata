@@ -39,7 +39,7 @@ class App extends Component {
                   <Route path="/tandp" component={TandP} />
                   <Route path="/extra" component={Extra} />
                   <Route path="/result" component={Result} />
-                  <Route path="/teacher" component={Teacher} />
+                  <Route path="/teacher" component={Teacher} exact={true} />
                   <Route component={NotFound} />
                 </Switch>
               </div>

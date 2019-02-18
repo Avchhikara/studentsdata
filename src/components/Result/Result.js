@@ -38,12 +38,13 @@ class Result extends React.Component {
         status: "",
         message: ""
       },
-      showFilledValue: false
+      showFilledValue: false,
+      timeoutId: []
     };
   }
 
   componentWillMount() {
-    if (!this.props.loggedIn) {
+    if (!this.props.user.loggedIn) {
       this.props.history.push("/");
     }
   }
@@ -54,6 +55,12 @@ class Result extends React.Component {
         "Values you have entered are not saved and will be lost, Please enter them again to save"
       );
     }
+
+    //Clearing all timeoutid's
+    const tid = this.state.timeoutId;
+    tid.forEach(id => {
+      clearTimeout(id);
+    });
   }
 
   onClickSave = e => {
@@ -69,8 +76,8 @@ class Result extends React.Component {
     //Now, making post request to the server
     const send = {
       type: "set",
-      s_id: this.props.userData.s_id,
-      token: this.props.userData.id,
+      s_id: this.props.user.userData.s_id,
+      token: this.props.user.userData.id,
       rsemester,
       rattempt,
       rsgpa
@@ -99,15 +106,15 @@ class Result extends React.Component {
         rsemester,
         rattempt,
         rsgpa,
-        r_id: this.props.resultData.r_id
+        r_id: this.props.student.resultData.r_id
       })
     );
   };
 
   fetchValues = rsemester => {
     const send = {
-      s_id: this.props.userData.s_id,
-      token: this.props.userData.id,
+      s_id: this.props.user.userData.s_id,
+      token: this.props.user.userData.id,
       rsemester,
       type: "get"
     };
@@ -146,7 +153,7 @@ class Result extends React.Component {
   };
 
   hideRes = (time = 3000) => {
-    setTimeout(() => {
+    const id = setTimeout(() => {
       this.setState({
         res: {
           status: "",
@@ -154,6 +161,9 @@ class Result extends React.Component {
         }
       });
     }, time);
+    this.setState(prevState => ({
+      timeoutId: prevState.timeoutId.concat([id])
+    }));
   };
 
   render() {

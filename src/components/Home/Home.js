@@ -16,15 +16,21 @@ class Home extends React.Component {
     };
   }
 
-  componentWillMount() {
-    if (!this.props.loggedIn) {
+  componentDidMount() {
+    if (!(this.props.user.loggedIn && !this.props.user.teacher)) {
       this.props.history.push("/login");
+    } else if (this.props.user.teacher) {
+      this.props.history.push("/teacher");
     }
   }
 
   render() {
-    if (this.props.userData) {
-      const { email } = this.props.userData;
+    if (
+      this.props.student.userData &&
+      !this.props.user.teacher &&
+      this.props.user.loggedIn
+    ) {
+      const { email } = this.props.student.userData;
 
       return (
         <div className="home-container">
@@ -86,6 +92,7 @@ class Home extends React.Component {
         </div>
       );
     } else {
+      // this.props.history.push("/login");
       return <div>Please login first</div>;
     }
   }

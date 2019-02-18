@@ -49,9 +49,9 @@ class ExtraForm extends React.Component {
         ename,
         einstitution,
         eachievement,
-        token: this.props.userData.id,
-        s_id: this.props.userData.s_id,
-        esemester: this.props.extraData.esemester,
+        token: this.props.user.userData.id,
+        s_id: this.props.user.userData.s_id,
+        esemester: this.props.student.extraData.esemester,
         type: "set"
       };
 

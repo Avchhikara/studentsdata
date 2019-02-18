@@ -24,12 +24,16 @@ class TandPForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      iname: this.props.tandpData.iname ? this.props.tandpData.iname : "",
-      iaddress: this.props.tandpData.iaddress
-        ? this.props.tandpData.iaddress
+      iname: this.props.student.tandpData.iname
+        ? this.props.student.tandpData.iname
+        : "",
+      iaddress: this.props.student.tandpData.iaddress
+        ? this.props.student.tandpData.iaddress
         : "",
 
-      ilinks: this.props.tandpData.ilinks ? this.props.tandpData.ilinks : [],
+      ilinks: this.props.student.tandpData.ilinks
+        ? this.props.student.tandpData.ilinks
+        : [],
       timeoutid: [],
       saved: "no",
       showFetchAlert: true
@@ -45,11 +49,11 @@ class TandPForm extends React.Component {
       .post(`${fetchURL}/tandp`, {
         iname: this.state.iname,
         iaddress: this.state.iaddress,
-        year: this.props.tandpData.year,
+        year: this.props.student.tandpData.year,
         ilinks: this.state.ilinks.join(","),
-        s_id: this.props.userData.s_id,
-        during: this.props.tandpData.during,
-        id: this.props.userData.id,
+        s_id: this.props.user.userData.s_id,
+        during: this.props.student.tandpData.during,
+        id: this.props.user.userData.id,
         type: "get"
       })
       .then(res => {
@@ -89,11 +93,11 @@ class TandPForm extends React.Component {
       .post(`${fetchURL}/tandp`, {
         iname: this.state.iname,
         iaddress: this.state.iaddress,
-        year: this.props.tandpData.year,
+        year: this.props.student.tandpData.year,
         ilinks: this.state.ilinks.join(","),
-        s_id: this.props.userData.s_id,
-        during: this.props.tandpData.during,
-        id: this.props.userData.id,
+        s_id: this.props.student.userData.s_id,
+        during: this.props.student.tandpData.during,
+        id: this.props.user.userData.id,
         type: "set"
       })
       .then(res => {
@@ -102,9 +106,9 @@ class TandPForm extends React.Component {
           setTandPdata({
             iname: this.state.iname,
             iaddress: this.state.iaddress,
-            year: this.props.tandpData.year,
+            year: this.props.student.tandpData.year,
             ilinks: this.state.ilinks,
-            during: this.props.tandpData.during
+            during: this.props.student.tandpData.during
           })
         );
         //Now, updating state

@@ -3,8 +3,8 @@ const onLogginIn = userData => {
     type: "LOGGING_IN",
     payload: {
       loggedIn: true,
-      teacher: userData.teacher === "1" ? true : false,
       userData,
+      teacher: userData.teacher === "1" ? true : false,
       generalData: {
         name: "",
         rno: "",
