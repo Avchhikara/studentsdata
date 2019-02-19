@@ -21,7 +21,8 @@ import {
   Label,
   Input,
   Button,
-  Alert
+  Alert,
+  Spinner
 } from "reactstrap";
 
 class Forget extends React.Component {
@@ -30,8 +31,48 @@ class Forget extends React.Component {
     this.state = {
       email: "",
       password: "",
-      res: { status: "", message: "" }
+      res: { status: "", message: "" },
+      show: ""
     };
+  }
+
+  componentDidMount() {
+    //Here check the parameters in the url
+    const { email, token } = this.props.match.params;
+    if (email && token) {
+      console.log("run password");
+      //Now, make a request to backend for checking the token provided to you
+      //Make the request with type of 'verify'
+      const send = {
+        email,
+        token,
+        type: "verify"
+      };
+
+      axios.post(`${fetchURL}/forget`, send).then(({ data }) => {
+        console.log(data);
+        if (data.res.status === 200) {
+          //Now, do proceed with everything else
+
+          this.setState({ show: "password", res: data.res });
+        } else {
+          //When the email or token are incorrect
+          this.setState({ show: "none" });
+        }
+        // this.setState({
+        //   res: {
+        //     status: 200,
+        //     message: "Please wait, while we verify that it's you"
+        //   }
+        // });
+      });
+
+      //If the token is verified, then showing new password option to user
+    } else {
+      console.log("run email");
+      //Showing email option
+      this.setState({ show: "email" });
+    }
   }
 
   scrollToTop = () => {
@@ -45,13 +86,14 @@ class Forget extends React.Component {
     btn.textContent = "Sending...";
 
     const send = {
-      email: this.state.email
+      email: this.state.email,
+      type: "send"
     };
 
     //Now, making post request to the backend
-    // axios.post(`${fetchURL}/forget`, send).then(({data}) => {
-    //     console.log(data);
-    // })
+    axios.post(`${fetchURL}/forget`, send).then(({ data }) => {
+      console.log(data);
+    });
 
     //Now, scrolling to top
     this.scrollToTop();
@@ -67,8 +109,7 @@ class Forget extends React.Component {
   };
 
   render() {
-    const { email, token } = this.props.match.params;
-    if (email && token) {
+    if (this.state.show === "password") {
       //Now, what to be returned when the email link is clicked
       return (
         <div className="forget-container">
@@ -139,7 +180,7 @@ class Forget extends React.Component {
           </Row>
         </div>
       );
-    } else {
+    } else if (this.state.show === "email") {
       //Now, in case when the user is just visiting the forget password page
       return (
         <div className="forget-container">
@@ -188,7 +229,7 @@ class Forget extends React.Component {
                           value={this.state.email}
                           onChange={e => {
                             //Setting up the state as the input values have been fetched
-                            const val = e.target.value;
+                            const val = e.target.value.toLowerCase();
                             this.setState({ email: val });
                           }}
                         />
@@ -211,6 +252,46 @@ class Forget extends React.Component {
                   </Form>
                 </CardBody>
               </Card>
+            </Col>
+          </Row>
+        </div>
+      );
+    } else {
+      //Showing the loading to the user
+      return (
+        <div className="forget-container">
+          <Row>
+            <Col xs={12}>
+              <Breadcrumb>
+                <BreadcrumbItem>
+                  <Link to="/login">Login</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem active>Forget Password</BreadcrumbItem>
+              </Breadcrumb>
+            </Col>
+
+            <Col xs={12}>
+              {this.state.res.message !== "" ? (
+                <Alert
+                  color={this.state.res.status === 200 ? "success" : "danger"}
+                >
+                  {this.state.res.message}
+                </Alert>
+              ) : (
+                ""
+              )}
+            </Col>
+
+            <Col xs={12} className="text-center ">
+              {this.state.show === "" ? (
+                <Spinner
+                  color="success"
+                  size="lg"
+                  className="forget-container__spinner"
+                />
+              ) : (
+                ""
+              )}
             </Col>
           </Row>
         </div>

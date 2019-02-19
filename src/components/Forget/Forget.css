@@ -1,4 +1,9 @@
 .forget-container {
   margin-top: 90px;
   min-height: 70vh;
+  margin-bottom: 30px;
+}
+
+.forget-container__spinner {
+  margin: 100px 0;
 }
