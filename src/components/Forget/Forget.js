@@ -13,7 +13,6 @@ import {
   Row,
   CardBody,
   CardHeader,
-  CardText,
   Breadcrumb,
   BreadcrumbItem,
   Form,
@@ -31,7 +30,10 @@ class Forget extends React.Component {
     this.state = {
       email: "",
       password: "",
-      res: { status: "", message: "" },
+      res: {
+        status: "404",
+        message: "This function is not fully working, please wait for some time"
+      },
       show: ""
     };
   }
