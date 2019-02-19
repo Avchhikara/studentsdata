@@ -40,6 +40,12 @@ class Extra extends React.Component {
     this.props.dispatch(setExtraData({}));
   };
 
+  scrollToTop = () => {
+    const breadcrumb = document.querySelector(".breadcrumb");
+
+    breadcrumb.scrollIntoView({ behavior: "smooth" });
+  };
+
   componentDidMount() {
     //fetch some values here
   }

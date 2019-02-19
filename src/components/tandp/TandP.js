@@ -69,6 +69,10 @@ class TandP extends React.Component {
     this.setState(prevState => ({
       timeoutId: prevState.timeoutId.concat([id])
     }));
+
+    //Automaitcally scroll to top
+    const breadcrumb = document.querySelector(".breadcrumb");
+    breadcrumb.scrollIntoView({ behavior: "smooth" });
   };
 
   render() {

@@ -17,6 +17,7 @@ import Extra from "./components/extra/Extra";
 import Result from "./components/Result/Result";
 import Teacher from "./components/Teacher/Teacher";
 import TeacherLogin from "./components/Teacher/TeacherLogin/TeacherLogin";
+import Forget from "./components/Forget/Forget";
 
 import "./App.css";
 
@@ -40,6 +41,8 @@ class App extends Component {
                   <Route path="/tandp" component={TandP} />
                   <Route path="/extra" component={Extra} />
                   <Route path="/result" component={Result} />
+                  <Route path="/forget/:email/:token" component={Forget} />
+                  <Route path="/forget" component={Forget} />
                   <Route path="/teacher" component={Teacher} exact={true} />
                   <Route path="/teacher/login" component={TeacherLogin} />
                   <Route component={NotFound} />

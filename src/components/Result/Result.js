@@ -138,6 +138,11 @@ class Result extends React.Component {
         message: "Current entry has been canceled!"
       }
     });
+    //Scrolling the message into view
+    const breadcrumb = document.querySelector(".breadcrumb");
+    console.log(breadcrumb);
+    breadcrumb.scrollIntoView({ behavior: "smooth" });
+
     this.hideRes(3000);
   };
 
