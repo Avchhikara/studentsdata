@@ -94,7 +94,8 @@ class Forget extends React.Component {
 
     //Now, making post request to the backend
     axios.post(`${fetchURL}/forget`, send).then(({ data }) => {
-      console.log(data);
+      //Setting up the response
+      this.setState({ res: data.res });
     });
 
     //Now, scrolling to top
@@ -144,7 +145,7 @@ class Forget extends React.Component {
                 </CardHeader>
                 <CardBody>
                   Provide us your new password
-                  <Form className="mt-4">
+                  <Form className="mt-4" onSubmit={this.onSavePassword}>
                     <FormGroup row>
                       <Label for="password" xs={3}>
                         Password
@@ -218,7 +219,7 @@ class Forget extends React.Component {
                   <span className="green-text">
                     <FontAwesomeIcon icon={faHandPointDown} />
                   </span>
-                  <Form className="mt-4">
+                  <Form className="mt-4" onSubmit={this.onEmailSubmit}>
                     <FormGroup row>
                       <Label for="email" xs={3}>
                         Email
@@ -302,4 +303,6 @@ class Forget extends React.Component {
   }
 }
 
-export default Forget;
+const mapStateToProps = state => ({ ...state });
+
+export default connect(mapStateToProps)(Forget);

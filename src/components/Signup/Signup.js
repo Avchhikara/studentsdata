@@ -32,6 +32,10 @@ class Signup extends React.Component {
   }
 
   onFormSubmit = e => {
+    const btn = e.target;
+    //Now, disabling the button
+    btn.disabled = true;
+    btn.textContent = "Please wait...";
     const card = e.target.parentElement.parentElement;
     const form = card.children[1];
     const year = form.children[2].children[1].children[0].value;
@@ -46,6 +50,9 @@ class Signup extends React.Component {
         })
         .then(res => {
           this.setState(() => ({ res: res.data }));
+          //enabling the button
+          btn.disabled = false;
+          btn.textContent = "Sign up";
         })
         .catch(err => console.log(err));
 
@@ -72,6 +79,8 @@ class Signup extends React.Component {
       this.setState({
         res: { status: 400, message: "Please fill all the fields!" }
       });
+      btn.disabled = false;
+      btn.textContent = "Sign up";
       this.hideAlert();
     }
   };
