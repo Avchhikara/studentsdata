@@ -234,11 +234,25 @@ class Login extends React.Component {
                   <FontAwesomeIcon icon={faLock} /> Login
                 </Button>
               </CardText>
-              <p style={{ textAlign: "right" }}>
-                New User ?,{" "}
-                <Link to="/signup">
-                  Sign up <FontAwesomeIcon icon={faUserPlus} />
-                </Link>
+              <p className="clearfix" style={{ marginTop: "35px" }}>
+                <span className="float-left">
+                  Teacher{" "}
+                  <Link to="/teacher/login">
+                    {" "}
+                    <FontAwesomeIcon icon={faLock} /> Login
+                  </Link>{" "}
+                  /{" "}
+                  <Link to="/teacher/signup">
+                    {" "}
+                    <FontAwesomeIcon icon={faUserPlus} /> Signup
+                  </Link>
+                </span>
+                <span className="float-right">
+                  New User ?,{" "}
+                  <Link to="/signup">
+                    Sign up <FontAwesomeIcon icon={faUserPlus} />
+                  </Link>
+                </span>
               </p>
             </Card>
           </Col>

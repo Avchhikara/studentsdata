@@ -1,4 +1,9 @@
-const Teacher = (state, action) => {
+const Teacher = (
+  state = {
+    teacher: false
+  },
+  action
+) => {
   const { payload } = action;
   switch (action.type) {
     case "LOGGING_IN":

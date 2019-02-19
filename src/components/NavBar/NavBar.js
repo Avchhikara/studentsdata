@@ -19,7 +19,8 @@ import {
   faSignInAlt,
   faUserPlus,
   faSignOutAlt,
-  faUsers
+  faUsers,
+  faChalkboardTeacher
 } from "@fortawesome/free-solid-svg-icons";
 
 import { connect } from "react-redux";
@@ -162,6 +163,7 @@ class NavBar extends React.Component {
   };
 
   render() {
+    const { loggedIn, teacher } = this.props.user;
     return (
       <div
         onClick={() => {
@@ -201,10 +203,25 @@ class NavBar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Link to="/notices" className="nav-link" onClick={this.openNav}>
-                  <FontAwesomeIcon icon={faNewspaper} />
-                  {" Notices"}
-                </Link>
+                {teacher ? (
+                  <Link to="teacher/requests" className="nav-link">
+                    Requests
+                  </Link>
+                ) : loggedIn ? (
+                  <Link
+                    to="/notices"
+                    className="nav-link"
+                    onClick={this.openNav}
+                  >
+                    <FontAwesomeIcon icon={faNewspaper} />
+                    {" Notices"}
+                  </Link>
+                ) : (
+                  <Link to="/teacher/signup" className="nav-link">
+                    <FontAwesomeIcon icon={faChalkboardTeacher} /> {"  "} For
+                    Teachers
+                  </Link>
+                )}
               </NavItem>
               <NavItem>
                 {this.props.user.loggedIn ? (
