@@ -108,7 +108,34 @@ class Forget extends React.Component {
   };
 
   onSavePassword = e => {
-    console.log("Password is saved");
+    const btn = e.target;
+    btn.textContent = "Saving...";
+    btn.disabled = true;
+    const { email, token } = this.props.match.params;
+    const { password } = this.state;
+    if (email && token) {
+      const send = {
+        email,
+        token,
+        password
+      };
+      //Now, making put request to the server
+      axios.put(`${fetchURL}/forget`, send).then(({ data }) => {
+        this.setState({ res: data.res });
+        this.scrollToTop();
+        btn.textContent = "Save";
+        btn.disabled = false;
+      });
+    } else {
+      this.setState({
+        res: {
+          status: 404,
+          message: "Please try clicking on forget password again"
+        }
+      });
+      btn.textContent = "Save";
+      btn.disabled = false;
+    }
   };
 
   render() {
@@ -145,7 +172,18 @@ class Forget extends React.Component {
                 </CardHeader>
                 <CardBody>
                   Provide us your new password
-                  <Form className="mt-4" onSubmit={this.onSavePassword}>
+                  <Form
+                    className="mt-4"
+                    onSubmit={e => {
+                      this.setState({
+                        res: {
+                          status: 404,
+                          message: "Please click on save Button"
+                        }
+                      });
+                      e.preventDefault();
+                    }}
+                  >
                     <FormGroup row>
                       <Label for="password" xs={3}>
                         Password
