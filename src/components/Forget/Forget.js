@@ -31,8 +31,8 @@ class Forget extends React.Component {
       email: "",
       password: "",
       res: {
-        status: "404",
-        message: "This function is not fully working, please wait for some time"
+        status: "",
+        message: ""
       },
       show: ""
     };
