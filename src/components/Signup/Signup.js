@@ -53,6 +53,7 @@ class Signup extends React.Component {
           //enabling the button
           btn.disabled = false;
           btn.textContent = "Sign up";
+          this.scrollToTop();
         })
         .catch(err => console.log(err));
 
@@ -81,7 +82,15 @@ class Signup extends React.Component {
       });
       btn.disabled = false;
       btn.textContent = "Sign up";
-      this.hideAlert();
+      this.scrollToTop();
+    }
+  };
+
+  scrollToTop = () => {
+    const breadcrumb = document.querySelector(".card-title");
+    console.log(breadcrumb);
+    if (breadcrumb) {
+      breadcrumb.scrollIntoView({ behavior: "smooth" });
     }
   };
 
