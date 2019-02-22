@@ -111,6 +111,7 @@ class Login extends React.Component {
             const button = document.querySelector("#login-button");
             button.disabled = false;
             button.innerHTML = '<i class="fa fa-lock"></i>  Login';
+            this.scrollToTop();
           }
         })
         .catch(err => console.log(err));
@@ -153,10 +154,16 @@ class Login extends React.Component {
       const button = document.querySelector("#login-button");
       button.disabled = false;
       button.innerHTML = '<i class="fa fa-lock"></i>  Login';
+      this.scrollToTop();
       this.hideAlert();
     }
 
     e.preventDefault();
+  };
+
+  scrollToTop = () => {
+    const cardTitle = document.querySelector(".card-title");
+    cardTitle.scrollIntoView({ behavior: "smooth" });
   };
 
   hideAlert() {
