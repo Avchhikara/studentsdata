@@ -37,7 +37,9 @@ class General extends React.Component {
       pno: "",
       university: "",
       department: "",
-      timeoutid: []
+      timeoutid: [],
+      res: { status: "", message: "" },
+      saving: false
     };
   }
 
@@ -164,13 +166,7 @@ class General extends React.Component {
   }
 
   showLoading(e) {
-    const btn = e.target;
-    btn.innerHTML = `
-    <div class="spinner-border spinner-border-sm" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-    `;
-    btn.disabled = true;
+    this.setState({ saving: true });
   }
 
   autoSave = () => {
@@ -304,42 +300,21 @@ class General extends React.Component {
         if (data.status === 200) {
           //dispatching changes to store
           this.props.dispatch(fetchGeneralData(this.state));
+          this.setState({
+            res: { status: 200, message: "Values have been saved !" },
+            saving: false
+          });
+          //Now, scrolling to top
+          this.scrollToTop();
         }
       })
       .catch(err => console.log(err));
-
-    // const xhr = new XMLHttpRequest();
-    // xhr.open(
-    //   "GET",
-    //   `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
-    //     this.props.userData ? this.props.userData.s_id : ""
-    //   }&name=${this.state.name}&rno=${this.state.rno}&mname=${
-    //     this.state.mname
-    //   }&fname=${this.state.fname}&gender=${this.state.gender}&address=${
-    //     this.state.address
-    //   }&pno=${this.state.pno}&token=${
-    //     this.props.userData ? this.props.userData.id : ""
-    //   }&type=set `,
-    //   true
-    // );
-    // xhr.onreadystatechange = e => {
-    //   if (xhr.readyState === 4 && xhr.status === 200) {
-    //     const res = JSON.parse(xhr.responseText);
-    //     if (res.status === 200) {
-    //       //dispatching changes to store
-    //       this.props.dispatch(fetchGeneralData(this.state));
-    //     }
-    //   }
-    // };
-    // xhr.send();
-
-    //Now, showing message and all that stuff
-    const btn = e.target;
-    btn.innerHTML = `
-Save <i class="fas fa-save></i>
-`;
-    btn.disabled = false;
   }
+
+  scrollToTop = () => {
+    const breadcrumb = document.querySelector(".breadcrumb");
+    breadcrumb.scrollIntoView({ behavior: "smooth" });
+  };
 
   render() {
     if (!this.props.user.loggedIn) {
@@ -356,6 +331,17 @@ Save <i class="fas fa-save></i>
               </BreadcrumbItem>
               <BreadcrumbItem active>General Data</BreadcrumbItem>
             </Breadcrumb>
+          </Col>
+          <Col xs={12}>
+            {this.state.res.message !== "" ? (
+              <Alert
+                color={this.state.res.status === 200 ? "success" : "danger"}
+              >
+                {this.state.res.message}
+              </Alert>
+            ) : (
+              ""
+            )}
           </Col>
           <Col xs={12}>
             <span className="h2">
@@ -566,7 +552,8 @@ Save <i class="fas fa-save></i>
                 this.onGeneralSave(e);
               }}
             >
-              Save <FontAwesomeIcon icon={faSave} />
+              {this.state.saving ? "Saving..." : " Save "}{" "}
+              <FontAwesomeIcon icon={faSave} />
             </Button>
           </Col>
           <Col xs={6} className="mt-4 mb-4">
