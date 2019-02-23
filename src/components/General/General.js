@@ -36,6 +36,7 @@ class General extends React.Component {
       address: "",
       pno: "",
       university: "",
+      department: "",
       timeoutid: []
     };
   }
@@ -58,7 +59,8 @@ class General extends React.Component {
       gender,
       address,
       pno,
-      university
+      university,
+      department
     } = this.state;
 
     axios
@@ -68,6 +70,7 @@ class General extends React.Component {
         mname,
         gender,
         address,
+        department,
         pno: parseInt(pno),
         university,
         rno: parseInt(rno),
@@ -85,7 +88,8 @@ class General extends React.Component {
             pno: data.user.pno,
             rno: data.user.rno,
             gender: data.user.gender,
-            university: data.user.university
+            university: data.user.university,
+            department: data.user.department
           }));
           console.log(data.user);
         }
@@ -93,6 +97,13 @@ class General extends React.Component {
         const timeoutID = setTimeout(() => {
           this.autoSave();
         }, 5000);
+
+        //Now, adding it to state
+        this.setState(prevState => {
+          return {
+            timeoutid: prevState.timeoutid.concat([timeoutID])
+          };
+        });
 
         const alert = document.querySelector("#general-data-alert");
 
@@ -174,7 +185,16 @@ class General extends React.Component {
       //Everything regarding autosaving
       //First, make a request to backend,
 
-      const { name, rno, mname, fname, gender, address, pno } = this.state;
+      const {
+        name,
+        rno,
+        mname,
+        fname,
+        gender,
+        address,
+        pno,
+        department
+      } = this.state;
       axios
         .post(`${fetchURL}/general`, {
           name,
@@ -182,6 +202,7 @@ class General extends React.Component {
           mname,
           gender,
           address,
+          department,
           pno: parseInt(pno),
           rno: parseInt(rno),
           university: this.state.university,
@@ -254,7 +275,16 @@ class General extends React.Component {
 
   onGeneralSave(e) {
     //Now, saving by clicking
-    const { name, rno, mname, fname, gender, address, pno } = this.state;
+    const {
+      name,
+      rno,
+      mname,
+      fname,
+      gender,
+      address,
+      pno,
+      department
+    } = this.state;
     axios
       .post(`${fetchURL}/general`, {
         name,
@@ -262,6 +292,7 @@ class General extends React.Component {
         mname,
         gender,
         address,
+        department,
         pno: parseInt(pno),
         university: this.state.university,
         rno: parseInt(rno),
@@ -410,6 +441,37 @@ Save <i class="fas fa-save></i>
                   >
                     <option defaultValue>--Select College--</option>
                     <option value="DCRUSTM">DCRUST, Murthal</option>
+                  </Input>
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label for="department" xs={3}>
+                  Department
+                </Label>
+                <Col xs={9}>
+                  <Input
+                    type="select"
+                    name="department"
+                    id="department"
+                    value={this.state.department}
+                    onChange={e => {
+                      const val = e.target.value;
+                      if (val !== "--Select College--") {
+                        this.setState({ department: val });
+                      } else {
+                        this.setState({ department: "" });
+                      }
+                    }}
+                  >
+                    <option defaultValue>--Select Department--</option>
+                    <option value="ECE">ECE</option>
+                    <option value="CE">CE(Civil)</option>
+                    <option value="CSE">CSE</option>
+                    <option value="ME">Mechanical Engg.</option>
+                    <option value="BT">Bio Tech.</option>
+                    <option value="CHE">Chemical engg.</option>
+                    <option value="EE">Electrical engg.</option>
+                    <option value="BArch">Architecture</option>
                   </Input>
                 </Col>
               </FormGroup>
