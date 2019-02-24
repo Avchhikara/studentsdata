@@ -114,48 +114,6 @@ class General extends React.Component {
         }
       })
       .catch(err => console.log(err));
-
-    // const xhr = new XMLHttpRequest();
-    // xhr.open(
-    //   "GET",
-    //   `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
-    //     this.props.userData ? this.props.userData.s_id : ""
-    //   }&token=${this.props.userData ? this.props.userData.id : ""}&type=get `,
-    //   true
-    // );
-    // xhr.onreadystatechange = e => {
-    //   if (xhr.readyState === 4 && xhr.status === 200) {
-    //     const res = JSON.parse(xhr.responseText);
-    //     console.log(res);
-    //     if (res.status === 200) {
-    //       //Setting up the state values accordingly
-    //       this.setState(() => ({
-    //         name: res.name,
-    //         rno: res.rno,
-    //         pno: res.pno,
-    //         fname: res.fname,
-    //         mname: res.mname,
-    //         address: res.address,
-    //         gender: res.gender
-    //       }));
-    //     }
-    //     //Now, calling the autosave callback
-    //     setTimeout(() => {
-    //       this.autoSave();
-    //     }, 5000);
-    //   }
-    // };
-    // xhr.send();
-
-    //Then, dispatch it to the state
-
-    //Then, hide the alert which would be shown to the user
-    //Using setTimeOut for fun
-
-    // const alert = document.querySelector("#general-data-alert");
-    // if (alert) {
-    //   alert.style.display = "none";
-    // }
   };
 
   componentWillUnmount() {
@@ -222,35 +180,6 @@ class General extends React.Component {
           } else {
           }
         });
-
-      // const xhr = new XMLHttpRequest();
-      // xhr.open(
-      //   "GET",
-      //   `http://localhost:8888/studentsdata.xyz/generaldata.php?s_id=${
-      //     this.props.userData ? this.props.userData.s_id : ""
-      //   }&name=${this.state.name}&rno=${this.state.rno}&mname=${
-      //     this.state.mname
-      //   }&fname=${this.state.fname}&gender=${this.state.gender}&address=${
-      //     this.state.address
-      //   }&pno=${this.state.pno}&token=${
-      //     this.props.userData ? this.props.userData.id : ""
-      //   }&type=set `,
-      //   true
-      // );
-      // xhr.onreadystatechange = e => {
-      //   if (xhr.readyState === 4 && xhr.status === 200) {
-      //     const res = JSON.parse(xhr.responseText);
-      //     if (res.status === 200) {
-      //       //Now, showing message and all that stuff
-      //       toast(<Message />);
-      //       //dispatching changes to store
-      //       this.props.dispatch(fetchGeneralData(this.state));
-      //     }
-      //     //Calling for autosave
-      //     this.autoSaveCallback();
-      //   }
-      // };
-      // xhr.send();
     }
   };
 

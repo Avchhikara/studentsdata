@@ -115,40 +115,6 @@ class Login extends React.Component {
           }
         })
         .catch(err => console.log(err));
-
-      // const id = uuid();
-      // const xhr = new XMLHttpRequest();
-      // xhr.open(
-      //   "GET",
-      //   `http://localhost:8888/studentsdata.xyz/login.php?email=${
-      //     this.state.email
-      //   }&pass=${this.state.pass}&uuid=${id}`,
-      //   true
-      // );
-      // xhr.onreadystatechange = e => {
-      //   if (xhr.readyState === 4 && xhr.status === 200) {
-      //     const res = JSON.parse(xhr.responseText);
-      //     if (res.status) {
-      //       //Dispatching the action
-      //       this.props.dispatch(onLoggingIn({ ...res, id: id }));
-      //       //Setting up the cookies
-      //       const studentdata = {
-      //         email: res.email,
-      //         s_id: res.s_id,
-      //         id
-      //       };
-      //       document.cookie = JSON.stringify({ studentdata });
-
-      //       this.props.history.push("/");
-      //     } else {
-      //       this.setState(() => ({ res: res.message }));
-      //       const button = document.querySelector("#login-button");
-      //       button.disabled = false;
-      //       button.innerHTML = '<i class="fa fa-lock"></i>  Login';
-      //     }
-      //   }
-      // };
-      // xhr.send();
     } else {
       this.setState({ res: "Please fill all the fields!" });
       const button = document.querySelector("#login-button");

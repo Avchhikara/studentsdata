@@ -1,10 +1,10 @@
-.teacher-login-container {
+.teacher-signup-container {
   margin-top: 90px;
   min-height: 70vh;
   margin-bottom: 20px;
 }
 
-.teacher-login-container .card {
+.teacher-signup-container .card {
   padding: 20px 0 !important;
   box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.1);
 }

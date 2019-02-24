@@ -18,6 +18,7 @@ import Result from "./components/Result/Result";
 import Teacher from "./components/Teacher/Teacher";
 import TeacherLogin from "./components/Teacher/TeacherLogin/TeacherLogin";
 import Forget from "./components/Forget/Forget";
+import TeacherSignup from "./components/Teacher/TeacherSignup/TeacherSignup";
 
 import "./App.css";
 
@@ -45,6 +46,7 @@ class App extends Component {
                   <Route path="/forget" component={Forget} />
                   <Route path="/teacher" component={Teacher} exact={true} />
                   <Route path="/teacher/login" component={TeacherLogin} />
+                  <Route path="/teacher/signup" component={TeacherSignup} />
                   <Route component={NotFound} />
                 </Switch>
               </div>

@@ -1,10 +1,11 @@
 import React from "react";
-import "./TeacherLogin.css";
+import "./TeacherSignup.css";
 
 import { Link } from "react-router-dom";
 
 import {
   Card,
+  Alert,
   CardTitle,
   CardBody,
   Form,
@@ -13,11 +14,10 @@ import {
   Row,
   Input,
   Label,
-  Button,
-  Alert
+  Button
 } from "reactstrap";
 
-class TeacherLogin extends React.Component {
+class TeacherSignup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,13 +32,13 @@ class TeacherLogin extends React.Component {
 
   render() {
     return (
-      <div className="teacher-login-container">
+      <div className="teacher-signup-container">
         <Row>
           <Col xs={12} md={9} sm={10} lg={7} style={{ margin: "0 auto" }}>
             <Card style={{ padding: "5px" }}>
-              <CardTitle className="text-center" id="card-title">
+              <CardTitle className="text-center">
                 <span className="h3">
-                  Teacher <span className="green-text">Login</span>
+                  Teacher <span className="green-text">Signup</span>
                 </span>
               </CardTitle>
               <CardBody>
@@ -51,8 +51,15 @@ class TeacherLogin extends React.Component {
                 ) : (
                   ""
                 )}
-
                 <Form>
+                  <FormGroup row>
+                    <Label for="name" xs={3}>
+                      Name
+                    </Label>
+                    <Col xs={9}>
+                      <Input type="text" id="name" name="name" />
+                    </Col>
+                  </FormGroup>
                   <FormGroup row>
                     <Label for="email" xs={3}>
                       Email
@@ -69,13 +76,41 @@ class TeacherLogin extends React.Component {
                       <Input type="password" id="password" name="password" />
                     </Col>
                   </FormGroup>
+                  <FormGroup row>
+                    <Label for="university" xs={3}>
+                      University
+                    </Label>
+                    <Col xs={9}>
+                      <Input type="select" id="university" name="university">
+                        <option defaultValue>--Select University--</option>
+                        <option value="DCRUSTM">D.C.R.U.S.T. Murthal</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Label for="department" xs={3}>
+                      Dept.
+                    </Label>
+                    <Col xs={9}>
+                      <Input type="select" name="department" id="department">
+                        <option defaultValue>--Select Department--</option>
+                        <option value="ECE">ECE</option>
+                        <option value="CE">CE(Civil)</option>
+                        <option value="CSE">CSE</option>
+                        <option value="ME">Mechanical Engg.</option>
+                        <option value="BT">Bio Tech.</option>
+                        <option value="CHE">Chemical engg.</option>
+                        <option value="EE">Electrical engg.</option>
+                        <option value="BArch">Architecture</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
                 </Form>
               </CardBody>
-
               <Row>
                 <Col style={{ margin: "0 auto" }} xs={5}>
-                  <Button color="success" block onClick={this.scrollToTop}>
-                    Login
+                  <Button color="success" block>
+                    SignUp
                   </Button>
                 </Col>
               </Row>
@@ -87,7 +122,7 @@ class TeacherLogin extends React.Component {
                 </span>
                 <span className="float-right">
                   {" "}
-                  Teacher <Link to="/teacher/signup">Signup</Link> instead?
+                  Teacher <Link to="/teacher/login">Login</Link> instead?
                 </span>
               </Col>
             </Card>
@@ -98,4 +133,4 @@ class TeacherLogin extends React.Component {
   }
 }
 
-export default TeacherLogin;
+export default TeacherSignup;
