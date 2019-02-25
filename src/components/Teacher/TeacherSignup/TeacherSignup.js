@@ -25,6 +25,11 @@ class TeacherSignup extends React.Component {
     };
   }
 
+  componentDidMount() {
+    //Scrolling to top when component is mounted
+    this.scrollToTop();
+  }
+
   scrollToTop = () => {
     const cardTitle = document.querySelector(".card-title");
     cardTitle.scrollIntoView({ behavior: "smooth" });
