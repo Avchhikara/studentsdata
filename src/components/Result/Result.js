@@ -140,7 +140,7 @@ class Result extends React.Component {
     });
     //Scrolling the message into view
     const breadcrumb = document.querySelector(".breadcrumb");
-    console.log(breadcrumb);
+
     breadcrumb.scrollIntoView({ behavior: "smooth" });
 
     this.hideRes(3000);

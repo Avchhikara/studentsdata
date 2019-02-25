@@ -43,6 +43,8 @@ class TandPForm extends React.Component {
     //Disabling the year and during feilds
     this.props.disable();
 
+    this.scrollFormToTop();
+
     //Here fetch the value of that particluar year user has entered
     //Fetching the values from server
     axios
@@ -88,6 +90,18 @@ class TandPForm extends React.Component {
     }
   }
 
+  scrollToTop = () => {
+    const breadcrumb = document.querySelector(".breadcrumb");
+    if (breadcrumb) {
+      breadcrumb.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  scrollFormToTop = () => {
+    const formTop = document.querySelector("#tandp-form");
+    formTop.scrollIntoView();
+  };
+
   onClickSave = e => {
     axios
       .post(`${fetchURL}/tandp`, {
@@ -129,7 +143,7 @@ class TandPForm extends React.Component {
     return (
       <div>
         <hr />
-        <h5>
+        <h5 id="tandp-form">
           Fill out{" "}
           <span className="green-text">
             {" "}
@@ -240,6 +254,7 @@ class TandPForm extends React.Component {
               onClick={e => {
                 this.props.clearState();
                 this.props.dispatch(setTandPdata({ year: "", during: "" }));
+                this.scrollToTop();
               }}
             >
               Cancel
