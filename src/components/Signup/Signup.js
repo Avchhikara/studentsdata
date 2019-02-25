@@ -31,6 +31,11 @@ class Signup extends React.Component {
     };
   }
 
+  componentDidMount() {
+    //Scrolling to top
+    this.scrollToTop();
+  }
+
   onFormSubmit = e => {
     const btn = e.target;
     //Now, disabling the button

@@ -34,6 +34,9 @@ class Login extends React.Component {
 
   //Check in login whether the user is logged in or not before displaying the componenet
   componentDidMount() {
+    //First, scrolling to top
+    this.scrollToTop();
+
     //Checking cookies for loggin in
 
     if (document.cookie) {
