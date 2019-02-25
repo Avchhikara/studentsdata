@@ -67,10 +67,10 @@ class TeacherLogin extends React.Component {
                     </Col>
                   </FormGroup>
                   <FormGroup row>
-                    <Label for="password" xs={3}>
+                    <Label for="password" xs={4} sm={3}>
                       Password
                     </Label>
-                    <Col xs={9}>
+                    <Col xs={8} sm={9}>
                       <Input type="password" id="password" name="password" />
                     </Col>
                   </FormGroup>

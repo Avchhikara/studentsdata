@@ -74,18 +74,18 @@ class TeacherSignup extends React.Component {
                     </Col>
                   </FormGroup>
                   <FormGroup row>
-                    <Label for="password" xs={3}>
+                    <Label for="password" xs={4} sm={3}>
                       Password
                     </Label>
-                    <Col xs={9}>
+                    <Col xs={8} sm={9}>
                       <Input type="password" id="password" name="password" />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
-                    <Label for="university" xs={3}>
+                    <Label for="university" xs={4} sm={3}>
                       University
                     </Label>
-                    <Col xs={9}>
+                    <Col xs={8} sm={9}>
                       <Input type="select" id="university" name="university">
                         <option defaultValue>--Select University--</option>
                         <option value="DCRUSTM">D.C.R.U.S.T. Murthal</option>
