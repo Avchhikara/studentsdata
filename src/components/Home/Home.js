@@ -22,7 +22,17 @@ class Home extends React.Component {
     } else if (this.props.user.teacher) {
       this.props.history.push("/teacher");
     }
+
+    //Otherwise, scrolling to top
+    this.scrollToTop();
   }
+
+  scrollToTop = () => {
+    const top = document.querySelector("#top");
+    if (top) {
+      top.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   render() {
     if (
@@ -34,7 +44,7 @@ class Home extends React.Component {
 
       return (
         <div className="home-container">
-          <h2>
+          <h2 id="top">
             Welcome{" "}
             <span className="green-text small-on-small-and-down hide-on-small">
               {email ? email : ""}
