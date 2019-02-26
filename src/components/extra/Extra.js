@@ -38,10 +38,11 @@ class Extra extends React.Component {
     });
     //Also, make extraData props to null
     this.props.dispatch(setExtraData({}));
+    this.scrollToTop("#esem");
   };
 
-  scrollToTop = () => {
-    const breadcrumb = document.querySelector(".breadcrumb");
+  scrollToTop = (ele = ".breadcrumb") => {
+    const breadcrumb = document.querySelector(ele);
 
     breadcrumb.scrollIntoView({ behavior: "smooth" });
   };
@@ -65,6 +66,7 @@ class Extra extends React.Component {
     this.setState(prevState => ({
       showFilledValues: !prevState.showFilledValues
     }));
+    this.scrollToTop();
   };
 
   render() {

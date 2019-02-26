@@ -41,6 +41,11 @@ class ExtraForm extends React.Component {
     }
   }
 
+  componentDidMount() {
+    //Scrolling the form into view
+    this.scrollToView();
+  }
+
   onClickSave = e => {
     //Making request to server
     const { ename, einstitution, eachievement } = this.state;
@@ -69,6 +74,7 @@ class ExtraForm extends React.Component {
             },
             saved: true
           });
+          this.scrollToTop();
         })
         .catch(err => console.log(err));
     } else {
@@ -84,12 +90,19 @@ class ExtraForm extends React.Component {
     }
   };
 
+  scrollToView = (ele = "#extra__form") => {
+    const breadcrumb = document.querySelector(ele);
+    if (breadcrumb) {
+      breadcrumb.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   render() {
     return (
       <Row className="extra-form">
         <Col xs={12} className="clearfix">
           <hr />
-          <span className="float-left h5">
+          <span className="float-left h5" id="extra__form">
             Fill out{" "}
             <span className="green-text">
               this <FontAwesomeIcon icon={faHandPointDown} />{" "}
