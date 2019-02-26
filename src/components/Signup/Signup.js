@@ -136,7 +136,7 @@ class Signup extends React.Component {
                       id="email"
                       value={this.state.email}
                       onChange={e => {
-                        const email = e.target.value;
+                        const email = e.target.value.toLowerCase();
                         this.setState(() => ({ email }));
                       }}
                     />
