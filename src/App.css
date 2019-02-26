@@ -5,3 +5,7 @@
 .btn {
   transition: box-shadow 0.1s;
 }
+
+.red-text {
+  color: red !important;
+}

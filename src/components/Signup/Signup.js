@@ -120,14 +120,14 @@ class Signup extends React.Component {
               ""
             )}
             <Card body>
-              <CardTitle className="h2">
+              <CardTitle className="h2 mb-4">
                 <span className="green-text">Signup</span> Form
               </CardTitle>
 
               <Form>
                 <FormGroup row>
                   <Label sm={5} md={4} lg={4} xs={4} for="email">
-                    Email
+                    Email <span className="red-text">*</span>
                   </Label>
                   <Col sm={7} md={8} lg={8} xs={8}>
                     <Input
@@ -144,7 +144,7 @@ class Signup extends React.Component {
                 </FormGroup>
                 <FormGroup row>
                   <Label sm={5} md={4} lg={4} xs={4} for="password">
-                    Password
+                    Password <span className="red-text">*</span>
                   </Label>
                   <Col sm={7} md={8} lg={8} xs={8}>
                     <Input
@@ -161,7 +161,7 @@ class Signup extends React.Component {
                 </FormGroup>
                 <FormGroup row>
                   <Label sm={5} md={4} lg={4} xs={4} for="admissionYear">
-                    Admission Year
+                    Admission Year <span className="red-text">*</span>
                   </Label>
                   <Col sm={7} md={8} lg={8} xs={8}>
                     <Input
