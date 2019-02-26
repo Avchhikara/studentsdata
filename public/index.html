@@ -42,6 +42,22 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <div id="load" class="container">
+      <div class="row">
+        <div class="col text-center" style="height: 100vh;">
+          <div style="margin-top: 40vh;">
+            <div
+              class="spinner-border text-success"
+              style="width:3rem; height: 3rem;"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="green-text h5 mt-4">Studentsdata.xyz is loading...</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -53,14 +69,16 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
-  <script
-    async
-    src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-  ></script>
   <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-7854183296968104",
-      enable_page_level_ads: true
-    });
+    document.onreadystatechange = function() {
+      var state = document.readyState;
+      if (state == "interactive") {
+        document.getElementById("root").style.display = "none";
+      } else if (state == "complete") {
+        //  document.getElementById('root');
+        document.getElementById("load").style.display = "none";
+        document.getElementById("root").style.display = "block";
+      }
+    };
   </script>
 </html>
