@@ -4,6 +4,11 @@
 
 .btn {
   transition: box-shadow 0.1s;
+  animation: btn-anime 1s linear forward !important;
+}
+
+.btn:active {
+  transform: scale(0.94);
 }
 
 .red-text {

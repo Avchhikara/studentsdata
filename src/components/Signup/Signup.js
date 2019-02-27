@@ -61,26 +61,6 @@ class Signup extends React.Component {
           this.scrollToTop();
         })
         .catch(err => console.log(err));
-
-      // const xhr = new XMLHttpRequest();
-      // xhr.open(
-      //   "GET",
-      //   `http://localhost:8888/studentsdata.xyz/signup.php?email=${
-      //     this.state.email
-      //   }&pass=${this.state.pass}&year=${year}`,
-      //   true
-      // );
-
-      // xhr.onreadystatechange = () => {
-      //   if (xhr.readyState === 4 && xhr.status === 200) {
-      //     const res = JSON.parse(xhr.responseText);
-      //     this.setState(() => ({ res }));
-      //     setTimeout(() => {
-      //       this.setState(() => ({ res: "" }));
-      //     }, 3000);
-      //   }
-      // };
-      // xhr.send();
     } else {
       this.setState({
         res: { status: 400, message: "Please fill all the fields!" }

@@ -203,7 +203,6 @@ class Login extends React.Component {
                     e.target.disabled = true;
                     e.target.innerHTML =
                       '<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>';
-
                     this.onLoggingIn(e);
                   }}
                 >
