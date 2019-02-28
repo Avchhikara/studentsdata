@@ -1,8 +1,10 @@
 import React from "react";
 import "./TeacherLogin.css";
 
-import { Link } from "react-router-dom";
+import axios from "axios";
 
+import { Link } from "react-router-dom";
+import { fetchURL } from "./../../../Actions/constants";
 import {
   Card,
   CardTitle,
@@ -21,7 +23,9 @@ class TeacherLogin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      res: { status: "", message: "This feature is not currently working" }
+      res: { status: "", message: "This feature is not currently working" },
+      email: "",
+      password: ""
     };
   }
 
@@ -33,6 +37,52 @@ class TeacherLogin extends React.Component {
   scrollToTop = () => {
     const cardTitle = document.querySelector(".card-title");
     cardTitle.scrollIntoView({ behavior: "smooth" });
+  };
+
+  onLogginIn = e => {
+    const target = e.target;
+    target.disabled = true;
+    target.textContent = "Please wait...";
+
+    const { email, password } = this.state;
+
+    //Now, checking that all values have been provided
+    if (email !== "" && password !== "") {
+      console.log("Both have been provided");
+      //Now, making request to the backend
+      const send = {
+        email,
+        password
+      };
+
+      axios.post(`${fetchURL}/teacher/login`, send).then(({ data }) => {
+        //Now, setting up the state
+        this.setState({ res: data.res });
+
+        //Scrolling up
+        this.scrollToTop();
+
+        //Now, changing the route or main state
+
+        //Enabling the button
+        target.disabled = false;
+        target.textContent = "Login";
+      });
+    } else {
+      this.setState({
+        res: {
+          status: 404,
+          message: "Please provide all the values"
+        }
+      });
+
+      //Enabling all fields
+      target.disabled = false;
+      target.textContent = "Login";
+
+      //Now,scrolling to top
+      this.scrollToTop();
+    }
   };
 
   render() {
@@ -63,7 +113,16 @@ class TeacherLogin extends React.Component {
                       Email
                     </Label>
                     <Col xs={9}>
-                      <Input type="email" id="email" name="email" />
+                      <Input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={this.state.email}
+                        onChange={e => {
+                          const val = e.target.value.toLowerCase();
+                          this.setState({ email: val });
+                        }}
+                      />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -71,7 +130,16 @@ class TeacherLogin extends React.Component {
                       Password
                     </Label>
                     <Col xs={8} sm={9}>
-                      <Input type="password" id="password" name="password" />
+                      <Input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={this.state.password}
+                        onChange={e => {
+                          const val = e.target.value;
+                          this.setState({ password: val });
+                        }}
+                      />
                     </Col>
                   </FormGroup>
                 </Form>
@@ -79,7 +147,7 @@ class TeacherLogin extends React.Component {
 
               <Row>
                 <Col style={{ margin: "0 auto" }} xs={5}>
-                  <Button color="success" block onClick={this.scrollToTop}>
+                  <Button color="success" block onClick={this.onLogginIn}>
                     Login
                   </Button>
                 </Col>

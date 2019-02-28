@@ -14,3 +14,19 @@
 .red-text {
   color: red !important;
 }
+
+.alert {
+  animation: alert-anime 2s infinite forwards !important;
+}
+
+@keyframes alert-anime {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
