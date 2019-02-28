@@ -1,0 +1,13 @@
+.teacher-confirm-container {
+  margin-top: 90px;
+}
+
+.teacher-confirm__spinner-col {
+  margin: 30vh auto !important;
+  text-align: center;
+}
+
+.teacher-confirm__login-col {
+  margin: 50px 0;
+  font-size: 1.2em;
+}
