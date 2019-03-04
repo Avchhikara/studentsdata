@@ -47,6 +47,11 @@ class ExtraForm extends React.Component {
   }
 
   onClickSave = e => {
+    //Getting the target
+    const target = e.target;
+    target.disabled = true;
+    target.textContent = "Adding...";
+
     //Making request to server
     const { ename, einstitution, eachievement } = this.state;
     if (ename !== "" && einstitution !== "") {
@@ -74,7 +79,10 @@ class ExtraForm extends React.Component {
             },
             saved: true
           });
-          this.scrollToTop();
+          //Enabling the target
+          target.disabled = false;
+          target.textContent = "Add";
+          this.scrollToView();
         })
         .catch(err => console.log(err));
     } else {
@@ -84,6 +92,10 @@ class ExtraForm extends React.Component {
           message: "Please fill all the values"
         }
       });
+
+      //Enabling the target
+      target.disabled = false;
+      target.textContent = "Add";
       setTimeout(() => {
         this.setState({ res: { status: "", message: "" } });
       }, 3000);
@@ -215,6 +227,7 @@ class ExtraForm extends React.Component {
             onClick={e => {
               //Now, saving the filled values
               this.onClickSave(e);
+              // this.scrollToView();
             }}
           >
             Add

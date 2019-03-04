@@ -1,8 +1,12 @@
-const teacherData = teacherData => {
+const teacherLogin = teacherData => {
   return {
-    type: "SET_TEACHER_DATA",
-    payload: teacherData
+    type: "ON_TEACHER_LOGIN",
+    payload: {
+      loggedIn: true,
+      teacher: true,
+      userData: teacherData.userData
+    }
   };
 };
 
-export default teacherData;
+export default teacherLogin;

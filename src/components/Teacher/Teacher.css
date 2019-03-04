@@ -2,3 +2,8 @@
   margin-top: 90px;
   min-height: 70vh;
 }
+
+.teacher__spinner {
+  margin-top: 50px;
+  text-align: center;
+}

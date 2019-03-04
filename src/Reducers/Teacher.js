@@ -6,10 +6,8 @@ const Teacher = (
 ) => {
   const { payload } = action;
   switch (action.type) {
-    case "LOGGING_IN":
-      return { ...state, teacher: payload.teacher };
-    case "SET_TEACHER_DATA":
-      return { ...state, teacherData: payload };
+    case "ON_TEACHER_LOGIN":
+      return { teacher: true };
     default:
       return { ...state };
   }

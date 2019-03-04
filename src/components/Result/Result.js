@@ -326,9 +326,8 @@ class Result extends React.Component {
                         value={this.state.rsgpa}
                         onChange={e => {
                           const val = e.target.value;
-                          if (val !== "") {
-                            this.setState({ rsgpa: val, saved: false });
-                          } else if (val === "") {
+                          this.setState({ rsgpa: val, saved: false });
+                          if (val === "") {
                             this.setState({ saved: true });
                           }
                         }}

@@ -18,7 +18,11 @@ code {
 }
 
 .green-text {
-  color: green !important;
+  /* background-image: linear-gradient(to left, #067e06 5%, #039703 95%);
+  color: transparent;
+  background-clip: text; */
+
+  color: green;
 }
 
 @media (max-width: 767px) {

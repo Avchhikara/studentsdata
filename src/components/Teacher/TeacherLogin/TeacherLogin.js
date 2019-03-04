@@ -1,8 +1,10 @@
 import React from "react";
 import "./TeacherLogin.css";
 
-import axios from "axios";
+import { connect } from "react-redux";
 
+import axios from "axios";
+import teacherLogin from "./../../../Actions/Teacher/Login";
 import { Link } from "react-router-dom";
 import { fetchURL } from "./../../../Actions/constants";
 import {
@@ -48,7 +50,6 @@ class TeacherLogin extends React.Component {
 
     //Now, checking that all values have been provided
     if (email !== "" && password !== "") {
-      console.log("Both have been provided");
       //Now, making request to the backend
       const send = {
         email,
@@ -63,6 +64,11 @@ class TeacherLogin extends React.Component {
         this.scrollToTop();
 
         //Now, changing the route or main state
+
+        this.props.dispatch(teacherLogin({ userData: data.userData }));
+
+        //Now, moving to teacher's dashboard
+        this.props.history.push("/teacher");
 
         //Enabling the button
         target.disabled = false;
@@ -171,4 +177,6 @@ class TeacherLogin extends React.Component {
   }
 }
 
-export default TeacherLogin;
+const mapStateToProps = state => ({ ...state });
+
+export default connect(mapStateToProps)(TeacherLogin);

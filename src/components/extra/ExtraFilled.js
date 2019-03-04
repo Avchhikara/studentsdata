@@ -27,7 +27,7 @@ class ExtraFilled extends React.Component {
     };
 
     axios.post(`${fetchURL}/extra`, send).then(({ data }) => {
-      console.log(data);
+      // console.log(data);
       //Setting up state values
       this.setState({ filledValues: data });
     });

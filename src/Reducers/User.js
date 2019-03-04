@@ -3,11 +3,12 @@ const User = (
     loggedIn: false,
     teacher: false,
     userData: {
-      s_id: "",
-      teacher: "",
+      t_id: "",
+      name: "",
       email: "",
-      password: "",
-      id: ""
+      token: "",
+      university: "",
+      department: ""
     }
   },
   action
@@ -22,6 +23,13 @@ const User = (
       };
     case "LOGGING_OUT":
       return { ...payload };
+
+    case "ON_TEACHER_LOGIN":
+      return {
+        ...state,
+        ...payload
+      };
+
     default:
       return { ...state };
   }
