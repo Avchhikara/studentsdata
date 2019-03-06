@@ -275,7 +275,11 @@ class NavBar extends React.Component {
                       this.props.dispatch(
                         onLogOut({ loggedIn: false, teacher: false })
                       );
-                      this.props.history.push("/login");
+                      if (this.props.user.teacher) {
+                        this.props.history.push("/teacher/login");
+                      } else {
+                        this.props.history.push("/login");
+                      }
                       this.openNav(e);
                     }}
                   >

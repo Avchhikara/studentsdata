@@ -44,7 +44,7 @@ class TeacherLogin extends React.Component {
   onLogginIn = e => {
     const target = e.target;
     target.disabled = true;
-    target.textContent = "Please wait...";
+    target.textContent = "Logging...";
 
     const { email, password } = this.state;
 

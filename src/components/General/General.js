@@ -291,7 +291,7 @@ class General extends React.Component {
             <Form className="mt-4">
               <FormGroup row>
                 <Label for="roll" xs={3} sm={2}>
-                  R No.
+                  Roll No.
                 </Label>
                 <Col xs={9} sm={10}>
                   <Input
@@ -307,7 +307,7 @@ class General extends React.Component {
               </FormGroup>
               <FormGroup row>
                 <Label for="roll" xs={3} sm={2}>
-                  P No.
+                  Ph. No.
                 </Label>
                 <Col xs={9} sm={10}>
                   <Input
