@@ -103,36 +103,44 @@ class TandPForm extends React.Component {
   };
 
   onClickSave = e => {
-    axios
-      .post(`${fetchURL}/tandp`, {
-        iname: this.state.iname,
-        iaddress: this.state.iaddress,
-        year: this.props.student.tandpData.year,
-        ilinks: this.state.ilinks.join(","),
-        s_id: this.props.student.userData.s_id,
-        during: this.props.student.tandpData.during,
-        id: this.props.user.userData.id,
-        type: "set"
-      })
-      .then(res => {
-        //Now, dispatching it to the state
-        this.props.dispatch(
-          setTandPdata({
-            iname: this.state.iname,
-            iaddress: this.state.iaddress,
-            year: this.props.student.tandpData.year,
-            ilinks: this.state.ilinks,
-            during: this.props.student.tandpData.during
-          })
-        );
-        //Now, updating state
-        this.setState({ saved: "yes" });
-        //Now, removing the component
-        this.props.message("Entries have been saved");
-        this.props.clearState();
-        this.props.dispatch(setTandPdata({ year: "", during: "" }));
-      })
-      .catch(err => console.log(err));
+    const { iname, iaddress } = this.state;
+
+    if (iname !== "" && iaddress !== "") {
+      axios
+        .post(`${fetchURL}/tandp`, {
+          iname: this.state.iname,
+          iaddress: this.state.iaddress,
+          year: this.props.student.tandpData.year,
+          ilinks: this.state.ilinks.join(","),
+          s_id: this.props.student.userData.s_id,
+          during: this.props.student.tandpData.during,
+          id: this.props.user.userData.id,
+          type: "set"
+        })
+        .then(res => {
+          //Now, dispatching it to the state
+          this.props.dispatch(
+            setTandPdata({
+              iname: this.state.iname,
+              iaddress: this.state.iaddress,
+              year: this.props.student.tandpData.year,
+              ilinks: this.state.ilinks,
+              during: this.props.student.tandpData.during
+            })
+          );
+          //Now, updating state
+          this.setState({ saved: "yes" });
+          //Now, removing the component
+          this.props.message("Entries have been saved");
+          this.props.clearState();
+          this.props.dispatch(setTandPdata({ year: "", during: "" }));
+        })
+        .catch(err => console.log(err));
+      e.target.disabled = false;
+      e.target.innerHTML = `
+          Save
+        `;
+    }
     e.target.disabled = false;
     e.target.innerHTML = `
           Save

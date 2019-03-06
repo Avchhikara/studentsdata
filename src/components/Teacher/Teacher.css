@@ -13,6 +13,10 @@
   margin-top: 10px;
 }
 
+.teacher-class__unconfirm {
+  border: 1px solid red !important;
+}
+
 .teacher__classes .card {
   margin-bottom: 10px;
   cursor: pointer;

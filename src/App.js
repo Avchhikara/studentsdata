@@ -21,7 +21,7 @@ import Forget from "./components/Forget/Forget";
 import TeacherSignup from "./components/Teacher/TeacherSignup/TeacherSignup";
 import TeacherConfirm from "./components/Teacher/TeacherConfirm/TeacherConfirm";
 import TeacherClass from "./components/Teacher/TeacherClass/TeacherClass";
-import TeacherAddClass from "./components/Teacher/TeacherAddClass/TeacherAddClass";
+import TeacherVerify from "./components/Teacher/TeacherVerify/TeacherVerify";
 
 import "./App.css";
 
@@ -55,7 +55,10 @@ class App extends Component {
                     component={TeacherConfirm}
                   />
                   <Route path="/teacher/class/:year" component={TeacherClass} />
-                  <Route path="/teacher/add" component={TeacherAddClass} />
+                  <Route
+                    path="/teacher/verify/:year"
+                    component={TeacherVerify}
+                  />
                   <Route component={NotFound} />
                 </Switch>
               </div>

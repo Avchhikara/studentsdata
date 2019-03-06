@@ -175,6 +175,7 @@ class Teacher extends React.Component {
               <TeacherClasses
                 addClass={this.addClass}
                 tclasses={this.state.classes}
+                history={this.props.history}
               />
             </Col>
           ) : (
