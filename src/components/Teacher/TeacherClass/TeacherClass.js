@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { fetchURL } from "./../../../Actions/constants";
-import { CSVDownload } from "react-csv";
+import { CSVDownload, CSVLink } from "react-csv";
 
 import "./TeacherClass.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -88,7 +88,7 @@ class TeacherClass extends React.Component {
 
     const btn = e.target;
     btn.disabled = true;
-    btn.textContent = "Downloading...";
+    btn.textContent = "Getting data...";
 
     axios
       .post(`${fetchURL}/teacher/students/download`, send)
@@ -107,21 +107,12 @@ class TeacherClass extends React.Component {
                 extraAsked: false,
                 resultAsked: false
               }
+            },
+            res: {
+              status: 200,
+              message: "Click  on the link below to download the class list"
             }
           }));
-          setTimeout(() => {
-            this.setState(prevState => ({
-              downloadClassList: {
-                data: [],
-                modalOpen: false,
-                params: {
-                  generalAsked: false,
-                  extraAsked: false,
-                  resultAsked: false
-                }
-              }
-            }));
-          }, 10);
         }
 
         // console.log(data);
@@ -171,6 +162,39 @@ class TeacherClass extends React.Component {
             ) : (
               ""
             )}
+            {this.state.downloadClassList.data.length ? (
+              <div>
+                <CSVLink
+                  data={this.state.downloadClassList.data}
+                  onClick={() => {
+                    //NOw, after clicking the download
+                    //state should be set to null
+                    //alert should be removed
+                    this.setState({
+                      downloadClassList: {
+                        data: [],
+                        modalOpen: false,
+                        params: {
+                          generalAsked: true,
+                          extraAsked: true,
+                          resultAsked: true
+                        }
+                      },
+                      res: {
+                        status: "",
+                        message: ""
+                      }
+                    });
+                  }}
+                  filename={`Class List - ${this.props.match.params.year ||
+                    ""}`}
+                >
+                  Click here to download the class list
+                </CSVLink>
+              </div>
+            ) : (
+              ""
+            )}
           </Col>
 
           <Col xs={12} md={9} lg={7} style={{ margin: "0 auto" }}>
@@ -208,14 +232,7 @@ class TeacherClass extends React.Component {
                 >
                   Download Class List
                 </Button>
-                {this.state.downloadClassList.data.length > 0 ? (
-                  <CSVDownload
-                    filename={`Class List - ${this.props.match.params.year}`}
-                    data={this.state.downloadClassList.data}
-                  />
-                ) : (
-                  ""
-                )}
+
                 <Modal
                   isOpen={this.state.downloadClassList.modalOpen}
                   toggle={this.toggleDownloadClassListModal}
