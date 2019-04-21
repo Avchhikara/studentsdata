@@ -1,6 +1,6 @@
 .signup-container {
-  margin-top: 90px;
-  text-align: center;
+  margin-top: 10px;
+
   margin-bottom: 64px;
   min-height: 70vh;
 }
@@ -9,10 +9,27 @@
   margin-right: 8px;
 }
 
+.signup-container .card .card-title {
+  text-align: center;
+}
+
+.signup-container label {
+  text-align: center;
+}
+
 .signup-container .card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .signup-container .btn:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.signup-container .btn-group .btn {
+  margin-right: 0;
+}
+
+.signup-container p.card-text {
+  margin-top: 20px;
+  text-align: center;
 }

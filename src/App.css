@@ -1,14 +1,16 @@
 .btn:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
 }
 
 .btn {
-  transition: box-shadow 0.1s;
-  animation: btn-anime 1s linear forward !important;
+  transition: transform 0.5s !important;
 }
 
 .btn:active {
-  transform: scale(0.94);
+  /* transform: scale(0.94); */
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
 }
 
 .red-text {
@@ -29,4 +31,11 @@
   100% {
     transform: scale(1);
   }
+}
+
+.handmade-badge {
+  background-color: rgb(255, 0, 0);
+  padding: 4px;
+  border-radius: 10px;
+  color: white;
 }

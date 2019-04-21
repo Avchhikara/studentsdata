@@ -12,7 +12,8 @@ import {
   Input,
   FormText,
   Button,
-  Alert
+  Alert,
+  ButtonGroup
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -27,7 +28,8 @@ class Signup extends React.Component {
       email: "",
       pass: "",
       year: "",
-      res: ""
+      res: "",
+      leet: false
     };
   }
 
@@ -43,10 +45,11 @@ class Signup extends React.Component {
     btn.textContent = "Please wait...";
     const card = e.target.parentElement.parentElement;
     const form = card.children[1];
-    const year = form.children[2].children[1].children[0].value;
+    let year = form.children[2].children[1].children[0].value;
     const { email, pass } = this.state;
 
     if (year !== "--Select--" && email !== "" && pass !== "") {
+      if (this.state.leet) year = year - 1;
       axios
         .post(`${fetchURL}/signup`, {
           email,
@@ -73,7 +76,7 @@ class Signup extends React.Component {
 
   scrollToTop = () => {
     const breadcrumb = document.querySelector(".card-title");
-    console.log(breadcrumb);
+    // console.log(breadcrumb);
     if (breadcrumb) {
       breadcrumb.scrollIntoView({ behavior: "smooth" });
     }
@@ -175,6 +178,33 @@ class Signup extends React.Component {
                     </FormText>
                   </Col>
                 </FormGroup>
+                <FormGroup row>
+                  <Col sm={5} md={4} lg={4} xs={4}>
+                    Leet Student <span className="red-text">*</span>
+                  </Col>
+                  <Col sm={7} md={8} lg={8} xs={8}>
+                    <ButtonGroup>
+                      <Button
+                        color="success"
+                        size="sm"
+                        outline
+                        onClick={() => this.setState({ leet: true })}
+                        active={this.state.leet}
+                      >
+                        Yes
+                      </Button>
+                      <Button
+                        color="success"
+                        outline
+                        size="sm"
+                        onClick={() => this.setState({ leet: false })}
+                        active={!this.state.leet}
+                      >
+                        No
+                      </Button>
+                    </ButtonGroup>
+                  </Col>
+                </FormGroup>
               </Form>
 
               <CardText>
@@ -184,18 +214,6 @@ class Signup extends React.Component {
               </CardText>
 
               <p className="clearfix" style={{ marginTop: "35px" }}>
-                <span className="float-left">
-                  Teacher{" "}
-                  <Link to="/login">
-                    {" "}
-                    <FontAwesomeIcon icon={faLock} /> Login
-                  </Link>{" "}
-                  /{" "}
-                  <Link to="/signup">
-                    {" "}
-                    <FontAwesomeIcon icon={faUserPlus} /> Signup
-                  </Link>
-                </span>
                 <span className="float-right">
                   Alreaday an user ? ,{" "}
                   <Link to="/login">

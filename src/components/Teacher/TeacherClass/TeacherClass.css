@@ -1,4 +1,12 @@
 .teacher-class__container {
-  margin-top: 90px;
+  margin-top: 10px;
   min-height: 70vh;
+}
+
+.teacher-class__container .option-buttons {
+  margin-top: 10px;
+}
+
+div.form-check {
+  padding-left: 50px !important;
 }

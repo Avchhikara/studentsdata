@@ -63,12 +63,12 @@ class TeacherLogin extends React.Component {
         //Scrolling up
         this.scrollToTop();
 
-        //Now, changing the route or main state
-
-        this.props.dispatch(teacherLogin({ userData: data.userData }));
-
-        //Now, moving to teacher's dashboard
-        this.props.history.push("/teacher");
+        if (data.res.status === 200) {
+          //Now, changing the route or main state
+          this.props.dispatch(teacherLogin({ userData: data.userData }));
+          //Now, moving to teacher's dashboard
+          this.props.history.push("/teacher");
+        }
 
         //Enabling the button
         target.disabled = false;

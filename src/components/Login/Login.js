@@ -210,18 +210,6 @@ class Login extends React.Component {
                 </Button>
               </CardText>
               <p className="clearfix" style={{ marginTop: "35px" }}>
-                <span className="float-left">
-                  Teacher{" "}
-                  <Link to="/login">
-                    {" "}
-                    <FontAwesomeIcon icon={faLock} /> Login
-                  </Link>{" "}
-                  /{" "}
-                  <Link to="/signup">
-                    {" "}
-                    <FontAwesomeIcon icon={faUserPlus} /> Signup
-                  </Link>
-                </span>
                 <span className="float-right">
                   New User ?,{" "}
                   <Link to="/signup">

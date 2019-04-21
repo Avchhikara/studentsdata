@@ -1,4 +1,37 @@
 .teacher-verify {
-  margin-top: 90px;
+  margin-top: 10px;
   min-height: 70vh;
+  margin-bottom: 20px;
+}
+
+.teacher-verify__spinner {
+  text-align: center;
+}
+
+.teacher-verify__card {
+  margin: 5px 0;
+}
+.teacher-verify__no-collegue {
+  text-align: center;
+  /* margin: 20px; */
+  font-size: 1.2rem;
+}
+
+.teacher-verify__invited {
+  text-align: center;
+}
+
+.teacher-verify__asked {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* padding-bottom: 20px; */
+}
+
+.teacher-verify__asked-head {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.teacher-verify__asked-card {
+  margin: 5px 0;
 }

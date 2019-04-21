@@ -22,6 +22,9 @@ import TeacherSignup from "./components/Teacher/TeacherSignup/TeacherSignup";
 import TeacherConfirm from "./components/Teacher/TeacherConfirm/TeacherConfirm";
 import TeacherClass from "./components/Teacher/TeacherClass/TeacherClass";
 import TeacherVerify from "./components/Teacher/TeacherVerify/TeacherVerify";
+import TeacherRequests from "./components/Teacher/TeacherRequests/TeacherRequests";
+import TeacherProfile from "./components/Teacher/TeacherProfile/TeacherProfile";
+import TeacherNotices from "./components/Teacher/TeacherNotices/TeacherNotices";
 
 import "./App.css";
 
@@ -50,15 +53,31 @@ class App extends Component {
                   <Route path="/teacher" component={Teacher} exact={true} />
                   <Route path="/teacher/login" component={TeacherLogin} />
                   <Route path="/teacher/signup" component={TeacherSignup} />
+                  <Route path="/teacher/requests" component={TeacherRequests} />
                   <Route
                     path="/teacher/confirm/:email"
                     component={TeacherConfirm}
                   />
-                  <Route path="/teacher/class/:year" component={TeacherClass} />
+                  <Route
+                    path="/teacher/class/:year"
+                    component={TeacherClass}
+                    exact={true}
+                  />
                   <Route
                     path="/teacher/verify/:year"
                     component={TeacherVerify}
+                    exact={true}
                   />
+                  <Route
+                    path="/teacher/class/:year/notices"
+                    component={TeacherNotices}
+                  />
+
+                  {
+                    //Add a route ie. /teacher/verify/:t_id/:year/:confirm_sent_t_id to verify a teacher's class
+                  }
+
+                  <Route path="/teacher/profile" component={TeacherProfile} />
                   <Route component={NotFound} />
                 </Switch>
               </div>

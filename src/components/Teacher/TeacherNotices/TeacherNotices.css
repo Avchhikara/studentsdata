@@ -1,0 +1,9 @@
+.teacher-notices__container {
+  margin-top: 10px;
+  min-height: 70vh;
+}
+
+.teacher-notices__container .spinner-col {
+  text-align: center;
+  margin-top: 10vh;
+}

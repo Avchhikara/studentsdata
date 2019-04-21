@@ -19,7 +19,6 @@ import {
   faSignInAlt,
   faUserPlus,
   faSignOutAlt,
-  faUsers,
   faChalkboardTeacher
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -164,6 +163,7 @@ class NavBar extends React.Component {
 
   render() {
     const { loggedIn, teacher } = this.props.user;
+    // console.log(this.props.match);
     return (
       <div
         onClick={() => {
@@ -190,7 +190,7 @@ class NavBar extends React.Component {
           });
         }}
       >
-        <Navbar color="light" light expand="md" fixed={"top"} id="header">
+        <Navbar color="light" light expand="md" id="header">
           <NavbarBrand href="/" className="nav-brand">
             <img
               src={Logo}
@@ -204,8 +204,16 @@ class NavBar extends React.Component {
             <Nav className="ml-auto" navbar>
               <NavItem>
                 {teacher ? (
-                  <Link to="teacher/requests" className="nav-link">
-                    Requests
+                  <Link to="/teacher/requests" className="nav-link">
+                    Requests{" "}
+                    {this.props.teacher.requests.length > 0 ? (
+                      <span className="handmade-badge">
+                        {" "}
+                        {this.props.teacher.requests.length}
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </Link>
                 ) : loggedIn ? (
                   <Link
@@ -217,7 +225,11 @@ class NavBar extends React.Component {
                     {" Notices"}
                   </Link>
                 ) : (
-                  <Link to="/teacher/signup" className="nav-link">
+                  <Link
+                    to="/teacher/login"
+                    className="nav-link"
+                    onClick={this.openNav}
+                  >
                     <FontAwesomeIcon icon={faChalkboardTeacher} /> {"  "} For
                     Teachers
                   </Link>
@@ -228,7 +240,7 @@ class NavBar extends React.Component {
                   <Link
                     to={
                       this.props.user.teacher
-                        ? `/teacher/profile/${this.props.user.userData.s_id}`
+                        ? `/teacher/profile/`
                         : `/profile/${this.props.user.userData.s_id}`
                     }
                     className="nav-link"
@@ -236,7 +248,7 @@ class NavBar extends React.Component {
                   >
                     <span>
                       <FontAwesomeIcon icon={faUser} />
-                      {" Profile"}
+                      {" my Profile"}
                     </span>
                   </Link>
                 ) : (
@@ -248,19 +260,6 @@ class NavBar extends React.Component {
                   </NavLink>
                 )}
               </NavItem>
-              {this.props.user.teacher ? (
-                <NavItem>
-                  <Link
-                    className="nav-link"
-                    onClick={this.openNav}
-                    to="/teacher/students"
-                  >
-                    <FontAwesomeIcon icon={faUsers} /> Students
-                  </Link>
-                </NavItem>
-              ) : (
-                ""
-              )}
 
               <NavItem className="nav-elements">
                 {this.props.user.loggedIn ? (

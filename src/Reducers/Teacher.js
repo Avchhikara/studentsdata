@@ -1,6 +1,7 @@
 const defaultState = {
   teacher: false,
-  classes: []
+  classes: [],
+  requests: []
 };
 
 const Teacher = (state = defaultState, action) => {
@@ -11,6 +12,8 @@ const Teacher = (state = defaultState, action) => {
       return { ...defaultState, teacher: true };
     case "SET_CLASSES":
       return { ...state, classes: payload };
+    case "SET_REQUESTS":
+      return { ...state, requests: payload };
     case "LOGGING_OUT":
       return { ...defaultState };
     default:

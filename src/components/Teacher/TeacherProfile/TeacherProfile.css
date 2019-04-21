@@ -1,0 +1,15 @@
+.teacher-profile__container {
+  margin-top: 10px;
+  min-height: 70vh;
+  margin-bottom: 20px;
+}
+
+.teacher-profile__container .card .card-header {
+  text-align: center;
+  font-size: 1.1rem;
+  color: green;
+}
+
+.teacher-profile__container .card .list-group-item {
+  margin-bottom: 5px;
+}

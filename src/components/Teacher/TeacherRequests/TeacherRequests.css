@@ -1,0 +1,25 @@
+.teacher-requests__container {
+  margin-top: 10px;
+  min-height: 70vh;
+  margin-bottom: 20px;
+}
+
+.teacher-requests__container .loading {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.teacher-requests__container .spinner-border {
+  margin-top: 100px;
+}
+
+.teacher-requests__container .card {
+  margin: 10px 0;
+}
+
+.teacher-requests__container .card .card-title .name,
+.teacher-requests__container .card .card-title .year,
+.teacher-requests__container .card .card-title .dept {
+  font-size: 1.2rem;
+  font-weight: bold;
+}

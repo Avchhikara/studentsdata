@@ -5,6 +5,7 @@ import axios from "axios";
 import { fetchURL } from "./../../Actions/constants";
 import TeacherClasses from "./TeacherClasses";
 import setClasses from "./../../Actions/Teacher/setClasses";
+import setRequests from "./../../Actions/Teacher/setRequests";
 
 import {
   Breadcrumb,
@@ -20,13 +21,15 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  Alert
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHandPointDown,
   faPlus,
-  faSearch
+  faSearch,
+  faTimesCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 class Teacher extends React.Component {
@@ -37,20 +40,29 @@ class Teacher extends React.Component {
         status: "",
         message: ""
       },
+      mres: "",
       classes: this.props.teacher.classes,
       ajaxComp: false,
       search: {
-        show: false,
-        terms: ""
+        open: false,
+        term: ""
       },
       tyear: "",
-      showAddModal: false
+      showAddModal: false,
+      timeoutID: []
     };
   }
 
   componentWillMount() {
     if (!(this.props.user.loggedIn && this.props.user.teacher)) {
       this.props.history.push("/teacher/login");
+    }
+  }
+
+  componentWillUnmount() {
+    const timeoutID = this.state.timeoutID;
+    for (let i in timeoutID) {
+      clearTimeout(timeoutID[i]);
     }
   }
 
@@ -65,18 +77,29 @@ class Teacher extends React.Component {
     const { userData } = this.props.user;
     if (userData.t_id) {
       axios.post(`${fetchURL}/teacher/classes`, userData).then(({ data }) => {
-        if (data[0]) {
-          // console.log(data);
-          //Now, if any of the entry exist
-          this.setState({ classes: data, ajaxComp: true });
-        } else {
-          //Now, setting state value
-          this.setState({ ajaxComp: true });
-        }
+        this.setState({ ajaxComp: true, classes: data });
+
         //Now, setting up the user classes
         this.props.dispatch(setClasses(data));
+
+        //Now, loading up the requests
+        this.getRequests();
       });
     }
+  };
+
+  //Now, getting the requests user have after classes are got
+  getRequests = () => {
+    //Making axios req
+    axios
+      .post(`${fetchURL}/teacher/requests`, {
+        t_id: this.props.user.userData.t_id,
+        token: this.props.user.userData.token
+      })
+      .then(({ data }) => {
+        // console.log(data);
+        this.props.dispatch(setRequests(data.data));
+      });
   };
 
   addClass = e => {
@@ -105,23 +128,27 @@ class Teacher extends React.Component {
         console.log(data);
 
         //Updating the classes in the redux
-        this.props.dispatch(setClasses(data));
+        // this.props.dispatch(setClasses(data));
 
         //Now, enabling the button
         target.disabled = false;
         target.textContent = "Add";
         //And finally, closing the modal after showing message
-        this.setState({
-          res: {
-            status: 200,
-            message:
-              "Class has been added, please proceed to the verification section"
-          }
-        });
-        //Updating the class list
-        // this.forceUpdate();
-        this.getClasses();
-        this.toggleAddModal();
+
+        if (data.res.status !== 200) {
+          //updating the error alert
+          this.setState({
+            mres: data.res.message
+          });
+        } else {
+          this.setState({
+            res: data.res
+          });
+
+          //Updating the class list
+          this.getClasses();
+          this.toggleAddModal();
+        }
       });
 
       // this.props.history.push("/teacher");
@@ -131,7 +158,38 @@ class Teacher extends React.Component {
   };
 
   toggleAddModal = () => {
-    this.setState(prev => ({ showAddModal: !prev.showAddModal }));
+    this.setState(prev => ({ showAddModal: !prev.showAddModal, mres: "" }));
+  };
+
+  onSearch = () => {
+    this.setState(prevState => ({
+      search: {
+        open: !prevState.search.open,
+        term: ""
+      }
+    }));
+  };
+
+  onDeleteClass = send => {
+    //Sending request to delete the class
+    send.token = this.props.user.userData.token;
+
+    axios.post(`${fetchURL}/teacher/delete`, send).then(({ data }) => {
+      //Also, showing the message
+      this.setState({ res: data.res });
+      const id = setTimeout(() => {
+        this.setState({ res: { status: 400, message: "" } });
+      }, 2000);
+
+      this.setState(prev => {
+        return {
+          timeoutID: prev.timeoutID.concat(id)
+        };
+      });
+
+      //Now, reloading the classes
+      this.getClasses();
+    });
   };
 
   render() {
@@ -143,6 +201,18 @@ class Teacher extends React.Component {
               <BreadcrumbItem active>Home</BreadcrumbItem>
             </Breadcrumb>
           </Col>
+          {this.state.res.message.length !== 0 ? (
+            <Col xs={12} md={9} lg={7} style={{ margin: "0 auto" }}>
+              <Alert
+                color={this.state.res.status === 200 ? "success" : "danger"}
+              >
+                {this.state.res.message}
+              </Alert>
+            </Col>
+          ) : (
+            ""
+          )}
+
           <Col
             xs={12}
             md={9}
@@ -165,17 +235,59 @@ class Teacher extends React.Component {
               >
                 Add new <FontAwesomeIcon icon={faPlus} />{" "}
               </Button>
-              <Button size="sm" color="success">
-                <FontAwesomeIcon icon={faSearch} />{" "}
+              <Button
+                size="sm"
+                color={this.state.search.open ? "danger" : "success"}
+                onClick={this.onSearch}
+              >
+                <FontAwesomeIcon
+                  icon={this.state.search.open ? faTimesCircle : faSearch}
+                />{" "}
               </Button>
             </span>
           </Col>
+        </Row>
+        {this.state.search.open ? (
+          <div className="row">
+            <Col
+              xs={12}
+              md={9}
+              lg={7}
+              style={{ margin: "0 auto" }}
+              className="teacher__search-box"
+            >
+              <Input
+                type="number"
+                name="year"
+                id="year"
+                value={this.state.search.term}
+                onChange={e => {
+                  let val = e.target.value.toString();
+
+                  this.setState(prevState => ({
+                    search: {
+                      open: prevState.search.open,
+                      term: val ? val : ""
+                    }
+                  }));
+                }}
+                placeholder="Enter year to search for here"
+                autoFocus
+              />
+            </Col>
+          </div>
+        ) : (
+          ""
+        )}
+        <Row>
           {this.state.ajaxComp ? (
             <Col xs={12} md={9} lg={7} style={{ margin: "0 auto" }}>
               <TeacherClasses
                 addClass={this.addClass}
                 tclasses={this.state.classes}
                 history={this.props.history}
+                search={this.state.search}
+                deleteClass={this.onDeleteClass}
               />
             </Col>
           ) : (
@@ -184,13 +296,19 @@ class Teacher extends React.Component {
               <div>Getting your classes</div>
             </div>
           )}
-          <Col xs={12} />
         </Row>
 
         <Modal isOpen={this.state.showAddModal} toggle={this.toggleAddModal}>
           <ModalHeader toggle={this.toggleAddModal}>Add New Class</ModalHeader>
           <ModalBody>
             <Row>
+              {this.state.mres.length !== 0 ? (
+                <Col xs={12}>
+                  <Alert color="danger">{this.state.mres}</Alert>
+                </Col>
+              ) : (
+                ""
+              )}
               <Col xs={12} style={{ margin: "0 auto" }}>
                 <Form>
                   <FormGroup row>

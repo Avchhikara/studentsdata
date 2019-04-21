@@ -16,6 +16,7 @@
     "mysql": "^2.16.0",
     "netlify-cli": "^2.7.0",
     "react": "^16.7.0",
+    "react-csv": "^1.1.1",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
     "react-reveal": "^1.2.2",
