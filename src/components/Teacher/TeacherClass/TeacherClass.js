@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { fetchURL } from "./../../../Actions/constants";
-import { CSVDownload, CSVLink } from "react-csv";
+import { CSVLink } from "react-csv";
 
 import "./TeacherClass.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -34,7 +34,10 @@ class TeacherClass extends React.Component {
         modalOpen: false,
         params: {
           generalAsked: true,
-          extraAsked: true,
+          extraAsked: {
+            asked: true,
+            range: [1, 8]
+          },
           resultAsked: true
         }
       },
@@ -103,9 +106,12 @@ class TeacherClass extends React.Component {
               data,
               modalOpen: false,
               params: {
-                generalAsked: false,
-                extraAsked: false,
-                resultAsked: false
+                generalAsked: true,
+                extraAsked: {
+                  asked: true,
+                  range: [1, 8]
+                },
+                resultAsked: true
               }
             },
             res: {
@@ -176,7 +182,10 @@ class TeacherClass extends React.Component {
                         modalOpen: false,
                         params: {
                           generalAsked: true,
-                          extraAsked: true,
+                          extraAsked: {
+                            asked: true,
+                            range: [1, 8]
+                          },
                           resultAsked: true
                         }
                       },
@@ -303,7 +312,7 @@ class TeacherClass extends React.Component {
                                   id="extraAsked"
                                   checked={
                                     this.state.downloadClassList.params
-                                      .extraAsked
+                                      .extraAsked.asked
                                   }
                                   onChange={() => {
                                     this.setState(prev => ({
@@ -311,8 +320,12 @@ class TeacherClass extends React.Component {
                                         ...prev.downloadClassList,
                                         params: {
                                           ...prev.downloadClassList.params,
-                                          extraAsked: !prev.downloadClassList
-                                            .params.extraAsked
+                                          extraAsked: {
+                                            ...prev.downloadClassList.params
+                                              .extraAsked,
+                                            asked: !prev.downloadClassList
+                                              .params.extraAsked.asked
+                                          }
                                         }
                                       }
                                     }));
@@ -321,6 +334,93 @@ class TeacherClass extends React.Component {
                                 Extra Curricular Activites Data
                               </Label>
                             </FormGroup>
+                            {this.state.downloadClassList.params.extraAsked
+                              .asked ? (
+                              <FormGroup row>
+                                <Label xs={4}>Semester range: </Label>
+                                <Col xs={3}>
+                                  <Input
+                                    type="select"
+                                    name="select"
+                                    id="min"
+                                    bsSize="sm"
+                                    value={this.state.downloadClassList.params.extraAsked.range[0].toString()}
+                                    onChange={e => {
+                                      const val = e.target.value;
+                                      // console.log(val);
+                                      this.setState(prev => ({
+                                        downloadClassList: {
+                                          ...prev.downloadClassList,
+                                          params: {
+                                            ...prev.downloadClassList.params,
+                                            extraAsked: {
+                                              ...prev.downloadClassList.params
+                                                .extraAsked,
+                                              range: [
+                                                parseInt(val),
+                                                prev.downloadClassList.params
+                                                  .extraAsked.range[1]
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }));
+                                    }}
+                                  >
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                  </Input>
+                                </Col>
+                                to
+                                <Col xs={3}>
+                                  <Input
+                                    type="select"
+                                    name="select"
+                                    id="max"
+                                    bsSize="sm"
+                                    onChange={e => {
+                                      const val = e.target.value;
+                                      // console.log(val);
+                                      this.setState(prev => ({
+                                        downloadClassList: {
+                                          ...prev.downloadClassList,
+                                          params: {
+                                            ...prev.downloadClassList.params,
+                                            extraAsked: {
+                                              ...prev.downloadClassList.params
+                                                .extraAsked,
+                                              range: [
+                                                prev.downloadClassList.params
+                                                  .extraAsked.range[0],
+                                                parseInt(val)
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }));
+                                    }}
+                                    value={this.state.downloadClassList.params.extraAsked.range[1].toString()}
+                                  >
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                  </Input>
+                                </Col>
+                              </FormGroup>
+                            ) : (
+                              ""
+                            )}
                           </FormGroup>
                         </Form>
                       </Col>
