@@ -10,6 +10,7 @@ import {
   Button
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { fetchURL } from "./../../Actions/constants";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -161,6 +162,20 @@ class NavBar extends React.Component {
     this.toggleNavbar();
   };
 
+  openProfile = e => {
+    if (!this.props.user.teacher) {
+      //Now, opening the window
+      window.open(
+        `${fetchURL}/profile?s_id=${this.props.student.userData.s_id}&token=${
+          this.props.student.userData.id
+        }`
+      );
+    } else {
+      this.props.history.push("/teacher/profile");
+      this.openNav();
+    }
+  };
+
   render() {
     const { loggedIn, teacher } = this.props.user;
     // console.log(this.props.match);
@@ -237,20 +252,12 @@ class NavBar extends React.Component {
               </NavItem>
               <NavItem>
                 {this.props.user.loggedIn ? (
-                  <Link
-                    to={
-                      this.props.user.teacher
-                        ? `/teacher/profile/`
-                        : `/profile/${this.props.user.userData.s_id}`
-                    }
-                    className="nav-link"
-                    onClick={this.openNav}
-                  >
+                  <a href="#!" className="nav-link" onClick={this.openProfile}>
                     <span>
                       <FontAwesomeIcon icon={faUser} />
                       {" my Profile"}
                     </span>
-                  </Link>
+                  </a>
                 ) : (
                   <NavLink href="/login">
                     <span>

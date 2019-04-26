@@ -1,6 +1,15 @@
 import React from "react";
 
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Card,
+  CardHeader,
+  CardBody,
+  Row,
+  Col,
+  Table
+} from "reactstrap";
 import { Link } from "react-router-dom";
 
 import "./Profile.css";
@@ -15,11 +24,11 @@ class Profile extends React.Component {
           </BreadcrumbItem>
           <BreadcrumbItem active>Profile</BreadcrumbItem>
         </Breadcrumb>
-        <div>
-          This is the profile page for user {this.props.match.params.id}
-          <br />
-          Is in constructions. Your patience is highly appreciated !
-        </div>
+        <Row>
+          <Col xs={12}>
+            This page will be updated soon, thanks for your wait.
+          </Col>
+        </Row>
       </div>
     );
   }
