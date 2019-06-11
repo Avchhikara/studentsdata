@@ -1,6 +1,13 @@
 import React from "react";
 
-import { Card, CardBody, CardHeader, CardText, CardFooter } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  CardText,
+  CardFooter,
+  Spinner
+} from "reactstrap";
 
 import "./Notices.css";
 const Notices = props => {
@@ -12,10 +19,16 @@ const Notices = props => {
           <span className="green-text">Notice</span>(s){" "}
         </CardHeader>
         <CardBody>
-          <CardText>Will be updated soon</CardText>
+          {props.notices[0] ? (
+            <CardText>Will be updated soon</CardText>
+          ) : (
+            <div className="text-center">
+              <Spinner color="success" size="sm" /> loading
+            </div>
+          )}
         </CardBody>
         <CardFooter>
-          from <span className="green-text">'TeacherName'</span>{" "}
+          from <span className="green-text">{props.teacherName}</span>{" "}
         </CardFooter>
       </Card>
     );

@@ -4,15 +4,19 @@ import { faHandPointDown } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import "./Home.css";
 import Notices from "./../Notices/Notices";
+
+import { fetchURL } from "./../../Actions/constants";
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true
+      loggedIn: true,
+      teacherName: "teacherName"
     };
   }
 
@@ -25,6 +29,7 @@ class Home extends React.Component {
 
     //Otherwise, scrolling to top
     this.scrollToTop();
+    this.getNotices();
   }
 
   scrollToTop = () => {
@@ -32,6 +37,12 @@ class Home extends React.Component {
     if (top) {
       top.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  getNotices = () => {
+    axios.get(`${fetchURL}/notices`).then(({ data }) => {
+      console.log(data);
+    });
   };
 
   render() {
@@ -96,7 +107,11 @@ class Home extends React.Component {
               </Row>
             </Col>
             <Col sm={12} md={12} lg={4}>
-              <Notices purpose={"Home"} />
+              <Notices
+                purpose={"Home"}
+                notices={[]}
+                teacherName={this.state.teacherName}
+              />
             </Col>
           </Row>
         </div>
