@@ -40,9 +40,15 @@ class Home extends React.Component {
   };
 
   getNotices = () => {
-    axios.get(`${fetchURL}/notices`).then(({ data }) => {
-      console.log(data);
-    });
+    axios
+      .get(
+        `${fetchURL}/notices?s_id=${this.props.user.userData.s_id}&token=${
+          this.props.user.userData.id
+        }`
+      )
+      .then(({ data }) => {
+        console.log(data);
+      });
   };
 
   render() {
