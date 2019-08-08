@@ -1,15 +1,6 @@
 import React from "react";
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Card,
-  CardHeader,
-  CardBody,
-  Row,
-  Col,
-  Table
-} from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 
 import "./Profile.css";
